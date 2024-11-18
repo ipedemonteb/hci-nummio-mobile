@@ -3,7 +3,9 @@ package ar.edu.itba.nummio.ui.component
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,36 +39,40 @@ fun Header(
     @StringRes profileName: Int,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 32.dp),
+    Box(modifier = Modifier
+        .background(Color.White))
+    {
+        Row(
+            modifier = modifier.fillMaxWidth()
+                .padding(horizontal = 26.dp, vertical = 32.dp),
 
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(pfp),
-            contentDescription = null,
-            modifier = Modifier.size(44.dp)
-                .clip(CircleShape)
-                .border(2.dp, DarkPurple, CircleShape)
-        )
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(pfp),
+                contentDescription = null,
+                modifier = Modifier.size(40.dp)
+                    .clip(CircleShape)
+                    .border(1.dp, DarkPurple, CircleShape)
+            )
 
-        Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
-        Text(
-            text = stringResource(profileName),
-            color = DarkPurple,
-            maxLines = 1,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.weight(1f)
-        )
-        Icon(
-            imageVector = Icons.Outlined.Settings,
-            contentDescription = null,
-            tint = DarkPurple,
-            modifier = Modifier.size(32.dp)
-        )
+            Text(
+                text = stringResource(profileName),
+                color = DarkPurple,
+                maxLines = 1,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                imageVector = Icons.Outlined.Settings,
+                contentDescription = null,
+                tint = DarkPurple,
+                modifier = Modifier.size(32.dp)
+            )
+        }
     }
 }
 
