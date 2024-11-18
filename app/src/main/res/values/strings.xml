@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Nummio</string>
+    <string name="profileName">Fernando Alonso</string>
+    <string name="home">home</string>
+    <string name="goto_other_screen">Go To Other Screen</string>
+    <string name="received_id">Received id %1$d</string>
+    <string name="welcome_msg">Welcome!</string>
+</resources>
