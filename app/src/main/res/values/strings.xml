@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">Nummio</string>
     <string name="profileName" translatable="false">Fernando Alonso</string>
+    <string name="user_cvu" translatable="false">1234567890123456789012</string>
+    <string name="user_alias" translatable="false">ARCO.PUNTO.PELOTA</string>
+    <string name="home" translatable="false">home</string>
     <string name="goto_other_screen">Go To Other Screen</string>
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
@@ -20,4 +23,8 @@
     <string name="promotions_option">Promotions</string>
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>
+    <string name="my_data">My Data</string>
+    <string name="cvu_title">Your CVU:</string>
+    <string name="alias_title">Your Alias:</string>
+    <string name="copy_all_data">Copy all my data</string>
 </resources>
