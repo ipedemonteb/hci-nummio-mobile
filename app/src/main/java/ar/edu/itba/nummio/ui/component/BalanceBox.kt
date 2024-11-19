@@ -11,10 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
@@ -36,7 +39,7 @@ fun BalanceBox(modifier: Modifier = Modifier.fillMaxWidth()) {
                     modifier = Modifier,
                 ) {
                     Text(
-                        text = "Mi Saldo",
+                        text = stringResource(id = R.string.my_balance),
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                     )
@@ -46,15 +49,18 @@ fun BalanceBox(modifier: Modifier = Modifier.fillMaxWidth()) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (saldoVisible) "$1000.00" else "$********",
+                            text = if (saldoVisible) stringResource(id = R.string.show_balance)
+                                else stringResource(id = R.string.hide_balance),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
 
                         IconButton(onClick = { saldoVisible = !saldoVisible }) {
                             Icon(
-                                imageVector = Icons.Outlined.Check,
-                                contentDescription = if (saldoVisible) "Ocultar saldo" else "Mostrar saldo",
+                                painter = if(saldoVisible) painterResource(id = R.drawable.eye_open)
+                                    else painterResource(id = R.drawable.closed_eye),
+                                //@todo: revisar
+                                contentDescription = null,
                                 modifier = Modifier.size(32.dp)
                             )
                         }

@@ -67,7 +67,7 @@ fun Header(
                 modifier = Modifier.weight(1f)
             )
             Icon(
-                imageVector = Icons.Outlined.Settings,
+                painter = painterResource(R.drawable.settings),
                 contentDescription = null,
                 tint = DarkPurple,
                 modifier = Modifier.size(32.dp)

@@ -1,12 +1,12 @@
 package ar.edu.itba.nummio.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.*
@@ -14,14 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import ar.edu.itba.nummio.ui.theme.NummioTheme
+import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.helpful.TopBorderShape
+import ar.edu.itba.nummio.ui.theme.LightPurple
+import ar.edu.itba.nummio.ui.theme.Purple
 
 @Composable
 fun BottomBar(
@@ -32,22 +35,23 @@ fun BottomBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
-                .padding(vertical = 24.dp),
+                //.border(width = 1.dp, color = Color.LightGray, shape = TopBorderShape(1.dp))
+                .padding(vertical = 18.dp)
+                ,
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
             BottomBarItem(
-                icon = Icons.Outlined.Home,
-                label = "Inicio",
+                icon = painterResource(R.drawable.home),
+                label = stringResource(R.string.bottom_home),
                 onClick = { onNavigateToRoute("home") }
             )
 
-            Spacer(modifier = Modifier.width(32.dp))
+            Spacer(modifier = Modifier.width(0.dp))
 
             BottomBarItem(
-                icon = Icons.Default.Menu,
-                label = "Más",
+                icon = painterResource(R.drawable.more),
+                label = stringResource(R.string.bottom),
                 onClick = { onNavigateToRoute("other/42") }
             )
         }
@@ -56,17 +60,17 @@ fun BottomBar(
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(90.dp)
-                .offset(y = (-24).dp)
-                .background(Color(0xFFD8CBF7), CircleShape)
+                .size(80.dp)
+                .offset(y = (-4).dp)
+                .background(LightPurple, CircleShape)
                 .align(Alignment.TopCenter)
                 .clickable(onClick = { onNavigateToRoute("other/33") })
         ) {
             Icon(
-                imageVector = Icons.Outlined.Info,
-                contentDescription = "QR Code",
+                painter = painterResource(R.drawable.qr_icon),
+                contentDescription = null,
                 tint = Color.Black,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(50.dp)
             )
         }
     }
@@ -75,7 +79,7 @@ fun BottomBar(
 
 @Composable
 fun BottomBarItem(
-    icon: ImageVector,
+    icon: Painter,
     label: String,
     onClick: () -> Unit
 ) {
@@ -84,15 +88,15 @@ fun BottomBarItem(
         modifier = Modifier.clickable(onClick = onClick)
     ) {
         Icon(
-            imageVector = icon,
+            painter = icon,
             contentDescription = label,
             tint = Color.Black,
-            modifier = Modifier.size(40.dp)
+            modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = label,
-            fontSize = 18.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             color = Color.Black
         )

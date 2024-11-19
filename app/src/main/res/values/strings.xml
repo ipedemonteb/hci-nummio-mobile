@@ -5,4 +5,20 @@
     <string name="goto_other_screen">Go To Other Screen</string>
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom">More</string>
+    <string name="wallet_title">Wallet</string>
+    <string name="cards_button">Tarjetas</string>
+    <string name="my_balance">My Balance</string>
+    <string name="show_balance">$1000.00</string>
+    <string name="hide_balance">$********</string>
+    <string name="transfer_option">Transfer</string>
+    <string name="data_option">My Data</string>
+    <string name="movements_option">Movements</string>
+    <string name="investments_option">Investments</string>
+    <string name="service_option">Service Payment</string>
+    <string name="qr_option">QR Generator</string>
+    <string name="promotions_option">Promotions</string>
+    <string name="contacts_option">Contacts</string>
+    <string name="help_option">Help</string>
 </resources>
