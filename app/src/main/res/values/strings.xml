@@ -1,17 +1,16 @@
 <resources>
-    <string name="app_name">Nummio</string>
-    <string name="profileName">Fernando Alonso</string>
-    <string name="home">home</string>
+    <string name="app_name" translatable="false">Nummio</string>
+    <string name="profileName" translatable="false">Fernando Alonso</string>
     <string name="goto_other_screen">Go To Other Screen</string>
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
     <string name="bottom_home">Home</string>
     <string name="bottom">More</string>
     <string name="wallet_title">Wallet</string>
-    <string name="cards_button">Tarjetas</string>
+    <string name="cards_button">Cards</string>
     <string name="my_balance">My Balance</string>
-    <string name="show_balance">$1000.00</string>
-    <string name="hide_balance">$********</string>
+    <string name="show_balance" translatable="false">$1000.00</string>
+    <string name="hide_balance" translatable="false">$********</string>
     <string name="transfer_option">Transfer</string>
     <string name="data_option">My Data</string>
     <string name="movements_option">Movements</string>
