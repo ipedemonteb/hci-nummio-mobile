@@ -27,4 +27,6 @@
     <string name="cvu_title">Your CVU:</string>
     <string name="alias_title">Your Alias:</string>
     <string name="copy_all_data">Copy all my data</string>
+    <string name="bank" translatable="false">Banco Ejemplo</string>"
+    <string name="card_last_digits" translatable="false">1234</string>
 </resources>
