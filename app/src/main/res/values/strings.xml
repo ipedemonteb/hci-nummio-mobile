@@ -4,6 +4,9 @@
     <string name="user_cvu" translatable="false">1234567890123456789012</string>
     <string name="user_alias" translatable="false">ARCO.PUNTO.PELOTA</string>
     <string name="home" translatable="false">home</string>
+    <string name="start" translatable="false">start</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="signup" translatable="false">Signup</string>
     <string name="goto_other_screen">Go To Other Screen</string>
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
@@ -29,4 +32,11 @@
     <string name="copy_all_data">Copy all my data</string>
     <string name="bank" translatable="false">Banco Ejemplo</string>"
     <string name="card_last_digits" translatable="false">1234</string>
+    <string name="add_card">Add Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="holder">Holder</string>
+    <string name="expiration_date">Expiration Date</string>
+    <string name="mm" translatable="false">MM</string>
+    <string name="yyyy">YYYY</string>
+    <string name="slash" translatable="false">/</string>
 </resources>
