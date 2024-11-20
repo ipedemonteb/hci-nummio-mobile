@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -48,7 +49,8 @@ fun NummioApp() {
     }
 }
 
-@PreviewScreenSizes
+//@PreviewScreenSizes
+@Preview(locale = "es")
 @Composable
 fun NummioAppPreview() {
     NummioApp()
