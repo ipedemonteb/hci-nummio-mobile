@@ -21,4 +21,9 @@
     <string name="cvu_title">Tu CVU:</string>
     <string name="alias_title">Tu Alias:</string>
     <string name="copy_all_data">Copiar todos mis datos</string>
+    <string name="add_card">Añadir Tarjeta</string>
+    <string name="card_number">Número</string>
+    <string name="holder">Titular</string>
+    <string name="expiration_date">Fecha de Vto.</string>
+    <string name="yyyy">AAAA</string>
 </resources>
