@@ -151,7 +151,7 @@ fun CopyableTextInput(cvu : String, editable: Boolean) {
                 value = cvu,
                 onValueChange = {},
                 readOnly = true,
-                textStyle = androidx.compose.ui.text.TextStyle(
+                textStyle = TextStyle(
                     fontSize = 14.sp,
                     color = Color.Gray
                 ),

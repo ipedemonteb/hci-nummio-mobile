@@ -35,4 +35,11 @@
     <string name="concept_various">Varios</string>
     <string name="concept_consumption">Consumo</string>
     <string name="concept_sale">Venta</string>
+    <string name="recents_msg">Recientes</string>
+    <string name="search_msg">Search…</string>
+    <string name="searchAliasOrCVU_msg">Ingrese al Alias o CBU/CVU</string>
+    <string name="filter_msg">Filtrar por</string>
+    <string name="bank">Mastercard</string>
+    <string name="mm">MM</string>
+    <string name="slash">/</string>
 </resources>
