@@ -39,4 +39,13 @@
     <string name="mm" translatable="false">MM</string>
     <string name="yyyy">YYYY</string>
     <string name="slash" translatable="false">/</string>
+    <string name="enter_amount">Enter the amount to charge:</string>
+    <string name="enter_concept">Enter the payment concept:</string>
+    <string name="enter_cvu">CVU number to credit:</string>
+    <string name="generate_link">Generate Link</string>
+    <string name="concept">Concept</string>
+    <string name="amount">Amount</string>
+    <string name="concept_various">Various</string>
+    <string name="concept_consumption">Consumption</string>
+    <string name="concept_sale">Sale</string>
 </resources>

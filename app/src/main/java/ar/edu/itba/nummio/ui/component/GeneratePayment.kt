@@ -40,14 +40,18 @@ fun GeneratePayment() {
     var amount by remember { mutableStateOf("") }
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    val options = listOf("Varios", "Consumo", "Venta")
+    val options = listOf(
+        stringResource(R.string.concept_various),
+        stringResource(R.string.concept_sale),
+        stringResource(R.string.concept_consumption)
+        )
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
             Column {
                 Row {
                     Text(
-                        text = "Insert the amount to charge:",
+                        text = stringResource(R.string.enter_amount),
                         color = DarkPurple,
                         fontSize = 16.sp
                     )
@@ -57,7 +61,7 @@ fun GeneratePayment() {
                     OutlinedTextField(
                         value = amount,
                         onValueChange = { amount = it },
-                        placeholder = { Text(text = "Amount", color = Color.Gray) },
+                        placeholder = { Text(text = stringResource(R.string.amount), color = Color.Gray) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.White),
@@ -71,7 +75,7 @@ fun GeneratePayment() {
             Column {
                 Row {
                     Text(
-                        text = "Select the concept of the transaction:",
+                        text = stringResource(R.string.enter_concept),
                         color = DarkPurple,
                         fontSize = 16.sp
                     )
@@ -87,7 +91,7 @@ fun GeneratePayment() {
                             .padding(horizontal = 16.dp, vertical = 18.dp)
                     ) {
                         Text(
-                            text = if (selectedOption.isEmpty()) "Concept" else selectedOption,
+                            text = if (selectedOption.isEmpty()) stringResource(R.string.concept) else selectedOption,
                             color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
                         )
 
@@ -119,7 +123,7 @@ fun GeneratePayment() {
             Column {
                 Row {
                     Text(
-                        text = "CVU to deposit:",
+                        text = stringResource(R.string.enter_cvu),
                         color = DarkPurple,
                         fontSize = 16.sp
                     )
@@ -157,7 +161,7 @@ fun GeneratePayment() {
                 modifier = Modifier.width(180.dp).border(1.dp, DarkPurple, RoundedCornerShape(30.dp))
             ) {
                 Text (
-                    text = "Generate Link",
+                    text = stringResource(R.string.generate_link),
                 )
             }
         }
@@ -165,7 +169,7 @@ fun GeneratePayment() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, locale = "es")
 @Composable
 fun GeneratePaymentPreview() {
     NummioTheme {
