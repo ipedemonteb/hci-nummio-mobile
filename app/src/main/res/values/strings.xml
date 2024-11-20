@@ -48,9 +48,18 @@
     <string name="concept_various">Other</string>
     <string name="concept_consumption">Consumption</string>
     <string name="concept_sale">Sale</string>
-    <string name="bank">Mastercard</string>
-    <string name="mm">MM</string>
-    <string name="slash">/</string>
+    <string name="enter_link">Enter payment link:</string>
+    <string name="link_name" translatable="false">Link</string>
+    <string name="search_payment">Search Payment</string>
+    <string name="amount_to_pay">Amount to pay:</string>
+    <string name="some_balance">Balance: $1.200</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="select_method">Select payment method:</string>
+    <string name="method">Method</string>
+    <string name="bank" translatable="false">Mastercard</string>
+    <string name="mm" translatable="false">MM</string>
+    <string name="slash" translatable="false">/</string>
 
 
 </resources>

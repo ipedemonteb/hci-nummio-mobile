@@ -39,7 +39,12 @@
     <string name="search_msg">Search…</string>
     <string name="searchAliasOrCVU_msg">Ingrese al Alias o CBU/CVU</string>
     <string name="filter_msg">Filtrar por</string>
-    <string name="bank">Mastercard</string>
-    <string name="mm">MM</string>
-    <string name="slash">/</string>
+    <string name="enter_link">Ingresá el link de pago:</string>
+    <string name="search_payment">Buscar Pago</string>
+    <string name="amount_to_pay">Monto a pagar:</string>
+    <string name="some_balance">Saldo: $1.200</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="confirm_button">Confirmar</string>
+    <string name="select_method">Seleccioná el método de pago:</string>
+    <string name="method">Método</string>
 </resources>
