@@ -20,4 +20,5 @@
     <string name="promotions_option">Promotions</string>
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>
+    <string name="home" translatable="false">home</string>
 </resources>
