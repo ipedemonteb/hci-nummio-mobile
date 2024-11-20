@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="goto_other_screen">Ir a otra pantalla</string>
+    <string name="received_id">Id recibido %1$d</string>
+    <string name="welcome_msg">¡Bienvenido!</string>
+    <string name="bottom_home">Inicio</string>
+    <string name="bottom">Más</string>
+    <string name="wallet_title">Billetera</string>
+    <string name="cards_button">Tarjetas</string>
+    <string name="my_balance">Balance</string>
+    <string name="transfer_option">Transferir</string>
+    <string name="data_option">Datos</string>
+    <string name="movements_option">Movimientos</string>
+    <string name="investments_option">Inversiones</string>
+    <string name="service_option">Pago de Servicios</string>
+    <string name="qr_option">Link de Pago</string>
+    <string name="promotions_option">Promociones</string>
+    <string name="contacts_option">Contactos</string>
+    <string name="help_option">Ayuda</string>
+    <string name="my_data">Mis Datos</string>
+    <string name="cvu_title">Tu CVU:</string>
+    <string name="alias_title">Tu Alias:</string>
+    <string name="copy_all_data">Copiar todos mis datos</string>
+</resources>
