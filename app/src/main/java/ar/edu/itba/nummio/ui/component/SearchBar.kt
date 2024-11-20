@@ -28,6 +28,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import ar.edu.itba.nummio.R
 
 @Composable
 fun SearchBar(
@@ -63,7 +65,7 @@ fun SearchBar(
     ) {
         Icon(
             imageVector = Icons.Default.Search,
-            contentDescription = "Buscar",
+            contentDescription = stringResource(R.string.search_msg),
             modifier = Modifier.size(24.dp),
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
         )
@@ -87,7 +89,7 @@ fun SearchBar(
             decorationBox = { innerTextField ->
                 if (input.isEmpty()) {
                     Text(
-                        text = "Buscar...",
+                        text = stringResource(R.string.search_msg),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                     )

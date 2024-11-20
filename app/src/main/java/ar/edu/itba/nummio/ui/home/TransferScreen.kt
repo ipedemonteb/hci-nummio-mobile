@@ -27,6 +27,8 @@ import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.component.Contact
 import ar.edu.itba.nummio.ui.component.SearchBar
+import androidx.compose.ui.res.stringResource
+import ar.edu.itba.nummio.R
 
 data class ContactData(
     val name: String,
@@ -49,17 +51,17 @@ fun TransferScreen(
         Scaffold(
             topBar = {
                 TopBar(
-                    title = "Transferir",
+                    title = stringResource(R.string.transfer_option),
                     onBackClick = onBackClick,
                     actionIcon = Pair(
                         {
                             Icon(
                                 imageVector = Icons.Default.Add,
-                                contentDescription = "Settings",
+                                    contentDescription = "Settings",
                                 tint = DarkPurple
                             )
                         },
-                        { /* función onClick */ }
+                        onBackClick
                     )
                 )
             }
@@ -75,7 +77,7 @@ fun TransferScreen(
                 TextField(
                     value = cvuText,
                     onValueChange = { cvuText = it },
-                    placeholder = { Text("Ingrese el Alias o CBU/CVU") },
+                    placeholder = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
                     modifier = Modifier
 
                         .padding(16.dp)
@@ -104,7 +106,7 @@ fun TransferScreen(
                         .padding(top = 20.dp, start = 10.dp, end = 15.dp)
                 ) {
                     Text(
-                        text = "Recientes",
+                        text = stringResource(R.string.recents_msg),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(start = 16.dp)

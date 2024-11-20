@@ -32,8 +32,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.BalanceBox
 import ar.edu.itba.nummio.ui.component.SearchBar
 import ar.edu.itba.nummio.ui.component.TopBar
@@ -59,7 +61,7 @@ fun MovementsScreen(
     var searchText by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = { TopBar("Movimientos", onBackClick) },
+        topBar = { TopBar(stringResource(R.string.movements_option), onBackClick) },
     )
     {
         paddingValues ->
@@ -75,7 +77,7 @@ fun MovementsScreen(
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom) {
                         Button(onClick = { expanded.value = !expanded.value }, modifier = Modifier.height(50.dp).width(150.dp).clip(
                             RoundedCornerShape(7.dp)), colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)) {
-                            Text(text = "Filtrar por")
+                            Text(text = stringResource(R.string.filter_msg))
                             Icon(
 
                                 imageVector = Icons.Default.ArrowDropDown,

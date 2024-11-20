@@ -17,4 +17,8 @@
     <string name="promotions_option">Promociones</string>
     <string name="contacts_option">Contactos</string>
     <string name="help_option">Ayuda</string>
+    <string name="recents_msg">Recientes</string>
+    <string name="search_msg">Search…</string>
+    <string name="searchAliasOrCVU_msg">Ingrese al Alias o CBU/CVU</string>
+    <string name="filter_msg">Filtrar por</string>
 </resources>

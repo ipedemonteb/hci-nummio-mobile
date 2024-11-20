@@ -21,4 +21,8 @@
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>
     <string name="home" translatable="false">home</string>
+    <string name="recents_msg">Recents</string>
+    <string name="search_msg">Search…</string>
+    <string name="searchAliasOrCVU_msg">Search an alias or a CVU/CBU</string>
+    <string name="filter_msg">Filter by</string>
 </resources>
