@@ -19,12 +19,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @Composable
@@ -32,7 +36,8 @@ fun LoginSignupForm(
     modifier: Modifier = Modifier,
     title: String,
     onConfirmClick: () -> Unit,
-    onCancelClick: () -> Unit
+    onCancelClick: () -> Unit,
+    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -64,7 +69,9 @@ fun LoginSignupForm(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Button(
-            onClick = onConfirmClick,
+            onClick = {
+                viewModel.login("johndoe@email.com", "1234567890")//@TODO levantar de password
+            },
             modifier = modifier.fillMaxWidth()
                 .padding(bottom = 10.dp),
             colors = ButtonColors(DarkPurple, Color.White, Color.White, Color.White)
