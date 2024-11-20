@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">Nummio</string>
     <string name="profileName" translatable="false">Fernando Alonso</string>
+    <string name="user_cvu" translatable="false">1234567890123456789012</string>
+    <string name="user_alias" translatable="false">ARCO.PUNTO.PELOTA</string>
+    <string name="home" translatable="false">home</string>
+    <string name="start" translatable="false">start</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="signup" translatable="false">Signup</string>
     <string name="goto_other_screen">Go To Other Screen</string>
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
@@ -20,9 +26,31 @@
     <string name="promotions_option">Promotions</string>
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>
-    <string name="home" translatable="false">home</string>
     <string name="recents_msg">Recents</string>
     <string name="search_msg">Search…</string>
     <string name="searchAliasOrCVU_msg">Search an alias or a CVU/CBU</string>
     <string name="filter_msg">Filter by</string>
+    <string name="my_data">Your data</string>
+    <string name="cvu_title">Your CVU</string>
+    <string name="alias_title">Your Alias:</string>
+    <string name="copy_all_data">Copy all my data</string>
+    <string name="add_card">Add card</string>
+    <string name="card_number">Number</string>
+    <string name="holder">Holder</string>
+    <string name="expiration_date">Expiry date</string>
+    <string name="yyyy">YYYY</string>
+    <string name="enter_amount">Input amount to be charged</string>
+    <string name="enter_concept">Input payment detail</string>
+    <string name="enter_cvu">Enter CVU:</string>
+    <string name="generate_link">Generate Link</string>
+    <string name="concept">Concept</string>
+    <string name="amount">Amount</string>
+    <string name="concept_various">Other</string>
+    <string name="concept_consumption">Consumption</string>
+    <string name="concept_sale">Sale</string>
+    <string name="bank">Mastercard</string>
+    <string name="mm">MM</string>
+    <string name="slash">/</string>
+
+
 </resources>
