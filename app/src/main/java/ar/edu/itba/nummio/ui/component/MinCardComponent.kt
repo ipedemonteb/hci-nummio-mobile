@@ -29,7 +29,7 @@ import ar.edu.itba.nummio.ui.theme.Purple
 
 @Composable
 fun CardComponent(
-    @StringRes digits: Int,
+    digits: String,
     @StringRes bank: Int,
     @DrawableRes card: Int
 ) {
@@ -58,7 +58,7 @@ fun CardComponent(
                         color = DarkPurple
                     ) {
                         Text(
-                            text = "**** ${stringResource(id = digits)}",
+                            text = "**** $digits",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         )
                     }
@@ -79,6 +79,6 @@ fun CardComponent(
 @Composable
 fun CardComponentPreview() {
     NummioTheme {
-        CardComponent(R.string.card_last_digits, R.string.bank, R.drawable.mastercard)
+        CardComponent("1234", R.string.bank, R.drawable.mastercard)
     }
 }
