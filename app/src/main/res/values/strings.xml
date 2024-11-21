@@ -60,6 +60,7 @@
     <string name="bank" translatable="false">Mastercard</string>
     <string name="mm" translatable="false">MM</string>
     <string name="slash" translatable="false">/</string>
-
-
+    <string name="welcome_start_msg">Welcome!\nLog in to your account</string>
+    <string name="login_button">Log In</string>
+    <string name="register_button">Register</string>
 </resources>

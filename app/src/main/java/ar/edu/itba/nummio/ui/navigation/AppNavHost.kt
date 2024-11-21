@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
@@ -18,8 +19,9 @@ import ar.edu.itba.nummio.ui.home.StartScreen
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = AppDestinations.START.route // @TODO: tiene ser segun si esta loggedIn o no
+    isAuthenticated: Boolean = false
 ) {
+    val startDestination = if (isAuthenticated) "home" else "start"
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -31,9 +33,17 @@ fun AppNavHost(
             )
         }
         composable("home") {
-            HomeScreen(
-                onNavigateToOtherScreen = { id -> navController.navigate("other/$id") }
-            )
+            if (!isAuthenticated) {
+                navController.navigate("start") {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                }
+            } else {
+                HomeScreen(
+                    onNavigateToOtherScreen = { id -> navController.navigate("other/$id") }
+                )
+            }
         }
         composable("login") {
             LoginScreen(
