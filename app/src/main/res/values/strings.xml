@@ -74,4 +74,10 @@
     <string name="enter_email">Enter an email account:</string>
     <string name="enter_password">Create a password:</string>
     <string name="enter_password_again">Repeat your password:</string>
+    <string name="password_recovery">Password recovery</string>
+    <string name="resend_code">Resend code</string>
+    <string name="enter_code">Enter the code sent:</string>
+    <string name="code">Code</string>
+    <string name="send_code">Send Code</string>
+    <string name="enter_your_email">Enter your email account:</string>
 </resources>

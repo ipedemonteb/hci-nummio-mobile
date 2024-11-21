@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import ar.edu.itba.nummio.ui.home.HomeScreen
 import ar.edu.itba.nummio.ui.home.LoginScreen
 import ar.edu.itba.nummio.ui.home.OtherScreen
+import ar.edu.itba.nummio.ui.home.RecoverPasswordScreen
 import ar.edu.itba.nummio.ui.home.SignupScreen
 import ar.edu.itba.nummio.ui.home.StartScreen
 
@@ -52,6 +53,11 @@ fun AppNavHost(
         }
         composable("signup") {
             SignupScreen (
+                onNavigateToRoute = { route -> navController.navigate(route) }
+            )
+        }
+        composable("recover") {
+            RecoverPasswordScreen(
                 onNavigateToRoute = { route -> navController.navigate(route) }
             )
         }
