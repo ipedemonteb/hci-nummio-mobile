@@ -50,4 +50,8 @@
     <string name="welcome_start_msg">¡Bienvenido!\nIngresá a tu cuenta</string>
     <string name="login_button">Iniciar Sesión</string>
     <string name="register_button">Registrarse</string>
+    <string name="enter_email_and_password">Ingresá tu email y contraseña</string>
+    <string name="password">Contraseña</string>
+    <string name="forgot_password">Olvidé mi contraseña</string>
+    <string name="no_account">No tengo cuenta</string>
 </resources>

@@ -14,7 +14,7 @@ fun SignupScreen(
     LoginSignupForm(
         modifier = Modifier.background(Color.White),
         title = "Creá tu cuenta",
-        onConfirmClick = {},
+        //onConfirmClick = {},
         onCancelClick = { onNavigateToRoute("start") }
     )
 }

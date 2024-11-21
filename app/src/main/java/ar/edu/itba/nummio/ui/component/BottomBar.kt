@@ -1,30 +1,22 @@
 package ar.edu.itba.nummio.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
-import ar.edu.itba.nummio.ui.helpful.TopBorderShape
 import ar.edu.itba.nummio.ui.theme.LightPurple
-import ar.edu.itba.nummio.ui.theme.Purple
 
 @Composable
 fun BottomBar(
@@ -50,7 +42,7 @@ fun BottomBar(
             Spacer(modifier = Modifier.width(0.dp))
 
             BottomBarItem(
-                icon = painterResource(R.drawable.more),
+                icon = painterResource(R.drawable.settings),
                 label = stringResource(R.string.bottom),
                 onClick = { onNavigateToRoute("other/42") }
             )

@@ -63,4 +63,9 @@
     <string name="welcome_start_msg">Welcome!\nLog in to your account</string>
     <string name="login_button">Log In</string>
     <string name="register_button">Register</string>
+    <string name="enter_email_and_password">Enter your email and password</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot my password</string>
+    <string name="no_account">I don\'t have an account</string>
 </resources>

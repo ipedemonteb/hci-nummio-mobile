@@ -3,10 +3,7 @@ package ar.edu.itba.nummio.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicSecureTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextObfuscationMode
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.OutlinedTextField
@@ -22,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,13 +31,13 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 fun LoginSignupForm(
     modifier: Modifier = Modifier,
     title: String,
-    onConfirmClick: () -> Unit,
+    //onConfirmClick: () -> Unit,
     onCancelClick: () -> Unit,
     viewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var passwordHiden by remember { mutableStateOf(true) }
+    //var passwordHiden by remember { mutableStateOf(true) }
     Column (
         modifier = modifier.fillMaxWidth()
             .padding(horizontal = 50.dp, vertical = 130.dp),

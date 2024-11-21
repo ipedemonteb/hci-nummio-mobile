@@ -1,7 +1,6 @@
 package ar.edu.itba.nummio.ui.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,6 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.component.HighContrastBtn
+import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.LightPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
@@ -50,7 +49,7 @@ fun StartScreen (
                     modifier = modifier.fillMaxWidth()
                         .clip(shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
                         .background(Purple)
-                        .height(330.dp),
+                        .height(360.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
@@ -67,34 +66,14 @@ fun StartScreen (
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row(modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 10.dp, vertical = 10.dp)
             ) {
-                Button(
-                    onClick = { onNavigateToRoute("login") },
-                    modifier = modifier.fillMaxWidth().size(45.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = DarkPurple,
-                        contentColor = Color.White,
-                        disabledContainerColor = DarkPurple,
-                        disabledContentColor = LightPurple
-                    ),
-                ) { Text(stringResource(R.string.login_button)) }
+                HighContrastBtn({ onNavigateToRoute("login") }, stringResource(R.string.login_button))
             }
             Row(modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 10.dp, vertical = 10.dp)
             ) {
-                Button(
-                    onClick = { onNavigateToRoute("signup") },
-                    modifier = modifier.fillMaxWidth()
-                        .padding(top = 15.dp)
-                        .border(1.dp, DarkPurple, RoundedCornerShape(30.dp)),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = DarkPurple,
-                        disabledContainerColor = DarkPurple,
-                        disabledContentColor = LightPurple
-                    ),
-                ) { Text(stringResource(R.string.register_button)) }
+                LowContrastBtn({ onNavigateToRoute("signup") }, stringResource(R.string.register_button))
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row(modifier = Modifier.fillMaxWidth(),
@@ -125,7 +104,7 @@ fun StartScreen (
     }
 }
 
-/*
+
 @Preview
 @Composable
 fun StartScreenPreview() {
@@ -135,4 +114,3 @@ fun StartScreenPreview() {
         }
     }
 }
- */
