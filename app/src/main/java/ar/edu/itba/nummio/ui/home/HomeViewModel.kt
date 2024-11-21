@@ -14,18 +14,22 @@ import ar.edu.itba.nummio.data.model.Error
 import ar.edu.itba.nummio.data.repository.UserRepository
 import ar.edu.itba.nummio.data.repository.WalletRepository
 import ar.edu.itba.nummio.SessionManager
+import ar.edu.itba.nummio.data.repository.PaymentRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     sessionManager: SessionManager,
     private val userRepository: UserRepository,
-    private val walletRepository: WalletRepository
+    private val walletRepository: WalletRepository,
+    private val paymentRepository: PaymentRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
+
+    //USER
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
         { state, _ -> state.copy(isAuthenticated = true) }
@@ -47,6 +51,33 @@ class HomeViewModel(
         { userRepository.getCurrentUser(uiState.currentUser == null) },
         { state, response -> state.copy(currentUser = response) }
     )
+    fun verifyUser(code:String) = runOnViewModelScope(
+        { userRepository.verifyUser(code) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO error checking?
+    )
+    fun register ( firstName: String,
+                   lastName: String,
+                   birthDate: String,
+                   email: String,
+                   password: String
+    ) = runOnViewModelScope(
+        { userRepository.register(firstName, lastName, birthDate, email, password) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+    fun resetPassword(token: String, password: String) = runOnViewModelScope(
+        { userRepository.resetPassword(token, password) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+    fun recoverPassword(email: String) = runOnViewModelScope(
+        { userRepository.recoverPassword(email) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+
+
+
+
+
+    //WALLET
 
     fun getCards() = runOnViewModelScope(
         { walletRepository.getCards(true) },
@@ -74,6 +105,9 @@ class HomeViewModel(
             )
         }
     )
+
+
+    //PAYMENT
 
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
@@ -109,7 +143,8 @@ class HomeViewModel(
                 return HomeViewModel(
                     application.sessionManager,
                     application.userRepository,
-                    application.walletRepository) as T
+                    application.walletRepository,
+                    application.paymentRepository) as T
             }
         }
     }

@@ -57,26 +57,27 @@ private val retrofit = Retrofit.Builder()
 interface APIService {
     //USER ENDPOINTS
 
-    //NEEDS AUTH
+    //done
     @GET("api/user") //lo que va entre comillas es la ruta y se appendea al BASE_URL
     suspend fun getUserInfo(): ar.edu.itba.nummio.data.network.model.UserInfo
-
+    //done
     @POST("api/user")
     suspend fun createUser(@Body userRequest: ar.edu.itba.nummio.data.network.model.UserRequest): ar.edu.itba.nummio.data.network.model.UserInfo
 
+    //done
     @POST("api/user/login")
     suspend fun login(@Body loginRequest: ar.edu.itba.nummio.data.network.model.LoginRequest): ar.edu.itba.nummio.data.network.model.TokenInfo
-
+    //done
     @POST("api/user/verify")
     suspend fun verify(@Body tokenRequest: ar.edu.itba.nummio.data.network.model.TokenInfo): ar.edu.itba.nummio.data.network.model.UserInfo
-
+    //done
     @POST("api/user/recover-password")
-    suspend fun recoverPassword(@Body emailRequest: ar.edu.itba.nummio.data.network.model.EmailRequest): ar.edu.itba.nummio.data.network.model.SuccessAndMessage
-
+    suspend fun recoverPassword(@Body emailRequest: ar.edu.itba.nummio.data.network.model.NetworkEmailRequest): ar.edu.itba.nummio.data.network.model.SuccessAndMessage
+    //done
     @POST("api/user/reset-password")
-    suspend fun resetPassword(@Body resetPasswordRequest: ar.edu.itba.nummio.data.network.model.ResetPasswordRequest) //no devuelve nada
+    suspend fun resetPassword(@Body resetPasswordRequest: ar.edu.itba.nummio.data.network.model.NetworkResetPasswordRequest) //no devuelve nada
 
-    //NEEDS AUTH
+    //done
     @POST("api/user/logout")
     suspend fun logout(): ar.edu.itba.nummio.data.network.model.SuccessAndMessage
 
@@ -96,13 +97,13 @@ interface APIService {
 
     @POST("api/wallet/divest")
     suspend fun divest(@Body investRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): ar.edu.itba.nummio.data.network.model.NewBalance
-
+    //done
     @GET("api/wallet/cards")
     suspend fun getCards(): List<ar.edu.itba.nummio.data.network.model.CardData>
-
+    //done
     @POST("api/wallet/cards")
     suspend fun addCard(@Body cardRequest: ar.edu.itba.nummio.data.network.model.CardRequest): ar.edu.itba.nummio.data.network.model.CardData
-
+    //done
     @DELETE("api/wallet/cards{id}")
     suspend fun deleteCard(@Path("id") id: Int): ar.edu.itba.nummio.data.network.model.StatusData
 
