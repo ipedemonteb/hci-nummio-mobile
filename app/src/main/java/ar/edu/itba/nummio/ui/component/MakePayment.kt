@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -79,24 +80,12 @@ fun MakePayment() {
         Spacer(modifier = Modifier.height(30.dp))
         if(!found) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 40.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Button(
-                    onClick = { found = true },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = DarkPurple,
-                        disabledContainerColor = DarkPurple,
-                        disabledContentColor = LightPurple
-                    ),
-                    modifier = Modifier.width(180.dp)
-                        .border(1.dp, DarkPurple, RoundedCornerShape(30.dp))
-                ) {
-                    Text(
-                        text = stringResource(R.string.search_payment),
-                    )
-                }
+                HighContrastBtn( onClick = {found = true}, stringResource(R.string.search_payment) )
             }
         }
         else {
@@ -185,39 +174,23 @@ fun MakePayment() {
                         )
                     }
                     if(selectedMethod) {
-                        Spacer(modifier = Modifier.height(22.dp))
+                        Spacer(modifier = Modifier.height(42.dp))
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
-                            Button(
-                                onClick = { found = false },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = DarkPurple,
-                                    contentColor = Color.White,
-                                    disabledContainerColor = DarkPurple,
-                                    disabledContentColor = LightPurple
-                                ),
-                                modifier = Modifier.width(150.dp)
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.cancel_button),
+                            Box(modifier = Modifier.width(150.dp)) {
+                                LowContrastBtn(
+                                    onClick = { found = false },
+                                    stringResource(R.string.cancel_button)
                                 )
                             }
+
                             Spacer(modifier = Modifier.width(16.dp))
-                            Button(
-                                onClick = { found = true },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color.White,
-                                    contentColor = DarkPurple,
-                                    disabledContainerColor = DarkPurple,
-                                    disabledContentColor = LightPurple
-                                ),
-                                modifier = Modifier.width(150.dp)
-                                    .border(1.dp, DarkPurple, RoundedCornerShape(30.dp))
-                            ) {
-                                Text(
-                                    text = stringResource(R.string.confirm_button),
+                            Box(modifier = Modifier.width(150.dp)) {
+                                HighContrastBtn(
+                                    onClick = { found = true },
+                                    stringResource(R.string.confirm_button)
                                 )
                             }
                         }

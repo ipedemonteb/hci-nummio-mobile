@@ -21,8 +21,8 @@
     <string name="data_option">My Data</string>
     <string name="movements_option">Movements</string>
     <string name="investments_option">Investments</string>
-    <string name="service_option">Service Payment</string>
-    <string name="qr_option">QR Generator</string>
+    <string name="payment_option">Make Payment</string>
+    <string name="generate_link_option">Generate Payment</string>
     <string name="promotions_option">Promotions</string>
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>
@@ -60,6 +60,26 @@
     <string name="bank" translatable="false">Mastercard</string>
     <string name="mm" translatable="false">MM</string>
     <string name="slash" translatable="false">/</string>
-
-
+    <string name="enter_expiry_date">Input expiry date:</string>
+    <string name="date_placeholder">DD/MM/YYYY</string>
+    <string name="welcome_start_msg">Welcome!\nLog in to your account</string>
+    <string name="login_button">Log In</string>
+    <string name="register_button">Register</string>
+    <string name="enter_email_and_password">Enter your email and password</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot my password</string>
+    <string name="no_account">I don\'t have an account</string>
+    <string name="has_account">I already have an account</string>
+    <string name="create_account">Create an account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_email">Enter an email account:</string>
+    <string name="enter_password">Create a password:</string>
+    <string name="enter_password_again">Repeat your password:</string>
+    <string name="password_recovery">Password recovery</string>
+    <string name="resend_code">Resend code</string>
+    <string name="enter_code">Enter the code sent:</string>
+    <string name="code">Code</string>
+    <string name="send_code">Send Code</string>
+    <string name="enter_your_email">Enter your email account:</string>
 </resources>

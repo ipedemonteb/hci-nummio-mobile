@@ -10,13 +10,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,6 +43,7 @@ fun GeneratePayment() {
         stringResource(R.string.concept_sale),
         stringResource(R.string.concept_consumption)
         )
+    val date = remember { mutableStateOf(TextFieldValue("")) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
@@ -75,7 +74,7 @@ fun GeneratePayment() {
             Column {
                 Row {
                     Text(
-                        text = stringResource(R.string.enter_concept),
+                        text = stringResource(R.string.enter_expiry_date),
                         color = DarkPurple,
                         fontSize = 16.sp
                     )
@@ -88,32 +87,9 @@ fun GeneratePayment() {
                             .background(Color.White)
                             .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
                             .clickable { expanded = !expanded }
-                            .padding(horizontal = 16.dp, vertical = 18.dp)
-                    ) {
-                        Text(
-                            text = if (selectedOption.isEmpty()) stringResource(R.string.concept) else selectedOption,
-                            color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
-                        )
 
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false },
-                            modifier = Modifier
-                                .background(Color.White)
-                                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-                        ) {
-                            options.forEach { option ->
-                                DropdownMenuItem(
-                                    onClick = {
-                                        selectedOption = option
-                                        expanded = false
-                                    },
-                                    text = {
-                                        Text(text = option, color = Color.Gray)
-                                    }
-                                )
-                            }
-                        }
+                    ) {
+                        DatePicker(date = date.value, onInputChange = {input -> date.value = input})
                     }
                 }
             }
@@ -174,6 +150,5 @@ fun GeneratePayment() {
 fun GeneratePaymentPreview() {
     NummioTheme {
         GeneratePayment()
-
     }
 }

@@ -52,11 +52,11 @@ fun BottomOptions() {
             )
             SquaredOption(
                 icon = painterResource(id = R.drawable.receipt),
-                label = stringResource(id = R.string.service_option)
+                label = stringResource(id = R.string.payment_option)
             )
             SquaredOption(
-                icon = painterResource(id = R.drawable.qr_icon),
-                label = stringResource(id = R.string.qr_option)
+                icon = painterResource(id = R.drawable.link),
+                label = stringResource(id = R.string.generate_link_option)
             )
         }
         Spacer(modifier = Modifier.height(18.dp))

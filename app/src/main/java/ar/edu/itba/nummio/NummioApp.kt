@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.nummio.ui.component.BottomBar
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.component.Header
+import ar.edu.itba.nummio.ui.home.HomeUiState
 import ar.edu.itba.nummio.ui.navigation.AppNavHost
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -25,26 +26,27 @@ fun NummioApp() {
     val currentRoute = navBackStackEntry?.destination?.route
     NummioTheme {
         Scaffold(
-            topBar = { Header(
-                pfp = R.drawable.pfp,
-                profileName = R.string.profileName
-            )},
+            topBar = { if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
+                Header(pfp = R.drawable.pfp, profileName = R.string.profileName)
+            }},
             bottomBar = {
-                BottomBar(
-                    currentRoute = currentRoute
-                ) { route ->
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
+                    BottomBar(currentRoute = currentRoute) { route ->
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
                     }
                 }
             },
             modifier = Modifier.fillMaxSize()
         ) { innerPadding ->
-            AppNavHost(navController = navController, modifier = Modifier.padding(innerPadding))
+            AppNavHost(navController = navController,
+                modifier = Modifier.padding(innerPadding),
+                isAuthenticated = HomeUiState().isAuthenticated)
         }
     }
 }
