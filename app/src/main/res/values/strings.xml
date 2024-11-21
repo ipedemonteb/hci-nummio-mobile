@@ -21,8 +21,8 @@
     <string name="data_option">My Data</string>
     <string name="movements_option">Movements</string>
     <string name="investments_option">Investments</string>
-    <string name="service_option">Service Payment</string>
-    <string name="qr_option">QR Generator</string>
+    <string name="payment_option">Make Payment</string>
+    <string name="generate_link_option">Generate Payment</string>
     <string name="promotions_option">Promotions</string>
     <string name="contacts_option">Contacts</string>
     <string name="help_option">Help</string>

@@ -12,8 +12,8 @@
     <string name="data_option">Datos</string>
     <string name="movements_option">Movimientos</string>
     <string name="investments_option">Inversiones</string>
-    <string name="service_option">Pago de Servicios</string>
-    <string name="qr_option">Link de Pago</string>
+    <string name="payment_option">Hacer un Pago</string>
+    <string name="generate_link_option">Link de Pago</string>
     <string name="promotions_option">Promociones</string>
     <string name="contacts_option">Contactos</string>
     <string name="help_option">Ayuda</string>

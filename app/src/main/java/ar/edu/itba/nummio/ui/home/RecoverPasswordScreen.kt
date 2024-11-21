@@ -36,8 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
-import ar.edu.itba.nummio.ui.component.LoginCheck
-import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @OptIn(ExperimentalMaterial3Api::class)
