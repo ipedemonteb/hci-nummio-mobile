@@ -67,4 +67,5 @@
     <string name="enter_your_email">Ingresá tu cuenta de mail:</string>
     <string name="payment_page">Hacer Pago</string>
     <string name="generate_page">Generar Cobro</string>
+    <string name="credit_cards">Tarjetas de Crédito:</string>
 </resources>

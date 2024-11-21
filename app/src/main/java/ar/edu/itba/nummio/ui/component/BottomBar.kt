@@ -42,7 +42,7 @@ fun BottomBar(
             Spacer(modifier = Modifier.width(0.dp))
 
             BottomBarItem(
-                icon = painterResource(R.drawable.settings),
+                icon = painterResource(R.drawable.notification),
                 label = stringResource(R.string.bottom),
                 onClick = { onNavigateToRoute("other/42") }
             )

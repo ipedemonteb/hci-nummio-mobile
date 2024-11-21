@@ -64,7 +64,7 @@ fun Header(
                 modifier = Modifier.weight(1f)
             )
             Icon(
-                painter = painterResource(R.drawable.notification),
+                painter = painterResource(R.drawable.settings),
                 contentDescription = null,
                 tint = DarkPurple,
                 modifier = Modifier.size(26.dp)

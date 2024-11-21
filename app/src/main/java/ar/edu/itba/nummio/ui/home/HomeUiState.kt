@@ -5,7 +5,7 @@ import ar.edu.itba.nummio.data.model.Error
 import ar.edu.itba.nummio.data.model.User
 
 data class HomeUiState(
-    val isAuthenticated: Boolean = false,
+    val isAuthenticated: Boolean = true,
     val isFetching: Boolean = false,
     val currentUser: User? = null,
     val cards: List<Card>? = null,

@@ -81,4 +81,5 @@
     <string name="enter_your_email">Enter your email account:</string>
     <string name="payment_page">Make Payment</string>
     <string name="generate_page">Generate Payment</string>
+    <string name="credit_cards">Credit Cards:</string>
 </resources>
