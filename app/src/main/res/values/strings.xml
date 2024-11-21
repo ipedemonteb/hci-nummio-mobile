@@ -39,13 +39,10 @@
     <string name="holder">Holder</string>
     <string name="expiration_date">Expiry date</string>
     <string name="yyyy">YYYY</string>
-    <string name="enter_amount">Input amount to be charged</string>
-    <string name="enter_concept">Input payment detail</string>
-    <string name="enter_cvu">Enter CVU:</string>
-    <string name="generate_link">Generate Link</string>
-    <string name="concept">Concept</string>
+    <string name="enter_amount">Input amount to be charged:</string>
     <string name="amount">Amount</string>
-    <string name="concept_various">Other</string>
+    <string name="check_cvu">CVU to credit the payment:</string>
+    <string name="generate_link">Generate Link</string>
     <string name="concept_consumption">Consumption</string>
     <string name="concept_sale">Sale</string>
     <string name="enter_link">Enter payment link:</string>
@@ -82,4 +79,6 @@
     <string name="code">Code</string>
     <string name="send_code">Send Code</string>
     <string name="enter_your_email">Enter your email account:</string>
+    <string name="payment_page">Make Payment</string>
+    <string name="generate_page">Generate Payment</string>
 </resources>

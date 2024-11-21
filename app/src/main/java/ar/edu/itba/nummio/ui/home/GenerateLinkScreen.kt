@@ -26,12 +26,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
-import ar.edu.itba.nummio.ui.component.MakePayment
+import ar.edu.itba.nummio.ui.component.GeneratePayment
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun PayScreen() {
+fun GenerateLinkScreen() {
     Surface(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -59,7 +59,7 @@ fun PayScreen() {
                         )
                     }
                     Text(
-                        text = stringResource(R.string.payment_page),
+                        text = stringResource(R.string.generate_page),
                         modifier = Modifier.align(Alignment.Center),
                         textAlign = TextAlign.Center,
                         style = TextStyle(
@@ -73,7 +73,7 @@ fun PayScreen() {
             Row(
                 modifier = Modifier.padding(vertical = 30.dp)
             ) {
-                MakePayment()
+                GeneratePayment()
             }
         }
     }
@@ -81,8 +81,8 @@ fun PayScreen() {
 
 @Preview
 @Composable
-fun PayScreenPreview() {
+fun GenerateLinkScreenPreview() {
     NummioTheme {
-        PayScreen()
+        GenerateLinkScreen()
     }
 }

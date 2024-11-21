@@ -27,12 +27,9 @@
     <string name="expiration_date">Fecha de Vto.</string>
     <string name="yyyy">AAAA</string>
     <string name="enter_amount">Ingresá el monto a cobrar:</string>
-    <string name="enter_concept">Ingresá el concepto del cobro:</string>
-    <string name="enter_cvu">Número de CVU a acreditar:</string>
-    <string name="generate_link">Generar Link</string>
-    <string name="concept">Concepto</string>
     <string name="amount">Monto</string>
-    <string name="concept_various">Varios</string>
+    <string name="check_cvu">Número de CVU a acreditar:</string>
+    <string name="generate_link">Generar Link</string>
     <string name="concept_consumption">Consumo</string>
     <string name="concept_sale">Venta</string>
     <string name="recents_msg">Recientes</string>
@@ -68,4 +65,6 @@
     <string name="code">Código</string>
     <string name="send_code">Enviar Código</string>
     <string name="enter_your_email">Ingresá tu cuenta de mail:</string>
+    <string name="payment_page">Hacer Pago</string>
+    <string name="generate_page">Generar Cobro</string>
 </resources>
