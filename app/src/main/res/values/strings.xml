@@ -60,6 +60,6 @@
     <string name="bank" translatable="false">Mastercard</string>
     <string name="mm" translatable="false">MM</string>
     <string name="slash" translatable="false">/</string>
-
-
+    <string name="enter_expiry_date">Input expiry date:</string>
+    <string name="date_placeholder">DD/MM/YYYY</string>
 </resources>
