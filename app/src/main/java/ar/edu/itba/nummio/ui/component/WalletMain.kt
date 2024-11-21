@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -87,7 +87,7 @@ fun WalletMain() {
                             textAlign = TextAlign.Center
                         )
                         Icon(
-                            imageVector = Icons.Outlined.ArrowForward,
+                            imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier.size(18.dp)

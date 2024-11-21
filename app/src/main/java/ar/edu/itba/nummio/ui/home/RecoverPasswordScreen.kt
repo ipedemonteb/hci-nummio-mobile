@@ -36,25 +36,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
+import ar.edu.itba.nummio.ui.component.LoginCheck
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
-import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
+fun RecoverPasswordScreen(
     onNavigateToRoute: (route: String) -> Unit
 ) {
     var userEmail by remember { mutableStateOf("") }
-    var userPassword by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    var codeSent by remember { mutableStateOf(false) }
     Surface(modifier = Modifier
-        .background(Color.White)
         .fillMaxSize()
-    ) {
+        .background(Color.White)
+    ){
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp)) {
             Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp),) {
                 IconButton({
+                    //TODO: cambiar
                     onNavigateToRoute("start")
                 }) {
                     Icon(
@@ -67,16 +67,23 @@ fun LoginScreen(
             }
             Row(modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 10.dp, top = 30.dp),
+                .padding(bottom = 20.dp, top = 10.dp),
                 horizontalArrangement = Arrangement.Center,) {
                 Text(
-                    text = stringResource(R.string.enter_email_and_password),
+                    text = stringResource(R.string.password_recovery),
                     fontWeight = FontWeight.Medium,
                     fontSize = 24.sp,
                     color = DarkPurple,
                     modifier = Modifier.padding(horizontal = 20.dp),
                     textAlign = TextAlign.Center,
                     lineHeight = 35.sp
+                )
+            }
+            Row(modifier = Modifier.padding(top = 20.dp)) {
+                Text(
+                    text = stringResource(R.string.enter_your_email),
+                    fontSize = 18.sp,
+                    color = DarkPurple
                 )
             }
             Row(modifier = Modifier
@@ -94,55 +101,62 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Row(modifier = Modifier.padding(vertical = 5.dp)) {
-                OutlinedTextField(
-                    value = userPassword,
-                    onValueChange = { userPassword = it },
-                    label = { Text(stringResource(R.string.password)) },
-                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                    trailingIcon = {
-                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                            Icon(
-                                painter = if (passwordVisible) painterResource(R.drawable.eye_open) else painterResource(R.drawable.closed_eye),
-                                contentDescription = if (passwordVisible) "Hide password" else "Show password",
-                                tint = Color.Black,
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    },
-                    maxLines = 1,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = DarkPurple,
-                        cursorColor = DarkPurple
+
+            if(!codeSent){
+                Row(modifier = Modifier.padding(top = 30.dp)) {
+                    HighContrastBtn(onClick = { codeSent = true }, text = stringResource(R.string.send_code))
+                }
+            }
+            else {
+                Row(modifier = Modifier.padding(top = 20.dp)) {
+                    Text(
+                        text = stringResource(R.string.enter_code),
+                        fontSize = 18.sp,
+                        color = DarkPurple
                     )
-                )
-            }
-            Row(modifier = Modifier.fillMaxWidth()
-                .padding(vertical = 10.dp),
-                horizontalArrangement = Arrangement.Center) {
-                Text(
-                    text = stringResource(R.string.forgot_password),
-                    color = DarkPurple,
-                    textDecoration = TextDecoration.Underline,
-                    fontSize = 16.sp,
-                    modifier = Modifier.clickable { }
-                )
-            }
-            Row(modifier = Modifier.padding(top = 30.dp)) {
-                HighContrastBtn( onClick = {}, text = stringResource(R.string.login_button))
-            }
-            Row(modifier = Modifier.padding(vertical = 20.dp)) {
-                LowContrastBtn( onClick = { onNavigateToRoute("signup") }, text = stringResource(R.string.no_account))
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 5.dp)
+                        .fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = userEmail,
+                        onValueChange = { userEmail = it },
+                        label = { Text(stringResource(R.string.code)) },
+                        maxLines = 1,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = DarkPurple,
+                            cursorColor = DarkPurple
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.resend_code),
+                        color = DarkPurple,
+                        textDecoration = TextDecoration.Underline,
+                        fontSize = 16.sp,
+                        modifier = Modifier.clickable { }
+                    )
+                }
+                Row(modifier = Modifier.padding(top = 30.dp)) {
+                    HighContrastBtn(onClick = {}, text = stringResource(R.string.confirm_button))
+                }
             }
         }
     }
 }
 
-@Preview(locale = "es")
+
+@Preview
 @Composable
-fun LoginScreenPreview() {
-    NummioTheme {
-        LoginScreen(onNavigateToRoute = {})
-    }
+fun RecoverPasswordScreenPreview() {
+    RecoverPasswordScreen({})
 }

@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
@@ -67,10 +64,10 @@ fun Header(
                 modifier = Modifier.weight(1f)
             )
             Icon(
-                painter = painterResource(R.drawable.settings),
+                painter = painterResource(R.drawable.notification),
                 contentDescription = null,
                 tint = DarkPurple,
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(26.dp)
             )
         }
     }
