@@ -68,4 +68,10 @@
     <string name="password">Password</string>
     <string name="forgot_password">Forgot my password</string>
     <string name="no_account">I don\'t have an account</string>
+    <string name="has_account">I already have an account</string>
+    <string name="create_account">Create an account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_email">Enter an email account:</string>
+    <string name="enter_password">Create a password:</string>
+    <string name="enter_password_again">Repeat your password:</string>
 </resources>
