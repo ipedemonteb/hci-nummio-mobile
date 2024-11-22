@@ -57,7 +57,11 @@ fun NummioApp(
                             launchSingleTop = true
                             restoreState = true //Sacar?
                         }},
-                        onNavigateToNotifications = {}, //@TODO
+                        onNavigateToMovements = {navController.navigate(AppDestinations.MOVEMENTS.route){
+                            popUpTo(AppDestinations.HOME.route)
+                            launchSingleTop = true
+                            restoreState = true
+                        }},
                         onNavigateToQRScan = {}, //@TODO
                         viewModel = viewModel
                         )

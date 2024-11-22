@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
@@ -30,7 +31,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 fun TopOptions(
     viewModel: HomeViewModel,
     onNavigateToTransfer: () -> Unit,
-    onNavigateToMovements: () -> Unit
+    onNavigateToDeposit: () -> Unit
 ) {
     val uiState = viewModel.uiState
     Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 12.dp)) {
@@ -51,8 +52,8 @@ fun TopOptions(
             )
             RoundOption(
                 icon =painterResource(id = R.drawable.history),
-                label = stringResource(id = R.string.movements_option),
-                onClick = {onNavigateToMovements()},
+                label = stringResource(id = R.string.deposit_screen),
+                onClick = {onNavigateToDeposit()},
             )
 
         }
@@ -92,14 +93,13 @@ fun RoundOption(
     }
 }
 
-/*
+
 @Preview(showBackground = true)
 @Composable
 fun TopOptionsPreview() {
     NummioTheme {
-        TopOptions(onNavigateToTransfer = {}, onNavigateToMovements = {})
+        TopOptions(onNavigateToTransfer = {}, onNavigateToDeposit = {}, viewModel = viewModel())
     }
 }
 
 
- */

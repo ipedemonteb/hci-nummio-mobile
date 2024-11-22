@@ -23,7 +23,7 @@ import ar.edu.itba.nummio.ui.theme.LightPurple
 fun BottomBar(
     modifier: Modifier = Modifier,
     onNavigateToHome: () -> Unit,
-    onNavigateToNotifications: () -> Unit,
+    onNavigateToMovements: () -> Unit,
     onNavigateToQRScan: () -> Unit,
     viewModel: HomeViewModel
 ) {
@@ -47,9 +47,9 @@ fun BottomBar(
             Spacer(modifier = Modifier.width(0.dp))
 
             BottomBarItem(
-                icon = painterResource(R.drawable.notification),
-                label = stringResource(R.string.bottom),
-                onClick = { onNavigateToNotifications() }
+                icon = painterResource(R.drawable.history),
+                label = stringResource(R.string.movements),
+                onClick = { onNavigateToMovements() }
             )
         }
 

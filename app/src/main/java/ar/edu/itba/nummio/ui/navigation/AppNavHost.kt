@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ar.edu.itba.nummio.ui.home.AddCardScreen
+import ar.edu.itba.nummio.ui.home.DepositScreen
 import ar.edu.itba.nummio.ui.home.GenerateLinkScreen
 import ar.edu.itba.nummio.ui.home.HomeScreen
 import ar.edu.itba.nummio.ui.home.HomeViewModel
@@ -53,6 +54,7 @@ fun AppNavHost(
                 onNavigateToPromotions= {},
                 onNavigateToContacts = {},
                 onNavigateToHelp= {},
+                onNavigateToDeposit = {navController.navigate(AppDestinations.DEPOSIT.route)},
                 viewModel = viewModel
                 )
         }
@@ -106,6 +108,9 @@ fun AppNavHost(
         ){
             backStackEntry ->
             SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "")
+        }
+        composable(AppDestinations.DEPOSIT.route){
+            DepositScreen(onBackClick = {navController.popBackStack()})
         }
     }
 }

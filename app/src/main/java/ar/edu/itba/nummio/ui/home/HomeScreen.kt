@@ -17,13 +17,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.BalanceBox
 import ar.edu.itba.nummio.ui.component.BottomOptions
 import ar.edu.itba.nummio.ui.component.TopOptions
 import ar.edu.itba.nummio.ui.component.WalletMain
+import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun HomeScreen(
@@ -36,6 +39,7 @@ fun HomeScreen(
     onNavigateToPromotions: () -> Unit,
     onNavigateToContacts: () -> Unit,
     onNavigateToHelp: () -> Unit,
+    onNavigateToDeposit: () -> Unit,
     viewModel: HomeViewModel
 ) {
     val uiState = viewModel.uiState
@@ -61,7 +65,7 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            TopOptions(viewModel = viewModel, onNavigateToTransfer = onNavigateToTransfer, onNavigateToMovements = onNavigateToMovements)
+                            TopOptions(viewModel = viewModel, onNavigateToTransfer = onNavigateToTransfer, onNavigateToDeposit = onNavigateToDeposit)
                         }
                     }
                 }
@@ -86,12 +90,11 @@ fun HomeScreen(
     }
 }
 
-/*
+
 @Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
     NummioTheme {
-        HomeScreen(viewModel, onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {}, {}, {}, {}, {}, {}, {})
+        HomeScreen(onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {}, {}, {}, {}, {}, {}, {}, {}, viewModel = viewModel())
     }
 }
-*/

@@ -21,7 +21,9 @@ import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun BalanceBox(modifier: Modifier = Modifier.fillMaxWidth()) {
+fun BalanceBox(
+    modifier: Modifier = Modifier.fillMaxWidth(),
+) {
     var saldoVisible by remember { mutableStateOf(true) }
 
     Card(
