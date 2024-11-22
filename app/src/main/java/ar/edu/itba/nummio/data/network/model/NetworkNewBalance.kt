@@ -1,13 +1,15 @@
 package ar.edu.itba.nummio.data.network.model
 
 import ar.edu.itba.nummio.data.model.NewBalance
+import kotlinx.serialization.Serializable
 
-class NetworkNewBalance(
-    var newBalance: Double
+@Serializable
+data class NetworkNewBalance (
+    val newBalance : Double
 ) {
-    fun asModel(): NewBalance {
-        return NewBalance(
-            newBalance
-        )
-    }
+        fun asModel(): NewBalance {
+                return NewBalance(
+                        newBalance
+                )
+        }
 }
