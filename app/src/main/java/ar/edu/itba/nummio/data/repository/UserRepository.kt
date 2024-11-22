@@ -33,4 +33,23 @@ class UserRepository(
 
         return currentUserMutex.withLock { this.currentUser }
     }
+    suspend fun verifyUser(code:String):User{
+        return remoteDataSource.verifyUser(code).asModel()
+    }
+
+    suspend fun register( firstName: String,
+                          lastName: String,
+                          birthDate: String,
+                          email: String,
+                          password: String
+    ):User{
+        return remoteDataSource.register(firstName, lastName, birthDate, email, password).asModel()
+    }
+
+    suspend fun resetPassword(token: String, password: String) {
+        remoteDataSource.resetPassword(token, password)
+    }
+    suspend fun recoverPassword(email: String) {
+        remoteDataSource.recoverPassword(email)
+    }
 }

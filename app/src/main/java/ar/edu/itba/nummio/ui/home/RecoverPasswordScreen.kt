@@ -24,16 +24,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
@@ -41,7 +42,8 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecoverPasswordScreen(
-    onNavigateToRoute: (route: String) -> Unit
+    onNavigateToRoute: (route: String) -> Unit,
+    viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
     var codeSent by remember { mutableStateOf(false) }
@@ -156,5 +158,5 @@ fun RecoverPasswordScreen(
 @Preview
 @Composable
 fun RecoverPasswordScreenPreview() {
-    RecoverPasswordScreen({})
+    RecoverPasswordScreen({}, viewModel = viewModel(factory = HomeViewModel.provideFactory((LocalContext.current.applicationContext as MyApplication))))
 }

@@ -14,17 +14,21 @@ import ar.edu.itba.nummio.data.model.Error
 import ar.edu.itba.nummio.data.repository.UserRepository
 import ar.edu.itba.nummio.data.repository.WalletRepository
 import ar.edu.itba.nummio.SessionManager
+import ar.edu.itba.nummio.data.model.AliasRequest
+import ar.edu.itba.nummio.data.model.Amount
+import ar.edu.itba.nummio.data.repository.PaymentRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     sessionManager: SessionManager,
     private val userRepository: UserRepository,
-    private val walletRepository: WalletRepository
+    private val walletRepository: WalletRepository,
+    private val paymentRepository: PaymentRepository
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(HomeUiState(isAuthenticated = true /*sessionManager.loadAuthToken() != null */ ))
-    private set
+    var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
+        private set
 
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
@@ -46,6 +50,58 @@ class HomeViewModel(
     fun getCurrentUser() = runOnViewModelScope(
         { userRepository.getCurrentUser(uiState.currentUser == null) },
         { state, response -> state.copy(currentUser = response) }
+    )
+    fun verifyUser(code:String) = runOnViewModelScope(
+        { userRepository.verifyUser(code) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO error checking?
+    )
+    fun register ( firstName: String,
+                   lastName: String,
+                   birthDate: String,
+                   email: String,
+                   password: String
+    ) = runOnViewModelScope(
+        { userRepository.register(firstName, lastName, birthDate, email, password) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+    fun resetPassword(token: String, password: String) = runOnViewModelScope(
+        { userRepository.resetPassword(token, password) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+    fun recoverPassword(email: String) = runOnViewModelScope(
+        { userRepository.recoverPassword(email) },
+        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+    )
+
+
+
+
+
+    //WALLET
+
+    fun getBalance() = runOnViewModelScope(
+        { walletRepository.getBalance() },
+        { state, _ -> state }
+    )
+
+    fun recharge(rechargeRequest: Amount) = runOnViewModelScope(
+        { walletRepository.recharge(rechargeRequest) },
+        { state, _ -> state }
+    )
+
+    fun getInvestment() = runOnViewModelScope(
+        { walletRepository.getInvestment() },
+        { state, _ -> state }
+    )
+
+    fun invest(investRequest: Amount) = runOnViewModelScope(
+        { walletRepository.invest(investRequest) },
+        { state, _ -> state }
+    )
+
+    fun divest(investRequest: Amount) = runOnViewModelScope(
+        { walletRepository.divest(investRequest) },
+        { state, _ -> state }
     )
 
     fun getCards() = runOnViewModelScope(
@@ -78,6 +134,29 @@ class HomeViewModel(
     fun updateOrientation(isLandscape: Boolean) {
         uiState = uiState.copy(isLandscape = isLandscape)
     }
+
+    // @TODO: cambiar state a todas las funciones de aca abajo y las de arriba que hacen lo mismo con el state
+    fun getDailyReturns(page: Int) = runOnViewModelScope(
+        { walletRepository.getDailyReturns(page) },
+        { state, _ -> state }
+    )
+
+    fun getDailyInterest() = runOnViewModelScope(
+        { walletRepository.getDailyInterest() },
+        { state, _ -> state }
+    )
+
+    fun updateAlias(aliasRequest: AliasRequest) = runOnViewModelScope(
+        { walletRepository.updateAlias(aliasRequest) },
+        { state, _ -> state }
+    )
+
+    fun getDetails() = runOnViewModelScope(
+        { walletRepository.getDetails() },
+        { state, _ -> state }
+    )
+
+    //PAYMENT
 
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
@@ -113,7 +192,8 @@ class HomeViewModel(
                 return HomeViewModel(
                     application.sessionManager,
                     application.userRepository,
-                    application.walletRepository) as T
+                    application.walletRepository,
+                    application.paymentRepository) as T
             }
         }
     }
