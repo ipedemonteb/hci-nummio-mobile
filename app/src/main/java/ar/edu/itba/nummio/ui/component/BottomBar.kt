@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -20,10 +21,12 @@ import ar.edu.itba.nummio.ui.theme.LightPurple
 
 @Composable
 fun BottomBar(
-    currentRoute: String?,
-    onNavigateToRoute: (String) -> Unit
+    modifier: Modifier = Modifier,
+    onNavigateToHome: () -> Unit,
+    onNavigateToNotifications: () -> Unit,
+    onNavigateToQRScan: () -> Unit
 ) {
-    Box {
+    Box (modifier = modifier){
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -36,7 +39,7 @@ fun BottomBar(
             BottomBarItem(
                 icon = painterResource(R.drawable.home),
                 label = stringResource(R.string.bottom_home),
-                onClick = { onNavigateToRoute("home") }
+                onClick = { onNavigateToHome() }
             )
 
             Spacer(modifier = Modifier.width(0.dp))
@@ -44,7 +47,7 @@ fun BottomBar(
             BottomBarItem(
                 icon = painterResource(R.drawable.notification),
                 label = stringResource(R.string.bottom),
-                onClick = { onNavigateToRoute("other/42") }
+                onClick = { onNavigateToNotifications() }
             )
         }
 
@@ -56,7 +59,7 @@ fun BottomBar(
                 .offset(y = (-4).dp)
                 .background(LightPurple, CircleShape)
                 .align(Alignment.TopCenter)
-                .clickable(onClick = { onNavigateToRoute("other/33") })
+                .clickable(onClick = { onNavigateToQRScan() })
         ) {
             Icon(
                 painter = painterResource(R.drawable.qr_icon),

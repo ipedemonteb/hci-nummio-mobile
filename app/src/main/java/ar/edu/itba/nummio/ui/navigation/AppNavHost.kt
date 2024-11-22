@@ -6,12 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.AddCardScreen
+import ar.edu.itba.nummio.ui.home.GenerateLinkScreen
 import ar.edu.itba.nummio.ui.home.HomeScreen
 import ar.edu.itba.nummio.ui.home.LoginScreen
 import ar.edu.itba.nummio.ui.home.OtherScreen
@@ -19,6 +18,7 @@ import ar.edu.itba.nummio.ui.home.RecoverPasswordScreen
 import ar.edu.itba.nummio.ui.home.SignupScreen
 import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
+import ar.edu.itba.nummio.ui.home.PayScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
 
 @Composable
@@ -33,29 +33,35 @@ fun AppNavHost(
         startDestination = startDestination,
         modifier = modifier
     ) {
-        composable("start") {
+        composable(AppDestinations.START.route) {
             StartScreen(
                 onNavigateToRoute = { route -> navController.navigate(route) }
             )
         }
-        composable("home") {
+        composable(AppDestinations.HOME.route) {
             HomeScreen(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
                 onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
-                onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) }
+                onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
+                onNavigateToInvestments = {}, //@TODO
+                onNavigateToMakePayment= { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
+                onNavigateToGenerateLink= { navController.navigate(AppDestinations.GENERATE_LINK.route) },
+                onNavigateToPromotions= {},//@TODO
+                onNavigateToContacts = {},//@TODO
+                onNavigateToHelp= {}//@TODO
             )
         }
-        composable("login") {
+        composable(AppDestinations.LOGIN.route) {
             LoginScreen(
                 onNavigateToRoute = { route -> navController.navigate(route) }
             )
         }
-        composable("signup") {
+        composable(AppDestinations.SIGNUP.route) {
             SignupScreen (
                 onNavigateToRoute = { route -> navController.navigate(route) }
             )
         }
-        composable("recover") {
+        composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
                 onNavigateToRoute = { route -> navController.navigate(route) }
             )
@@ -70,10 +76,19 @@ fun AppNavHost(
             MovementsScreen(movements = emptyList(), onBackClick = {navController.popBackStack()})
         }
         composable(AppDestinations.TRANSFERS.route){
-            TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}) //@TODO: onRecipientClick + addContact
+            TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route){
-            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {AppDestinations.ADD_CARD.route})
+            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)})
+        }
+        composable(AppDestinations.MAKE_PAYMENT.route){
+            PayScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable(AppDestinations.GENERATE_LINK.route){
+            GenerateLinkScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable(AppDestinations.ADD_CARD.route){
+            AddCardScreen(onBackClick = {navController.popBackStack()})
         }
     }
 }

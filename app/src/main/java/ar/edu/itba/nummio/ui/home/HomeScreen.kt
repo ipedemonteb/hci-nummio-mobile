@@ -37,6 +37,12 @@ fun HomeScreen(
     onNavigateToTransfer: () -> Unit,
     onNavigateToMovements: () -> Unit,
     onNavigateToCards: () -> Unit,
+    onNavigateToInvestments: () -> Unit,
+    onNavigateToMakePayment: () -> Unit,
+    onNavigateToGenerateLink: () -> Unit,
+    onNavigateToPromotions: () -> Unit,
+    onNavigateToContacts: () -> Unit,
+    onNavigateToHelp: () -> Unit
 ) {
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
@@ -70,7 +76,14 @@ fun HomeScreen(
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    BottomOptions()
+                    BottomOptions(
+                        onNavigateToInvestments = onNavigateToInvestments,
+                        onNavigateToMakePayment = onNavigateToMakePayment,
+                        onNavigateToGenerateLink = onNavigateToGenerateLink,
+                        onNavigateToPromotions = onNavigateToPromotions,
+                        onNavigateToContacts = onNavigateToContacts,
+                        onNavigateToHelp = onNavigateToHelp
+                        )
                 }
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -83,6 +96,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     NummioTheme {
-        HomeScreen(onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {})
+        HomeScreen(onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {}, {}, {}, {}, {}, {}, {})
     }
 }

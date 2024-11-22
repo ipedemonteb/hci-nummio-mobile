@@ -59,7 +59,7 @@ fun TransferScreen(
                                 tint = DarkPurple
                             )
                         },
-                        onBackClick
+                        {}
                     )
                 )
             }

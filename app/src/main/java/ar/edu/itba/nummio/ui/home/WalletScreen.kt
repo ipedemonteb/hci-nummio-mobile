@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -47,6 +49,7 @@ fun WalletScreen(
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp).background(Color.White)
+            .verticalScroll(rememberScrollState())
         ) {
             Row(modifier = Modifier
                 .fillMaxWidth()

@@ -1,7 +1,10 @@
 package ar.edu.itba.nummio
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -16,6 +19,7 @@ import ar.edu.itba.nummio.ui.component.BottomBar
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.component.Header
 import ar.edu.itba.nummio.ui.home.HomeUiState
+import ar.edu.itba.nummio.ui.navigation.AppDestinations
 import ar.edu.itba.nummio.ui.navigation.AppNavHost
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -26,20 +30,17 @@ fun NummioApp() {
     val currentRoute = navBackStackEntry?.destination?.route
     NummioTheme {
         Scaffold(
-            topBar = { if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
+            topBar = { if (currentRoute == AppDestinations.HOME.route) {
                 Header(pfp = R.drawable.pfp, profileName = R.string.profileName)
             }},
             bottomBar = {
-                if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
-                    BottomBar(currentRoute = currentRoute) { route ->
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
+                if (currentRoute != AppDestinations.START.route && currentRoute != AppDestinations.LOGIN.route && currentRoute != AppDestinations.SIGNUP.route) {
+                    BottomBar(
+                        modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
+                        onNavigateToHome = {navController.navigate(AppDestinations.HOME.route){popUpTo(AppDestinations.HOME.route)} },
+                        onNavigateToNotifications = {}, //@TODO
+                        onNavigateToQRScan = {} //@TODO
+                    )
                 }
             },
             modifier = Modifier.fillMaxSize()
