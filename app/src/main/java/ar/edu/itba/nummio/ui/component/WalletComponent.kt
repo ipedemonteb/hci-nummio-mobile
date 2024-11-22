@@ -23,22 +23,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 
 @Composable
 fun WalletComponent(
     deleteCard: Boolean = false,
-    onNavigateToAddCard: () -> Unit
+    onNavigateToAddCard: () -> Unit,
+    viewModel: HomeViewModel
 ) {
-    val itemList = List(8) { index -> "323${index + 1}" }
     var openPopUp by remember { mutableStateOf(false) }
     var isConfirmed by remember { mutableStateOf(false) }
+
+    // @TODO: ver por que cuando se hace llama a la API 2 veces
+    if(viewModel.uiState.cards == null)
+        viewModel.getCards()
 
     Box(/*modifier = Modifier.fillMaxSize()*/) {
         Column(
@@ -59,33 +67,35 @@ fun WalletComponent(
             LazyColumn(
                 modifier = Modifier.heightIn(max = 450.dp)
             ) {
-                items(itemList) { lastDigits ->
-                    Row(
-                        modifier = Modifier
-                            .padding(bottom = 10.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        CardComponent(
-                            digits = lastDigits,
-                            bank = R.string.bank,
-                            card = R.drawable.mastercard,
-                            modifier = Modifier.weight(1f)
-                        )
+                if(viewModel.uiState.cards != null) {
+                    items(viewModel.uiState.cards!!) { card ->
+                        Row(
+                            modifier = Modifier
+                                .padding(bottom = 10.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            CardComponent(
+                                digits = card.number.substring(card.number.length - 4, card.number.length),
+                                bank = R.string.bank,
+                                card = R.drawable.mastercard,
+                                modifier = Modifier.weight(1f)
+                            )
 
-                        if (deleteCard) {
-                            IconButton(
-                                onClick = { openPopUp = true },
-                                modifier = Modifier
-                                    .size(60.dp)
-                                    .align(Alignment.CenterVertically)
-                                    .padding(horizontal = 16.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.trash),
-                                    contentDescription = null,
-                                    tint = Color.Red,
-                                )
+                            if (deleteCard) {
+                                IconButton(
+                                    onClick = { openPopUp = true },
+                                    modifier = Modifier
+                                        .size(60.dp)
+                                        .align(Alignment.CenterVertically)
+                                        .padding(horizontal = 16.dp)
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.trash),
+                                        contentDescription = null,
+                                        tint = Color.Red,
+                                    )
+                                }
                             }
                         }
                     }
@@ -115,5 +125,5 @@ fun WalletComponent(
 @Preview()
 @Composable()
 fun WalletComponentPreview() {
-    WalletComponent(true, {})
+    WalletComponent(true, {}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
 }

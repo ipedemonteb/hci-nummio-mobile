@@ -25,7 +25,7 @@
     <string name="card_number">Número</string>
     <string name="holder">Titular</string>
     <string name="expiration_date">Fecha de Vto.</string>
-    <string name="yyyy">AAAA</string>
+    <string name="yyyy">AA</string>
     <string name="enter_amount">Ingresá el monto a cobrar:</string>
     <string name="amount">Monto</string>
     <string name="check_cvu">Número de CVU a acreditar:</string>

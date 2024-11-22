@@ -38,7 +38,7 @@
     <string name="card_number">Number</string>
     <string name="holder">Holder</string>
     <string name="expiration_date">Expiry date</string>
-    <string name="yyyy">YYYY</string>
+    <string name="yyyy">YY</string>
     <string name="enter_amount">Input amount to be charged:</string>
     <string name="amount">Amount</string>
     <string name="check_cvu">CVU to credit the payment:</string>
