@@ -1,6 +1,5 @@
 package ar.edu.itba.nummio
 
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
