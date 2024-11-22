@@ -1,5 +1,6 @@
 package ar.edu.itba.nummio.ui.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.VeryDarkPurple
 
 //@TODO: implementar
@@ -42,7 +46,7 @@ fun Contact(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(5.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White, // Esto hace que el fondo sea blanco
+            containerColor = Color.White,
         )
     ) {
         Row(
@@ -52,20 +56,19 @@ fun Contact(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Imagen de perfil @TODO: Cambiar por el parámetro imagenPerfil
             Surface(
                 shape = CircleShape,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(40.dp),
+                border = BorderStroke(2.dp, DarkPurple)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Person, //@TODO reemplazar por profile image
+                    painter = painterResource(R.drawable.user),
                     contentDescription = null,
                     modifier = Modifier.size(40.dp),
-                    tint = VeryDarkPurple // Color violeta para el ícono
+                    tint = DarkPurple
                 )
             }
 
-            // Información del contacto
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -83,7 +86,6 @@ fun Contact(
                 )
             }
 
-            // Botón de más opciones
             IconButton(onClick = OnMoreClick) {
                 Icon(
                     imageVector = Icons.Default.MoreVert,
