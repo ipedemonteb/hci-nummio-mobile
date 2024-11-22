@@ -52,7 +52,7 @@
     <string name="some_balance">Balance: $1.200</string>
     <string name="cancel_button">Cancel</string>
     <string name="confirm_button">Confirm</string>
-    <string name="select_method">Select payment method:</string>
+    <string name="select_method">Select method:</string>
     <string name="method">Method</string>
     <string name="bank" translatable="false">Mastercard</string>
     <string name="mm" translatable="false">MM</string>
@@ -102,4 +102,6 @@
     <string name="send_amount">Amount to send:</string>
     <string name="send_description">Send description:</string>
     <string name="description">Description</string>
+    <string name="recieve_amount">Amount to receive:</string>
+    <string name="deposit_screen">Deposit</string>
 </resources>
