@@ -22,5 +22,7 @@ enum class AppDestinations(
     MAKE_PAYMENT(R.string.make_payments, Icons.Filled.Check, "make_payments"),
     GENERATE_LINK(R.string.generate_links, Icons.Filled.Check, "generate_links"),
     ADD_CARD(R.string.add_cards, Icons.Filled.Check, "add_cards"),
-    RECOVER_PASSWORD(R.string.password_recoveries, Icons.Filled.Check, "recover_passwords")
+    RECOVER_PASSWORD(R.string.password_recoveries, Icons.Filled.Check, "recover_passwords"),
+    INVESTMENTS(R.string.investments, Icons.Filled.Check, "investments"),
+    SEND_PAYMENT(R.string.send_payments, Icons.Filled.Check, "send_payments")
 }

@@ -13,6 +13,7 @@ import ar.edu.itba.nummio.ui.home.AddCardScreen
 import ar.edu.itba.nummio.ui.home.GenerateLinkScreen
 import ar.edu.itba.nummio.ui.home.HomeScreen
 import ar.edu.itba.nummio.ui.home.HomeViewModel
+import ar.edu.itba.nummio.ui.home.InvestmentScreen
 import ar.edu.itba.nummio.ui.home.LoginScreen
 import ar.edu.itba.nummio.ui.home.OtherScreen
 import ar.edu.itba.nummio.ui.home.RecoverPasswordScreen
@@ -20,6 +21,7 @@ import ar.edu.itba.nummio.ui.home.SignupScreen
 import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
 import ar.edu.itba.nummio.ui.home.PayScreen
+import ar.edu.itba.nummio.ui.home.SendScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
 
 @Composable
@@ -45,12 +47,12 @@ fun AppNavHost(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
                 onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
                 onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
-                onNavigateToInvestments = {}, //@TODO
+                onNavigateToInvestments = {navController.navigate(AppDestinations.INVESTMENTS.route)},
                 onNavigateToMakePayment= { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
                 onNavigateToGenerateLink= { navController.navigate(AppDestinations.GENERATE_LINK.route) },
-                onNavigateToPromotions= {},//@TODO
-                onNavigateToContacts = {},//@TODO
-                onNavigateToHelp= {},//@TODO
+                onNavigateToPromotions= {},
+                onNavigateToContacts = {},
+                onNavigateToHelp= {},
                 viewModel = viewModel
                 )
         }
@@ -82,7 +84,7 @@ fun AppNavHost(
             MovementsScreen(movements = emptyList(), onBackClick = {navController.popBackStack()})
         }
         composable(AppDestinations.TRANSFERS.route){
-            TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
+            TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route){
             WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)})
@@ -95,6 +97,15 @@ fun AppNavHost(
         }
         composable(AppDestinations.ADD_CARD.route){
             AddCardScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable(AppDestinations.INVESTMENTS.route){
+            InvestmentScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable("${AppDestinations.SEND_PAYMENT.route}/{email}",
+            arguments = listOf(navArgument("email") { type = NavType.StringType })
+        ){
+            backStackEntry ->
+            SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "")
         }
     }
 }
