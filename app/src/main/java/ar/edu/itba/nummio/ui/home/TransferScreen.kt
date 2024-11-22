@@ -43,6 +43,7 @@ fun TransferScreen(
     recipients: List<ContactData>,
     onRecipientClick: (String) -> Unit,
     onBackClick: () -> Unit,
+    onNavigateToSendScreen: (String) -> Unit
 ) {
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
@@ -89,7 +90,7 @@ fun TransferScreen(
                         )
                     )
                     IconButton(
-                        onClick = { /* Acción del botón */ },
+                        onClick = { onNavigateToSendScreen(cvuText) },
                         modifier = Modifier
                             .size(48.dp)
                     ) {
@@ -191,6 +192,7 @@ fun TransferScreenPreview() {
     TransferScreen(
         recipients = recipients,
         onRecipientClick = {},
-        onBackClick = {}
+        onBackClick = {},
+        onNavigateToSendScreen = {}
     )
 }

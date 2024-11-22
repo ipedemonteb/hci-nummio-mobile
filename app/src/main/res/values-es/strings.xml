@@ -80,4 +80,6 @@
     <string name="send_amount">Monto a enviar:</string>
     <string name="send_description">Descripción de envío:</string>
     <string name="description">Descripción</string>
+    <string name="recieve_amount">Monto a recibir:</string>
+    <string name="deposit_screen">Depositar</string>
 </resources>
