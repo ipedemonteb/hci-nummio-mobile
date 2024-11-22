@@ -1,6 +1,8 @@
 package ar.edu.itba.nummio.data.repository
 
+import ar.edu.itba.nummio.data.model.NewBalance
 import ar.edu.itba.nummio.data.model.PaymentData
+import ar.edu.itba.nummio.data.model.PaymentRequest
 import ar.edu.itba.nummio.data.model.User
 import ar.edu.itba.nummio.data.network.PaymentRemoteDataSource
 import kotlinx.coroutines.sync.Mutex
@@ -15,6 +17,10 @@ class PaymentRepository(
     // Cache of the current user got from the network.
     private var currentUser: User? = null
 
+
+    suspend fun makePayment(paymentRequest: PaymentRequest): NewBalance {
+        return remoteDataSource.makePayment(paymentRequest.asNetworkModel()).asModel()
+    }
 
     suspend fun getPayments(
         page: Int,

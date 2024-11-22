@@ -1,11 +1,11 @@
 package ar.edu.itba.nummio.data.network
 
-import NetworkPaymentRequest
 import ar.edu.itba.nummio.data.model.NewBalance
 import ar.edu.itba.nummio.data.network.api.PaymentApiService
 import ar.edu.itba.nummio.data.network.model.NetworkCard
 import ar.edu.itba.nummio.data.network.model.NetworkNewBalance
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
 
@@ -13,7 +13,6 @@ class PaymentRemoteDataSource(
     private val paymentApiService: PaymentApiService
 ) : RemoteDataSource() {
 
-    //@TODO lo dejo como NetworkPaymentRequest o le pongo los atributos que deberia tener?
     suspend fun makePayment(networkPaymentRequest: NetworkPaymentRequest): NetworkNewBalance {
         return handleApiResponse {
             paymentApiService.makePayment(networkPaymentRequest)

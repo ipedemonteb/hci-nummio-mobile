@@ -1,13 +1,10 @@
 package ar.edu.itba.nummio.data.network.api
 
-import NetworkPaymentRequest
-import ar.edu.itba.nummio.data.network.model.NetworkCredentials
 import ar.edu.itba.nummio.data.network.model.NetworkNewBalance
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
-import ar.edu.itba.nummio.data.network.model.NetworkToken
-import ar.edu.itba.nummio.data.network.model.NetworkUser
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
