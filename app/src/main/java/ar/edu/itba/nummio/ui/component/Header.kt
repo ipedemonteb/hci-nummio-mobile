@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
@@ -34,14 +35,16 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 fun Header(
     @DrawableRes pfp: Int,
     @StringRes profileName: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState
     Box(modifier = Modifier
         .background(Color.White))
     {
         Row(
             modifier = modifier.fillMaxWidth()
-                .padding(horizontal = 26.dp, vertical = 32.dp),
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else 20.dp, vertical = if(uiState.isLandscape) 12.dp else 26.dp),
 
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -73,13 +76,16 @@ fun Header(
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun HeaderPreview() {
     NummioTheme {
         Header(
             pfp = R.drawable.pfp,
-            profileName = R.string.profileName
+            profileName = R.string.profileName,
+
         )
     }
 }
+*/

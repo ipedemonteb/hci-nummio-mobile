@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.LightPurple
 
 @Composable
@@ -23,14 +24,16 @@ fun BottomBar(
     modifier: Modifier = Modifier,
     onNavigateToHome: () -> Unit,
     onNavigateToNotifications: () -> Unit,
-    onNavigateToQRScan: () -> Unit
+    onNavigateToQRScan: () -> Unit,
+    viewModel: HomeViewModel
 ) {
-    Box (modifier = modifier){
+    val uiState = viewModel.uiState
+    Box(modifier = modifier.background(Color.White)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 //.border(width = 1.dp, color = Color.LightGray, shape = TopBorderShape(1.dp))
-                .padding(vertical = 18.dp)
+                .padding(vertical = if(uiState.isLandscape) 12.dp else 18.dp, horizontal = if(uiState.isLandscape) 30.dp else 0.dp)
                 ,
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically

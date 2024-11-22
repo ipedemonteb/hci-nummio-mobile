@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
@@ -25,7 +24,6 @@ import ar.edu.itba.nummio.ui.component.BalanceBox
 import ar.edu.itba.nummio.ui.component.BottomOptions
 import ar.edu.itba.nummio.ui.component.TopOptions
 import ar.edu.itba.nummio.ui.component.WalletMain
-import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun HomeScreen(
@@ -37,14 +35,16 @@ fun HomeScreen(
     onNavigateToGenerateLink: () -> Unit,
     onNavigateToPromotions: () -> Unit,
     onNavigateToContacts: () -> Unit,
-    onNavigateToHelp: () -> Unit
+    onNavigateToHelp: () -> Unit,
+    viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Column(
-                        modifier = Modifier.padding(horizontal = 26.dp)
+                        modifier = Modifier.padding(horizontal = if (uiState.isLandscape) 76.dp else 26.dp)
                             .background(Color.White)
                     ) {
 
@@ -61,24 +61,23 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            TopOptions(onNavigateToTransfer, onNavigateToMovements)
+                            TopOptions(viewModel = viewModel, onNavigateToTransfer = onNavigateToTransfer, onNavigateToMovements = onNavigateToMovements)
                         }
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    WalletMain(onNavigateToCards)
+                    WalletMain(viewModel = viewModel, onNavigateToCards = onNavigateToCards)
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    BottomOptions(
+                    BottomOptions(viewModel = viewModel,
                         onNavigateToInvestments = onNavigateToInvestments,
                         onNavigateToMakePayment = onNavigateToMakePayment,
                         onNavigateToGenerateLink = onNavigateToGenerateLink,
                         onNavigateToPromotions = onNavigateToPromotions,
                         onNavigateToContacts = onNavigateToContacts,
-                        onNavigateToHelp = onNavigateToHelp
-                        )
+                        onNavigateToHelp = onNavigateToHelp)
                 }
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -87,10 +86,12 @@ fun HomeScreen(
     }
 }
 
+/*
 @Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
     NummioTheme {
-        HomeScreen(onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {}, {}, {}, {}, {}, {}, {})
+        HomeScreen(viewModel, onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {}, {}, {}, {}, {}, {}, {})
     }
 }
+*/

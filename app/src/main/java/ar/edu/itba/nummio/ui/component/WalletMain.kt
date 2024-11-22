@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.LightPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
@@ -37,14 +38,16 @@ import ar.edu.itba.nummio.ui.theme.VeryLightPurple
 
 @Composable
 fun WalletMain(
+    viewModel: HomeViewModel,
     onNavigateToCards: () -> Unit
 ) {
+    val uiState = viewModel.uiState
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         color = VeryLightPurple
     ) {
-        Column(modifier = Modifier.padding(horizontal = 26.dp, vertical = 30.dp)) {
+        Column(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 76.dp else 26.dp, vertical = 30.dp)) {
             Row {
                 Text(
                     text = stringResource(R.string.wallet_title),
@@ -102,7 +105,7 @@ fun WalletMain(
     }
 }
 
-
+/*
 @Preview(showBackground = true)
 @Composable
 fun WalletMainPreview() {
@@ -110,3 +113,5 @@ fun WalletMainPreview() {
         WalletMain(onNavigateToCards = {})
     }
 }
+
+ */

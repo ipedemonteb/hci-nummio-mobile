@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +35,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
@@ -43,7 +46,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onNavigateToRoute: (route: String) -> Unit
+    onNavigateToRoute: (route: String) -> Unit,
+    viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
@@ -130,7 +134,12 @@ fun LoginScreen(
                 )
             }
             Row(modifier = Modifier.padding(top = 30.dp)) {
-                HighContrastBtn( onClick = {}, text = stringResource(R.string.login_button))
+                HighContrastBtn(
+                    onClick = {
+                        viewModel.login(userEmail, userPassword)
+                    },
+                    text = stringResource(R.string.login_button)
+                )
             }
             Row(modifier = Modifier.padding(vertical = 20.dp)) {
                 LowContrastBtn( onClick = { onNavigateToRoute("signup") }, text = stringResource(R.string.no_account))
@@ -143,6 +152,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     NummioTheme {
-        LoginScreen(onNavigateToRoute = {})
+        LoginScreen(onNavigateToRoute = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory((LocalContext.current.applicationContext as MyApplication))))
     }
 }

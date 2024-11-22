@@ -91,6 +91,7 @@
     <string name="insert_holder">Insert card holder\'s name:</string>
     <string name="insert_expiry_date">Insert expiry date:</string>
     <string name="insert_cvv">Insert CVV code:</string>
+    <string name="investment_title">Investments</string>
     <string name="transfers" translatable="false">Transfers</string>
     <string name="wallet" translatable="false">Wallet</string>
     <string name="make_payments" translatable="false">Make Payments</string>

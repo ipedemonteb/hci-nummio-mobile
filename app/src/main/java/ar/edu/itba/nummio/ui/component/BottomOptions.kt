@@ -27,11 +27,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun BottomOptions(
+    viewModel: HomeViewModel,
     onNavigateToInvestments: () -> Unit,
     onNavigateToMakePayment: () -> Unit,
     onNavigateToGenerateLink: () -> Unit,
@@ -39,49 +41,92 @@ fun BottomOptions(
     onNavigateToContacts: () -> Unit,
     onNavigateToHelp: () -> Unit
 ) {
-    Column {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
-        ) {
-            SquaredOption(
-                icon = painterResource(id = R.drawable.stock),
-                label = stringResource(id = R.string.investments_option),
-                onClick = {onNavigateToInvestments()}
-            )
-            SquaredOption(
-                icon = painterResource(id = R.drawable.receipt),
-                label = stringResource(id = R.string.payment_option),
-                onClick = {onNavigateToMakePayment()}
-            )
-            SquaredOption(
-                icon = painterResource(id = R.drawable.link),
-                label = stringResource(id = R.string.generate_link_option),
-                onClick = {onNavigateToGenerateLink()}
-            )
+    val uiState = viewModel.uiState
+    if(!uiState.isLandscape) {
+        Column {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            ) {
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.stock),
+                    label = stringResource(id = R.string.investments_option),
+                    onClick = {onNavigateToInvestments()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.receipt),
+                    label = stringResource(id = R.string.payment_option),
+                    onClick = {onNavigateToMakePayment()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.link),
+                    label = stringResource(id = R.string.generate_link_option),
+                    onClick = {onNavigateToGenerateLink()}
+                )
+            }
+            Spacer(modifier = Modifier.height(18.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            ) {
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.promotion),
+                    label = stringResource(id = R.string.promotions_option),
+                    onClick = {onNavigateToPromotions()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.contacts),
+                    label = stringResource(id = R.string.contacts_option),
+                    onClick = {onNavigateToContacts()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.more),
+                    label = stringResource(id = R.string.help_option),
+                    onClick = {onNavigateToHelp()}
+                )
+            }
         }
-        Spacer(modifier = Modifier.height(18.dp))
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
-        ) {
-            SquaredOption(
-                icon = painterResource(id = R.drawable.promotion),
-                label = stringResource(id = R.string.promotions_option),
-                onClick = {onNavigateToPromotions()}
-            )
-            SquaredOption(
-                icon = painterResource(id = R.drawable.contacts),
-                label = stringResource(id = R.string.contacts_option),
-                onClick = {onNavigateToContacts()}
-            )
-            SquaredOption(
-                icon = painterResource(id = R.drawable.more),
-                label = stringResource(id = R.string.help_option),
-                onClick = {onNavigateToHelp()}
-            )
+    }
+    else {
+        Column(modifier = Modifier.padding(horizontal = 60.dp)) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+            ) {
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.stock),
+                    label = stringResource(id = R.string.investments_option),
+                    onClick = {onNavigateToInvestments()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.receipt),
+                    label = stringResource(id = R.string.payment_option),
+                    onClick = {onNavigateToMakePayment()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.link),
+                    label = stringResource(id = R.string.generate_link_option),
+                    onClick = {onNavigateToGenerateLink()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.promotion),
+                    label = stringResource(id = R.string.promotions_option),
+                    onClick = {onNavigateToPromotions()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.contacts),
+                    label = stringResource(id = R.string.contacts_option),
+                    onClick = {onNavigateToContacts()}
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.more),
+                    label = stringResource(id = R.string.help_option),
+                    onClick = {onNavigateToHelp()}
+                )
+            }
         }
     }
 }
@@ -143,6 +188,7 @@ fun SquaredOptionPreview() {
     }
 }
 
+/*
 @Preview
 @Composable
 fun BottomOptionsPreview() {
@@ -150,3 +196,5 @@ fun BottomOptionsPreview() {
         BottomOptions({}, {}, {}, {}, {}, {})
     }
 }
+
+ */

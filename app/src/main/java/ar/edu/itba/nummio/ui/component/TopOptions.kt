@@ -22,12 +22,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun TopOptions(onNavigateToTransfer: () -> Unit, onNavigateToMovements: () -> Unit) {
-    Box(modifier = Modifier.padding(horizontal = 12.dp)) {
+fun TopOptions(
+    viewModel: HomeViewModel,
+    onNavigateToTransfer: () -> Unit,
+    onNavigateToMovements: () -> Unit
+) {
+    val uiState = viewModel.uiState
+    Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 12.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -86,6 +92,7 @@ fun RoundOption(
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun TopOptionsPreview() {
@@ -93,3 +100,6 @@ fun TopOptionsPreview() {
         TopOptions(onNavigateToTransfer = {}, onNavigateToMovements = {})
     }
 }
+
+
+ */

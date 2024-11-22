@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import ar.edu.itba.nummio.ui.home.AddCardScreen
 import ar.edu.itba.nummio.ui.home.GenerateLinkScreen
 import ar.edu.itba.nummio.ui.home.HomeScreen
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.home.LoginScreen
 import ar.edu.itba.nummio.ui.home.OtherScreen
 import ar.edu.itba.nummio.ui.home.RecoverPasswordScreen
@@ -25,9 +26,9 @@ import ar.edu.itba.nummio.ui.home.WalletScreen
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    isAuthenticated: Boolean = false
+    viewModel: HomeViewModel
 ) {
-    val startDestination = if (isAuthenticated) "home" else "start"
+    val startDestination = if (viewModel.uiState.isAuthenticated) "home" else "start"
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -35,7 +36,8 @@ fun AppNavHost(
     ) {
         composable(AppDestinations.START.route) {
             StartScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable(AppDestinations.HOME.route) {
@@ -48,22 +50,26 @@ fun AppNavHost(
                 onNavigateToGenerateLink= { navController.navigate(AppDestinations.GENERATE_LINK.route) },
                 onNavigateToPromotions= {},//@TODO
                 onNavigateToContacts = {},//@TODO
-                onNavigateToHelp= {}//@TODO
-            )
+                onNavigateToHelp= {},//@TODO
+                viewModel = viewModel
+                )
         }
         composable(AppDestinations.LOGIN.route) {
             LoginScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable(AppDestinations.SIGNUP.route) {
             SignupScreen (
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable(

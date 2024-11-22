@@ -4,7 +4,7 @@
     <string name="received_id">Id recibido %1$d</string>
     <string name="welcome_msg">¡Bienvenido!</string>
     <string name="bottom_home">Inicio</string>
-    <string name="bottom">Más</string>
+    <string name="bottom">Nuevo</string>
     <string name="wallet_title">Billetera</string>
     <string name="cards_button">Tarjetas</string>
     <string name="my_balance">Balance</string>
@@ -76,4 +76,5 @@
     <string name="insert_holder">Ingresá el nombre del titular:</string>
     <string name="insert_expiry_date">Ingresá la fecha de vencimiento:</string>
     <string name="insert_cvv">Ingresá el código CVV:</string>
+    <string name="investment_title">Inversiones</string>
 </resources>
