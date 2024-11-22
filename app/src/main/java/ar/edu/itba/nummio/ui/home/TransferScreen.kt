@@ -42,8 +42,6 @@ fun TransferScreen(
     recipients: List<ContactData>,
     onRecipientClick: (String) -> Unit,
     onBackClick: () -> Unit,
-    currentRoute: String?,
-    onNavigateToRoute: (String) -> Unit
 ) {
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
@@ -61,7 +59,7 @@ fun TransferScreen(
                                 tint = DarkPurple
                             )
                         },
-                        onBackClick
+                        {}
                     )
                 )
             }
@@ -186,7 +184,5 @@ fun TransferScreenPreview() {
         recipients = recipients,
         onRecipientClick = {},
         onBackClick = {},
-        currentRoute = "transfer",
-        onNavigateToRoute = {}
     )
 }

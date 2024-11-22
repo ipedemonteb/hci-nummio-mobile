@@ -158,6 +158,41 @@ class HomeViewModel(
 
     //PAYMENT
 
+    fun makePayment(paymentRequest: ar.edu.itba.nummio.data.model.PaymentRequest) = runOnViewModelScope(
+        { paymentRepository.makePayment(paymentRequest) },
+        { state, _ -> state }
+    )
+
+    fun getPayments(
+        page: Int,
+        direction: String,
+        pending: String?,
+        type: String?,
+        range: String?,
+        source: String?,
+        cardId: Int?
+    ) = runOnViewModelScope(
+        { paymentRepository.getPayments(page, direction, pending, type, range, source, cardId) },
+        { state, _ -> state }
+    )
+
+    fun getPayment(id: Int) = runOnViewModelScope(
+        { paymentRepository.getPayment(id) },
+        { state, _ -> state }
+    )
+
+    fun getPaymentByLink(linkUuid: String) = runOnViewModelScope(
+        { paymentRepository.getPaymentByLink(linkUuid) },
+        { state, _ -> state }
+    )
+
+    fun payByLink(linkUuid: String, type: String) = runOnViewModelScope(
+        { paymentRepository.payByLink(linkUuid, type) },
+        { state, _ -> state }
+    )
+
+
+
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
         updateState: (HomeUiState, R) -> HomeUiState

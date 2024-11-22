@@ -21,12 +21,14 @@ import ar.edu.itba.nummio.ui.theme.LightPurple
 
 @Composable
 fun BottomBar(
-    currentRoute: String?,
-    onNavigateToRoute: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    onNavigateToHome: () -> Unit,
+    onNavigateToNotifications: () -> Unit,
+    onNavigateToQRScan: () -> Unit,
     viewModel: HomeViewModel
 ) {
     val uiState = viewModel.uiState
-    Box(modifier = Modifier.background(Color.White)) {
+    Box(modifier = modifier.background(Color.White)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -39,7 +41,7 @@ fun BottomBar(
             BottomBarItem(
                 icon = painterResource(R.drawable.home),
                 label = stringResource(R.string.bottom_home),
-                onClick = { onNavigateToRoute("home") }
+                onClick = { onNavigateToHome() }
             )
 
             Spacer(modifier = Modifier.width(0.dp))
@@ -47,7 +49,7 @@ fun BottomBar(
             BottomBarItem(
                 icon = painterResource(R.drawable.notification),
                 label = stringResource(R.string.bottom),
-                onClick = { onNavigateToRoute("other/42") }
+                onClick = { onNavigateToNotifications() }
             )
         }
 
@@ -59,7 +61,7 @@ fun BottomBar(
                 .offset(y = (-4).dp)
                 .background(LightPurple, CircleShape)
                 .align(Alignment.TopCenter)
-                .clickable(onClick = { onNavigateToRoute("other/33") })
+                .clickable(onClick = { onNavigateToQRScan() })
         ) {
             Icon(
                 painter = painterResource(R.drawable.qr_icon),

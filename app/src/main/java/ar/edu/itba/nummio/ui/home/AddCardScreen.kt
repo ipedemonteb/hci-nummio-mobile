@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -35,7 +37,9 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 
 @Composable
-fun AddCardScreen() {
+fun AddCardScreen(
+    onBackClick: () -> Unit
+) {
     val cardNumber = remember { mutableStateOf("") }
     val cardHolder = remember { mutableStateOf("") }
     val expiryMonth = remember { mutableStateOf("") }
@@ -46,15 +50,14 @@ fun AddCardScreen() {
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
+            .verticalScroll(rememberScrollState())
         ) {
             Row(modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 30.dp)
             ) {
                 Box(modifier = Modifier.fillMaxWidth()) {
-                    IconButton({
-
-                    }) {
+                    IconButton(onClick = {onBackClick()}) {
                         Icon(
                             painter = painterResource(R.drawable.arrow_left),
                             contentDescription = null,
@@ -102,6 +105,6 @@ fun AddCardScreen() {
 @Composable
 fun AddCardScreenPreview() {
     NummioTheme {
-        AddCardScreen()
+        AddCardScreen({})
     }
 }

@@ -33,8 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.nummio.PreviewScreenSizes
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.BalanceBox
 import ar.edu.itba.nummio.ui.component.SearchBar
@@ -53,8 +53,6 @@ data class TransactionData(
 fun MovementsScreen(
     movements: List<TransactionData>,
     onBackClick : ()->Unit,
-    currentRoute : String,
-    onNavigateToRoute : (String) -> Unit,
 )
 {
     var expanded = remember { mutableStateOf(false) }
@@ -138,7 +136,7 @@ fun MovementsScreen(
     }
 }
 
-@Preview
+@PreviewScreenSizes
 @Composable
 fun MovementsScreenPreview()
 {
@@ -192,5 +190,5 @@ fun MovementsScreenPreview()
             amount = 4500
         )
     )
-    MovementsScreen(transactionData, {}, "movements", {})
+    MovementsScreen(transactionData, {})
 }

@@ -1,7 +1,10 @@
 package ar.edu.itba.nummio
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -13,13 +16,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.nummio.ui.component.BottomBar
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.component.Header
+import ar.edu.itba.nummio.ui.navigation.AppDestinations
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.navigation.AppNavHost
 
@@ -43,20 +46,21 @@ fun NummioApp(
 
     NummioTheme {
         Scaffold(
-            topBar = { if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
+            topBar = { if (currentRoute == AppDestinations.HOME.route) {
                 Header(pfp = R.drawable.pfp, profileName = R.string.profileName, viewModel = viewModel)
             }},
             bottomBar = {
-                if (currentRoute != "start" && currentRoute != "login" && currentRoute != "signup") {
-                    BottomBar(currentRoute = currentRoute, onNavigateToRoute = { route ->
-                        navController.navigate(route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
+                if (currentRoute != AppDestinations.START.route && currentRoute != AppDestinations.LOGIN.route && currentRoute != AppDestinations.SIGNUP.route) {
+                    BottomBar(modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
+                        onNavigateToHome = {navController.navigate(AppDestinations.HOME.route){
+                            popUpTo(AppDestinations.HOME.route)
                             launchSingleTop = true
-                            restoreState = true
-                        }
-                    }, viewModel = viewModel)
+                            restoreState = true //Sacar?
+                        }},
+                        onNavigateToNotifications = {}, //@TODO
+                        onNavigateToQRScan = {}, //@TODO
+                        viewModel = viewModel
+                        )
                 }
             },
             modifier = Modifier.fillMaxSize()

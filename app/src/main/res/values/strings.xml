@@ -11,7 +11,7 @@
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
     <string name="bottom_home">Home</string>
-    <string name="bottom">New</string>
+    <string name="bottom">More</string>
     <string name="wallet_title">Wallet</string>
     <string name="cards_button">Cards</string>
     <string name="my_balance">My Balance</string>
@@ -92,4 +92,11 @@
     <string name="insert_expiry_date">Insert expiry date:</string>
     <string name="insert_cvv">Insert CVV code:</string>
     <string name="investment_title">Investments</string>
+    <string name="transfers" translatable="false">Transfers</string>
+    <string name="wallet" translatable="false">Wallet</string>
+    <string name="make_payments" translatable="false">Make Payments</string>
+    <string name="generate_links" translatable="false">Generate Links</string>
+    <string name="add_cards" translatable="false">Add Cards</string>
+    <string name="password_recoveries" translatable="false">Recover Passwords</string>
+    <string name="movements" translatable="false">Movements</string>
 </resources>

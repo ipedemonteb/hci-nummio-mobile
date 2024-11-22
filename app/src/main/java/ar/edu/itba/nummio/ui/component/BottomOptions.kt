@@ -1,6 +1,7 @@
 package ar.edu.itba.nummio.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,13 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun BottomOptions(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    onNavigateToInvestments: () -> Unit,
+    onNavigateToMakePayment: () -> Unit,
+    onNavigateToGenerateLink: () -> Unit,
+    onNavigateToPromotions: () -> Unit,
+    onNavigateToContacts: () -> Unit,
+    onNavigateToHelp: () -> Unit
 ) {
     val uiState = viewModel.uiState
     if(!uiState.isLandscape) {
@@ -44,15 +51,18 @@ fun BottomOptions(
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.stock),
-                    label = stringResource(id = R.string.investments_option)
+                    label = stringResource(id = R.string.investments_option),
+                    onClick = {onNavigateToInvestments()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.receipt),
-                    label = stringResource(id = R.string.payment_option)
+                    label = stringResource(id = R.string.payment_option),
+                    onClick = {onNavigateToMakePayment()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.link),
-                    label = stringResource(id = R.string.generate_link_option)
+                    label = stringResource(id = R.string.generate_link_option),
+                    onClick = {onNavigateToGenerateLink()}
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
@@ -63,15 +73,18 @@ fun BottomOptions(
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.promotion),
-                    label = stringResource(id = R.string.promotions_option)
+                    label = stringResource(id = R.string.promotions_option),
+                    onClick = {onNavigateToPromotions()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.contacts),
-                    label = stringResource(id = R.string.contacts_option)
+                    label = stringResource(id = R.string.contacts_option),
+                    onClick = {onNavigateToContacts()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.more),
-                    label = stringResource(id = R.string.help_option)
+                    label = stringResource(id = R.string.help_option),
+                    onClick = {onNavigateToHelp()}
                 )
             }
         }
@@ -85,27 +98,33 @@ fun BottomOptions(
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.stock),
-                    label = stringResource(id = R.string.investments_option)
+                    label = stringResource(id = R.string.investments_option),
+                    onClick = {onNavigateToInvestments()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.receipt),
-                    label = stringResource(id = R.string.payment_option)
+                    label = stringResource(id = R.string.payment_option),
+                    onClick = {onNavigateToMakePayment()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.link),
-                    label = stringResource(id = R.string.generate_link_option)
+                    label = stringResource(id = R.string.generate_link_option),
+                    onClick = {onNavigateToGenerateLink()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.promotion),
-                    label = stringResource(id = R.string.promotions_option)
+                    label = stringResource(id = R.string.promotions_option),
+                    onClick = {onNavigateToPromotions()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.contacts),
-                    label = stringResource(id = R.string.contacts_option)
+                    label = stringResource(id = R.string.contacts_option),
+                    onClick = {onNavigateToContacts()}
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.more),
-                    label = stringResource(id = R.string.help_option)
+                    label = stringResource(id = R.string.help_option),
+                    onClick = {onNavigateToHelp()}
                 )
             }
         }
@@ -116,10 +135,11 @@ fun BottomOptions(
 fun SquaredOption(
     icon: Painter,
     label: String,
-    //onClick: () -> Unit
+    onClick: () -> Unit
 ){
     Box(modifier = Modifier.shadow(8.dp, RoundedCornerShape(8.dp))
-                            .background(Color.White, RoundedCornerShape(8.dp)),
+                            .background(Color.White, RoundedCornerShape(8.dp))
+        .clickable(onClick = {onClick()}),
         ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -162,7 +182,8 @@ fun SquaredOptionPreview() {
     NummioTheme {
         SquaredOption(
             icon = painterResource(id = R.drawable.arrow_right),
-            label = "Transfer"
+            label = "Transfer",
+            onClick = {}
         )
     }
 }
@@ -172,7 +193,7 @@ fun SquaredOptionPreview() {
 @Composable
 fun BottomOptionsPreview() {
     NummioTheme {
-        BottomOptions()
+        BottomOptions({}, {}, {}, {}, {}, {})
     }
 }
 

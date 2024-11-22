@@ -31,7 +31,9 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun PayScreen() {
+fun PayScreen(
+    onBackClick: () -> Unit
+) {
     Surface(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -45,9 +47,7 @@ fun PayScreen() {
                 .padding(vertical = 30.dp)
             ) {
                 Box(modifier = Modifier.fillMaxWidth()) {
-                    IconButton({
-
-                    }) {
+                    IconButton(onClick = {onBackClick()}) {
                         Icon(
                             painter = painterResource(R.drawable.arrow_left),
                             contentDescription = null,
@@ -83,6 +83,6 @@ fun PayScreen() {
 @Composable
 fun PayScreenPreview() {
     NummioTheme {
-        PayScreen()
+        PayScreen({})
     }
 }
