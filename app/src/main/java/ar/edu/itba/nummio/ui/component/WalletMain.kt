@@ -36,7 +36,9 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.theme.VeryLightPurple
 
 @Composable
-fun WalletMain() {
+fun WalletMain(
+    onNavigateToCards: () -> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
@@ -67,7 +69,7 @@ fun WalletMain() {
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button(
-                    onClick = {},
+                    onClick = {onNavigateToCards()},
                     colors = ButtonDefaults.buttonColors(
                         containerColor = DarkPurple,
                         contentColor = Color.White,
@@ -105,6 +107,6 @@ fun WalletMain() {
 @Composable
 fun WalletMainPreview() {
     NummioTheme {
-        WalletMain()
+        WalletMain(onNavigateToCards = {})
     }
 }

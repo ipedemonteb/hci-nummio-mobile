@@ -1,6 +1,7 @@
 package ar.edu.itba.nummio.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,11 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.navigation.AppDestinations
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun TopOptions() {
+fun TopOptions(onNavigateToTransfer: () -> Unit, onNavigateToMovements: () -> Unit) {
     Box(modifier = Modifier.padding(horizontal = 12.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -34,15 +36,18 @@ fun TopOptions() {
         ) {
             RoundOption(
                 icon = painterResource(id = R.drawable.arrow_right),
-                label = stringResource(id = R.string.transfer_option)
+                label = stringResource(id = R.string.transfer_option),
+                onClick = {onNavigateToTransfer()}
             )
             RoundOption(
                 icon = painterResource(id = R.drawable.id),
-                label = stringResource(id = R.string.data_option)
+                label = stringResource(id = R.string.data_option),
+                onClick = { }//@TODO: popup
             )
             RoundOption(
                 icon =painterResource(id = R.drawable.history),
-                label = stringResource(id = R.string.movements_option)
+                label = stringResource(id = R.string.movements_option),
+                onClick = {onNavigateToMovements()},
             )
 
         }
@@ -53,7 +58,7 @@ fun TopOptions() {
 fun RoundOption(
     icon: Painter,
     label: String,
-    //onClick: () -> Unit
+    onClick: () -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +71,7 @@ fun RoundOption(
             modifier = Modifier
                 .size(64.dp)
                 .background(DarkPurple, CircleShape)
-            //.clickable(onClick = { onNavigateToRoute("other/33") })
+            .clickable(onClick = { onClick() })
         ) {
             Icon(
                 painter = icon,
@@ -86,6 +91,6 @@ fun RoundOption(
 @Composable
 fun TopOptionsPreview() {
     NummioTheme {
-        TopOptions()
+        TopOptions(onNavigateToTransfer = {}, onNavigateToMovements = {})
     }
 }

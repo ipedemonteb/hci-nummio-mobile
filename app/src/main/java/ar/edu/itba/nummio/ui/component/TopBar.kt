@@ -18,10 +18,9 @@ import ar.edu.itba.nummio.ui.theme.VeryLightPurple
 @Composable
 fun TopBar(
     title: String,
-    onBackClick: () -> Unit,    // Acción al presionar la flecha de atrás
-    actionIcon: Pair<(@Composable () -> Unit), () -> Unit>? = null // Par de (icono, onClick)
+    onBackClick: () -> Unit,
+    actionIcon: Pair<(@Composable () -> Unit), () -> Unit>? = null
 ) {
-    // Barra superior personalizada
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,8 +29,7 @@ fun TopBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Ícono de navegación (flecha hacia atrás)
-        IconButton(onClick = onBackClick) {
+        IconButton(onClick = {onBackClick()}) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
@@ -39,7 +37,6 @@ fun TopBar(
             )
         }
 
-        // Título centrado
         Text(
             text = title,
             color = DarkPurple, // Usar DarkPurple para el texto del título
@@ -48,19 +45,16 @@ fun TopBar(
             textAlign = TextAlign.Center
         )
 
-        // Espacio equivalente al IconButton para mantener el título centrado
         if (actionIcon != null) {
             IconButton(onClick = actionIcon.second) {
                 actionIcon.first()
             }
         } else {
-            // Placeholder para mantener el centrado cuando no hay ícono
-            Spacer(modifier = Modifier.size(48.dp)) // 48.dp es el tamaño estándar de IconButton
+            Spacer(modifier = Modifier.size(48.dp))
         }
 
     }
 
-    // Fondo de la barra
     Spacer(modifier = Modifier.fillMaxWidth().height(1.dp).background(VeryLightPurple))
 }
 

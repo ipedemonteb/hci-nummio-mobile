@@ -34,7 +34,9 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun HomeScreen(
-    onNavigateToOtherScreen: (id: Int) -> Unit
+    onNavigateToTransfer: () -> Unit,
+    onNavigateToMovements: () -> Unit,
+    onNavigateToCards: () -> Unit,
 ) {
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
@@ -58,13 +60,13 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            TopOptions()
+                            TopOptions(onNavigateToTransfer, onNavigateToMovements)
                         }
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    WalletMain()
+                    WalletMain(onNavigateToCards)
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
@@ -81,6 +83,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     NummioTheme {
-        HomeScreen(onNavigateToOtherScreen = {})
+        HomeScreen(onNavigateToTransfer = {}, onNavigateToMovements = {}, onNavigateToCards = {})
     }
 }

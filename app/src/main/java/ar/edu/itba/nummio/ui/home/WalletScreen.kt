@@ -35,7 +35,10 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun WalletScreen() {
+fun WalletScreen(
+    onBackClick: () -> Unit,
+    onNavigateToAddCard: () -> Unit
+) {
     var deleteCard by remember { mutableStateOf(false) }
     Surface(modifier = Modifier
         .fillMaxSize()
@@ -50,7 +53,7 @@ fun WalletScreen() {
                 .padding(vertical = 30.dp)
             ) {
                 Box(modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = { onBackClick() }) {
                         Icon(
                             painter = painterResource(R.drawable.arrow_left),
                             contentDescription = null,
@@ -90,7 +93,7 @@ fun WalletScreen() {
             Row(
                 modifier = Modifier.padding(vertical = 0.dp)
             ) {
-                WalletComponent(deleteCard = deleteCard)
+                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard)
             }
         }
     }
@@ -100,6 +103,6 @@ fun WalletScreen() {
 @Composable
 fun WalletScreenPreview() {
     NummioTheme {
-        WalletScreen()
+        WalletScreen(onBackClick = {}, onNavigateToAddCard = {})
     }
 }

@@ -38,7 +38,8 @@ import ar.edu.itba.nummio.R
 
 @Composable
 fun WalletComponent(
-    deleteCard: Boolean = false
+    deleteCard: Boolean = false,
+    onNavigateToAddCard: () -> Unit
 ) {
     val itemList = List(8) { index -> "323${index + 1}" }
     var openPopUp by remember { mutableStateOf(false) }
@@ -96,7 +97,7 @@ fun WalletComponent(
                 }
             }
             Row(modifier = Modifier.padding(horizontal = 80.dp, vertical = 40.dp)) {
-                HighContrastBtn(onClick = {}, stringResource(R.string.add_card))
+                HighContrastBtn(onClick = {onNavigateToAddCard()}, stringResource(R.string.add_card))
             }
         }
 
@@ -119,5 +120,5 @@ fun WalletComponent(
 @Preview()
 @Composable()
 fun WalletComponentPreview() {
-    WalletComponent(true)
+    WalletComponent(true, {})
 }
