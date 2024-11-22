@@ -68,4 +68,12 @@
     <string name="payment_page">Hacer Pago</string>
     <string name="generate_page">Generar Cobro</string>
     <string name="credit_cards">Tarjetas de Crédito:</string>
+    <string name="confirm_action">Confirmar Acción</string>
+    <string name="current_action">La acción actual</string>
+    <string name="action_text">%1$s no puede ser revertida. ¿Está seguro que desea continuar?</string>
+    <string name="add_card_title">Agregar Tarjeta</string>
+    <string name="insert_number">Ingresá el número de la tarjeta:</string>
+    <string name="insert_holder">Ingresá el nombre del titular:</string>
+    <string name="insert_expiry_date">Ingresá la fecha de vencimiento:</string>
+    <string name="insert_cvv">Ingresá el código CVV:</string>
 </resources>

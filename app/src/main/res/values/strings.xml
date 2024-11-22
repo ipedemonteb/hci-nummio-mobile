@@ -82,4 +82,13 @@
     <string name="payment_page">Make Payment</string>
     <string name="generate_page">Generate Payment</string>
     <string name="credit_cards">Credit Cards:</string>
+    <string name="confirm_action">Confirm Action</string>
+    <string name="current_action">The current action</string>
+    <string name="action_text">%1$s cannot be undone. Are you sure you want to continue?</string>
+    <string name="add_card_title">Add Card</string>
+    <string name="cvv" translatable="false">CVV</string>
+    <string name="insert_number">Insert card number:</string>
+    <string name="insert_holder">Insert card holder\'s name:</string>
+    <string name="insert_expiry_date">Insert expiry date:</string>
+    <string name="insert_cvv">Insert CVV code:</string>
 </resources>

@@ -18,6 +18,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,18 +40,16 @@ fun CardComponent(
     digits: String,
     @StringRes bank: Int,
     @DrawableRes card: Int,
-    delete: Boolean = false
+    modifier: Modifier = Modifier // Add modifier parameter to control the size
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier // Apply the passed modifier to control the size
     ) {
         Surface(
             shape = RoundedCornerShape(8.dp),
             color = Purple,
-            modifier = Modifier
-                .weight(1f)
-                .padding(end = if (delete) 16.dp else 0.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -74,20 +76,6 @@ fun CardComponent(
                     painter = painterResource(card),
                     contentDescription = null,
                     modifier = Modifier.size(70.dp)
-                )
-            }
-        }
-
-        if (delete) {
-            IconButton(
-                onClick = {  },
-                modifier = Modifier.padding(end = 8.dp)
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.trash),
-                    contentDescription = null,
-                    tint = Color.Red,
-                    modifier = Modifier.size(30.dp)
                 )
             }
         }
