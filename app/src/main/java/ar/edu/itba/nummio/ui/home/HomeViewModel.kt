@@ -23,8 +23,8 @@ class HomeViewModel(
     private val walletRepository: WalletRepository
 ) : ViewModel() {
 
-    var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
-        private set
+    var uiState by mutableStateOf(HomeUiState(isAuthenticated = true /*sessionManager.loadAuthToken() != null */ ))
+    private set
 
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
@@ -74,6 +74,10 @@ class HomeViewModel(
             )
         }
     )
+
+    fun updateOrientation(isLandscape: Boolean) {
+        uiState = uiState.copy(isLandscape = isLandscape)
+    }
 
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
