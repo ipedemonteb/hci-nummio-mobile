@@ -9,9 +9,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.DepositComponent
 import ar.edu.itba.nummio.ui.component.TopBar
@@ -19,7 +22,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun DepositScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ){
     Scaffold(modifier = Modifier
         .fillMaxSize()
@@ -32,7 +36,7 @@ fun DepositScreen(
             .padding(horizontal = 20.dp, vertical = 20.dp)
             .padding(paddingValues)
             .background(Color.White)) {
-            DepositComponent()
+            DepositComponent(onBackClick, viewModel)
         }
     }
 }
@@ -42,6 +46,6 @@ fun DepositScreen(
 @Composable
 fun DepositScreenPreview() {
     NummioTheme {
-        DepositScreen({})
+        DepositScreen({}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
     }
 }

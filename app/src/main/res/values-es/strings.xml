@@ -82,4 +82,5 @@
     <string name="description">Descripción</string>
     <string name="recieve_amount">Monto a recibir:</string>
     <string name="deposit_screen">Depositar</string>
+    <string name="decimal_separator">,</string>
 </resources>

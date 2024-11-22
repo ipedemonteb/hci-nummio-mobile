@@ -110,7 +110,7 @@ fun AppNavHost(
             SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "")
         }
         composable(AppDestinations.DEPOSIT.route){
-            DepositScreen(onBackClick = {navController.popBackStack()})
+            DepositScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
     }
 }
