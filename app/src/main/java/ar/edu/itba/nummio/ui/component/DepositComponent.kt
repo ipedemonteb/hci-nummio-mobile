@@ -25,18 +25,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.Amount
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun DepositComponent() {
+fun DepositComponent(
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
+) {
     var amount by remember { mutableStateOf("") }
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
@@ -45,6 +53,14 @@ fun DepositComponent() {
         "Other Bank",
         "Card 1234"
     )
+    val decimalSeparator = stringResource(R.string.decimal_separator)
+
+    fun depositHandler() {
+        viewModel.recharge(Amount(
+            amount = amount.toDouble()
+        ))
+        onBackClick()
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
@@ -60,7 +76,7 @@ fun DepositComponent() {
                 Row {
                     OutlinedTextField(
                         value = amount,
-                        onValueChange = { amount = it.filter{char -> char.isDigit()} },
+                        onValueChange = { amount = it.filter{char -> char.isDigit() || char.toString() == decimalSeparator } },
                         label = { Text(text = stringResource(R.string.amount))},
                         modifier = Modifier
                             .fillMaxWidth()
@@ -133,7 +149,7 @@ fun DepositComponent() {
                     ) {
                         Box(modifier = Modifier.width(150.dp)) {
                             LowContrastBtn(
-                                onClick = {  },
+                                onClick = { onBackClick() },
                                 stringResource(R.string.cancel_button)
                             )
                         }
@@ -141,7 +157,7 @@ fun DepositComponent() {
                         Spacer(modifier = Modifier.width(16.dp))
                         Box(modifier = Modifier.width(150.dp)) {
                             HighContrastBtn(
-                                onClick = {},
+                                onClick = { depositHandler() },
                                 stringResource(R.string.confirm_button)
                             )
                         }
@@ -157,6 +173,6 @@ fun DepositComponent() {
 @Composable
 fun DepositComponentPreview() {
     NummioTheme {
-        DepositComponent()
+        DepositComponent({}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
     }
 }
