@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.component.Contact
@@ -51,16 +52,6 @@ fun TransferScreen(
                 TopBar(
                     title = stringResource(R.string.transfer_option),
                     onBackClick = onBackClick,
-                    actionIcon = Pair(
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                    contentDescription = "Settings",
-                                tint = DarkPurple
-                            )
-                        },
-                        {}
-                    )
                 )
             }
         )
@@ -72,15 +63,10 @@ fun TransferScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-                TextField(
-                    value = cvuText,
-                    onValueChange = { cvuText = it },
-                    placeholder = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
+                Row(
                     modifier = Modifier
-
+                        .fillMaxWidth()
                         .padding(16.dp)
-                        .width(300.dp)
-                        .align(Alignment.CenterHorizontally)
                         .background(Color.White, shape = RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(10.dp))
                         .border(
@@ -88,20 +74,41 @@ fun TransferScreen(
                             color = Color.LightGray,
                             shape = RoundedCornerShape(10.dp)
                         ),
-
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
-                        disabledContainerColor = Color.White,
+                    horizontalArrangement = Arrangement.SpaceBetween, // Arrange items with space between
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextField(
+                        value = cvuText,
+                        onValueChange = { cvuText = it },
+                        placeholder = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
+                        maxLines = 1,
+                        colors = TextFieldDefaults.colors(
+                            focusedContainerColor = Color.White,
+                            unfocusedContainerColor = Color.White,
+                            disabledContainerColor = Color.White,
+                        )
                     )
-                )
+                    IconButton(
+                        onClick = { /* Acción del botón */ },
+                        modifier = Modifier
+                            .size(48.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.arrow_right),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp),
+                            tint = DarkPurple
+                        )
+                    }
+                }
+
 
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.Bottom,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp, start = 10.dp, end = 15.dp)
+                        .padding(top = 20.dp, start = 10.dp, end = 15.dp, bottom = 15.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.recents_msg),
@@ -123,6 +130,7 @@ fun TransferScreen(
                         .weight(1f, false)
                         .fillMaxHeight()
                         .width(360.dp)
+                        .padding(bottom = 20.dp)
                 ) {
                     items(recipients) { recipient ->
                         Contact(
@@ -183,6 +191,6 @@ fun TransferScreenPreview() {
     TransferScreen(
         recipients = recipients,
         onRecipientClick = {},
-        onBackClick = {},
+        onBackClick = {}
     )
 }

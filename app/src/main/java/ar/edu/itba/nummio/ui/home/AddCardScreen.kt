@@ -12,8 +12,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,7 +39,7 @@ import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
-import java.util.Date
+import ar.edu.itba.nummio.ui.component.TopBar
 
 @Composable
 fun AddCardScreen(
@@ -70,40 +70,16 @@ fun AddCardScreen(
         onBackClick()
     }
 
-    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
+    Scaffold(modifier = Modifier.fillMaxSize(),
+            topBar = { TopBar(stringResource(R.string.add_card_title), onBackClick = {onBackClick()}) }
+        ) {
+        paddingValues ->
         Column(modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
+            .padding(paddingValues)
             .verticalScroll(rememberScrollState())
         ) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp)
-            ) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick = {onBackClick()}) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_left),
-                            contentDescription = null,
-                            tint = DarkPurple,
-                            modifier = Modifier
-                                .align(Alignment.CenterStart)
-                                .size(40.dp)
-                                .offset(x = (-10).dp)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.add_card_title),
-                        modifier = Modifier.align(Alignment.Center),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
-                        color = DarkPurple
-                    )
-                }
-            }
             Row(
                 modifier = Modifier.padding(top = 20.dp, bottom = 40.dp)
             ) {

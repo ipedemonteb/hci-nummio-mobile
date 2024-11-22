@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.component.WalletComponent
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
@@ -46,57 +48,30 @@ fun WalletScreen(
     viewModel: HomeViewModel
 ) {
     var deleteCard by remember { mutableStateOf(false) }
-    Surface(modifier = Modifier
+    val actionIcon: Pair<@Composable () -> Unit, () -> Unit> = Pair(
+        {
+            Icon(
+                painter = painterResource(R.drawable.delete),
+                contentDescription = null,
+                tint = DarkPurple,
+                modifier = Modifier.size(32.dp)
+            )
+        },
+        { deleteCard = !deleteCard }
+    )
+    Scaffold(modifier = Modifier
         .fillMaxSize()
-        .background(Color.White)
+        .background(Color.White),
+        topBar = { TopBar(title = stringResource(R.string.wallet_title), onBackClick = { onBackClick() }, actionIcon = actionIcon)}
     ) {
+        paddingValues->
         Column(modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp).background(Color.White)
+            .padding(horizontal = 20.dp)
+            .padding(paddingValues)
+            .background(Color.White)
             .verticalScroll(rememberScrollState())
         ) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 30.dp)
-            ) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick = { onBackClick() }) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_left),
-                            contentDescription = null,
-                            tint = DarkPurple,
-                            modifier = Modifier
-                                .align(Alignment.CenterStart)
-                                .size(40.dp)
-                                .offset(x = (-10).dp)
-                        )
-                    }
-
-                    Text(
-                        text = stringResource(R.string.wallet_title),
-                        modifier = Modifier.align(Alignment.Center),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
-                        color = DarkPurple
-                    )
-
-                    IconButton(
-                        onClick = { deleteCard = !deleteCard },
-                        modifier = Modifier.align(Alignment.CenterEnd)
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.delete),
-                            contentDescription = null,
-                            tint = DarkPurple,
-                            modifier = Modifier.size(32.dp)
-                        )
-                    }
-                }
-
-            }
             Row(
                 modifier = Modifier.padding(vertical = 0.dp)
             ) {

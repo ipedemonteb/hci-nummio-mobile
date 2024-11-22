@@ -28,7 +28,7 @@
     <string name="help_option">Help</string>
     <string name="recents_msg">Recents</string>
     <string name="search_msg">Search…</string>
-    <string name="searchAliasOrCVU_msg">Search an alias or a CVU/CBU</string>
+    <string name="searchAliasOrCVU_msg">Search a user with email</string>
     <string name="filter_msg">Filter by</string>
     <string name="my_data">Your data</string>
     <string name="cvu_title">Your CVU</string>
@@ -38,7 +38,7 @@
     <string name="card_number">Number</string>
     <string name="holder">Holder</string>
     <string name="expiration_date">Expiry date</string>
-    <string name="yyyy">YYYY</string>
+    <string name="yyyy">YY</string>
     <string name="enter_amount">Input amount to be charged:</string>
     <string name="amount">Amount</string>
     <string name="check_cvu">CVU to credit the payment:</string>
@@ -99,4 +99,7 @@
     <string name="add_cards" translatable="false">Add Cards</string>
     <string name="password_recoveries" translatable="false">Recover Passwords</string>
     <string name="movements" translatable="false">Movements</string>
+    <string name="send_amount">Amount to send:</string>
+    <string name="send_description">Send description:</string>
+    <string name="description">Description</string>
 </resources>

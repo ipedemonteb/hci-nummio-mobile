@@ -25,7 +25,7 @@
     <string name="card_number">Número</string>
     <string name="holder">Titular</string>
     <string name="expiration_date">Fecha de Vto.</string>
-    <string name="yyyy">AAAA</string>
+    <string name="yyyy">AA</string>
     <string name="enter_amount">Ingresá el monto a cobrar:</string>
     <string name="amount">Monto</string>
     <string name="check_cvu">Número de CVU a acreditar:</string>
@@ -34,7 +34,7 @@
     <string name="concept_sale">Venta</string>
     <string name="recents_msg">Recientes</string>
     <string name="search_msg">Search…</string>
-    <string name="searchAliasOrCVU_msg">Ingrese al Alias o CBU/CVU</string>
+    <string name="searchAliasOrCVU_msg">Ingrese el email de un usuario</string>
     <string name="filter_msg">Filtrar por</string>
     <string name="enter_link">Ingresá el link de pago:</string>
     <string name="search_payment">Buscar Pago</string>
@@ -77,4 +77,7 @@
     <string name="insert_expiry_date">Ingresá la fecha de vencimiento:</string>
     <string name="insert_cvv">Ingresá el código CVV:</string>
     <string name="investment_title">Inversiones</string>
+    <string name="send_amount">Monto a enviar:</string>
+    <string name="send_description">Descripción de envío:</string>
+    <string name="description">Descripción</string>
 </resources>
