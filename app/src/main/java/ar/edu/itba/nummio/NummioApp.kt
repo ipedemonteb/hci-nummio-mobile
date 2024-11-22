@@ -44,7 +44,8 @@ fun NummioApp() {
             },
             modifier = Modifier.fillMaxSize()
         ) { innerPadding ->
-            AppNavHost(navController = navController,
+            AppNavHost(
+                navController = navController,
                 modifier = Modifier.padding(innerPadding),
                 isAuthenticated = HomeUiState().isAuthenticated)
         }
