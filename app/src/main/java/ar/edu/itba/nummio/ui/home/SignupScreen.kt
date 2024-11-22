@@ -9,13 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,7 +39,6 @@ import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(
     onNavigateToRoute: (route: String) -> Unit,
@@ -56,7 +54,7 @@ fun SignupScreen(
         .fillMaxSize()
     ) {
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp)) {
-            Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp),) {
+            Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp)) {
                 IconButton({
                     onNavigateToRoute("start")
                 }) {
@@ -97,7 +95,7 @@ fun SignupScreen(
                     onValueChange = { userEmail = it },
                     label = { Text(stringResource(R.string.email)) },
                     maxLines = 1,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
                     ),
@@ -130,10 +128,10 @@ fun SignupScreen(
                     },
                     maxLines = 1,
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
-                    )
+                    ),
                 )
             }
             Row(modifier = Modifier.padding(top = 20.dp)) {
@@ -162,10 +160,10 @@ fun SignupScreen(
                     },
                     maxLines = 1,
                     modifier = Modifier.fillMaxWidth(),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
-                    )
+                    ),
                 )
             }
             Row(modifier = Modifier.padding(top = 30.dp)) {
