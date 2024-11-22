@@ -34,14 +34,16 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun HomeScreen(
-    onNavigateToOtherScreen: (id: Int) -> Unit
+    onNavigateToOtherScreen: (id: Int) -> Unit,
+    viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Column(
-                        modifier = Modifier.padding(horizontal = 26.dp)
+                        modifier = Modifier.padding(horizontal = if (uiState.isLandscape) 76.dp else 26.dp)
                             .background(Color.White)
                     ) {
 
@@ -58,17 +60,17 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            TopOptions()
+                            TopOptions(viewModel = viewModel)
                         }
                     }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    WalletMain()
+                    WalletMain(viewModel = viewModel)
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Row(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                    BottomOptions()
+                    BottomOptions(viewModel = viewModel)
                 }
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -77,10 +79,12 @@ fun HomeScreen(
     }
 }
 
+/*
 @Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview() {
     NummioTheme {
-        HomeScreen(onNavigateToOtherScreen = {})
+        HomeScreen(onNavigateToOtherScreen = {}, viewModel)
     }
 }
+*/

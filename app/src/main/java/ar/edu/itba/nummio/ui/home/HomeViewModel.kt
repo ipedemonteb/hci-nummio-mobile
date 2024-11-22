@@ -16,10 +16,6 @@ import ar.edu.itba.nummio.data.repository.WalletRepository
 import ar.edu.itba.nummio.SessionManager
 import ar.edu.itba.nummio.data.model.AliasRequest
 import ar.edu.itba.nummio.data.model.Amount
-import ar.edu.itba.nummio.data.model.DailyInterest
-import ar.edu.itba.nummio.data.model.DailyReturn
-import ar.edu.itba.nummio.data.model.Investment
-import ar.edu.itba.nummio.data.model.WalletDetails
 import ar.edu.itba.nummio.data.repository.PaymentRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -34,8 +30,6 @@ class HomeViewModel(
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-
-    //USER
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
         { state, _ -> state.copy(isAuthenticated = true) }
@@ -136,6 +130,10 @@ class HomeViewModel(
             )
         }
     )
+
+    fun updateOrientation(isLandscape: Boolean) {
+        uiState = uiState.copy(isLandscape = isLandscape)
+    }
 
     // @TODO: cambiar state a todas las funciones de aca abajo y las de arriba que hacen lo mismo con el state
     fun getDailyReturns(page: Int) = runOnViewModelScope(

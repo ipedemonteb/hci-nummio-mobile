@@ -5,13 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.ui.home.HomeScreen
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.home.LoginScreen
@@ -24,10 +21,11 @@ import ar.edu.itba.nummio.ui.home.StartScreen
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    isAuthenticated: Boolean = false,
-    viewModel: HomeViewModel = viewModel (factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel: HomeViewModel
 ) {
+
     val startDestination = if (viewModel.uiState.isAuthenticated) "home" else "start"
+
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -35,21 +33,16 @@ fun AppNavHost(
     ) {
         composable("start") {
             StartScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable("home") {
-            if (!viewModel.uiState.isAuthenticated) {
-                navController.navigate("start") {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                }
-            } else {
-                HomeScreen(
-                    onNavigateToOtherScreen = { id -> navController.navigate("other/$id") }
-                )
-            }
+            HomeScreen(
+                onNavigateToOtherScreen = { route -> navController.navigate(route) },
+                viewModel = viewModel
+            )
+
         }
         composable("login") {
             LoginScreen(

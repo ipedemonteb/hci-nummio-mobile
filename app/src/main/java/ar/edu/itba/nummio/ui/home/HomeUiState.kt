@@ -11,11 +11,12 @@ data class HomeUiState(
     val currentUser: User? = null,
     val cards: List<Card>? = null,
     val currentCard: Card? = null,
-    val error: Error? = null
-
+    val error: Error? = null,
+    val isLandscape: Boolean = false
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated
 val HomeUiState.canGetAllCards: Boolean get() = isAuthenticated
 val HomeUiState.canAddCard: Boolean get() = isAuthenticated
 val HomeUiState.canDeleteCard: Boolean get() = isAuthenticated && currentCard != null
+val HomeUiState.isLandscape: Boolean get() = isLandscape

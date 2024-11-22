@@ -11,7 +11,7 @@
     <string name="received_id">Received id %1$d</string>
     <string name="welcome_msg">Welcome!</string>
     <string name="bottom_home">Home</string>
-    <string name="bottom">More</string>
+    <string name="bottom">New</string>
     <string name="wallet_title">Wallet</string>
     <string name="cards_button">Cards</string>
     <string name="my_balance">My Balance</string>
@@ -81,4 +81,15 @@
     <string name="enter_your_email">Enter your email account:</string>
     <string name="payment_page">Make Payment</string>
     <string name="generate_page">Generate Payment</string>
+    <string name="credit_cards">Credit Cards:</string>
+    <string name="confirm_action">Confirm Action</string>
+    <string name="current_action">The current action</string>
+    <string name="action_text">%1$s cannot be undone. Are you sure you want to continue?</string>
+    <string name="add_card_title">Add Card</string>
+    <string name="cvv" translatable="false">CVV</string>
+    <string name="insert_number">Insert card number:</string>
+    <string name="insert_holder">Insert card holder\'s name:</string>
+    <string name="insert_expiry_date">Insert expiry date:</string>
+    <string name="insert_cvv">Insert CVV code:</string>
+    <string name="investment_title">Investments</string>
 </resources>
