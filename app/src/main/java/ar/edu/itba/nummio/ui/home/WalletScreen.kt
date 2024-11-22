@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -31,6 +32,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.WalletComponent
 import ar.edu.itba.nummio.ui.theme.DarkPurple
@@ -39,7 +42,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun WalletScreen(
     onBackClick: () -> Unit,
-    onNavigateToAddCard: () -> Unit
+    onNavigateToAddCard: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     var deleteCard by remember { mutableStateOf(false) }
     Surface(modifier = Modifier
@@ -96,7 +100,7 @@ fun WalletScreen(
             Row(
                 modifier = Modifier.padding(vertical = 0.dp)
             ) {
-                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard)
+                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard, viewModel)
             }
         }
     }
@@ -106,6 +110,8 @@ fun WalletScreen(
 @Composable
 fun WalletScreenPreview() {
     NummioTheme {
-        WalletScreen(onBackClick = {}, onNavigateToAddCard = {})
+        WalletScreen(onBackClick = {}, onNavigateToAddCard = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory(
+            LocalContext.current.applicationContext as MyApplication))
+        )
     }
 }
