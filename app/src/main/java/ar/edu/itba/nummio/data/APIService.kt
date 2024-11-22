@@ -1,6 +1,7 @@
 package ar.edu.itba.nummio.data
 
 import PaymentRequest
+import ar.edu.itba.nummio.data.model.NewBalance
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -83,20 +84,21 @@ interface APIService {
 
     //WALLET ENDPOINTS
     //(ALL NEED AUTH)
+
     @GET("api/wallet/balance")
     suspend fun getBalance(): ar.edu.itba.nummio.data.network.model.Balance
 
     @POST("api/wallet/recharge")
-    suspend fun recharge(@Body rechargeRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): ar.edu.itba.nummio.data.network.model.NewBalance
+    suspend fun recharge(@Body rechargeRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): NewBalance
 
     @GET("api/wallet/investment")
     suspend fun getInvestment(): ar.edu.itba.nummio.data.network.model.Investment
 
     @POST("api/wallet/invest")
-    suspend fun invest(@Body investRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): ar.edu.itba.nummio.data.network.model.NewBalance
+    suspend fun invest(@Body investRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): NewBalance
 
     @POST("api/wallet/divest")
-    suspend fun divest(@Body investRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): ar.edu.itba.nummio.data.network.model.NewBalance
+    suspend fun divest(@Body investRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): NewBalance
     //done
     @GET("api/wallet/cards")
     suspend fun getCards(): List<ar.edu.itba.nummio.data.network.model.CardData>
@@ -123,11 +125,11 @@ interface APIService {
     //(ALL NEED AUTH)
 
     @POST("api/payment")
-    suspend fun makePayment(@Body paymentRequest: PaymentRequest): ar.edu.itba.nummio.data.network.model.NewBalance
+    suspend fun makePayment(@Body paymentRequest: PaymentRequest): NewBalance
 
     //payment request has different data depending on type?
     //@TODO handle card errors
-    @GET("api/payment")
+    /*@GET("api/payment")
     suspend fun getPayments(
         @Query("page") page: Int,
         @Query("direction") direction: String, //@TODO el ? va o no? es ASC o DESC, no null, puedo poner default quizas (lo dejo sin x ahora)
@@ -142,7 +144,7 @@ interface APIService {
     suspend fun getPayment(@Path("id") id: Int): ar.edu.itba.nummio.data.network.model.PaymentData
 
     @GET("api/payment/link/{linkUuid}")
-    suspend fun getPaymentByLink(@Path("linkUuid") linkUuid: String): ar.edu.itba.nummio.data.network.model.PaymentData
+    suspend fun getPaymentByLink(@Path("linkUuid") linkUuid: String): ar.edu.itba.nummio.data.network.model.PaymentData*/
 
     @POST("api/payment/link/{linkUuid}")
     suspend fun payByLink(
