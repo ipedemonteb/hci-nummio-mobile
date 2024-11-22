@@ -47,7 +47,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun LoginScreen(
     onNavigateToRoute: (route: String) -> Unit,
-    viewModel: HomeViewModel = viewModel (factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
+    viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
@@ -152,6 +152,6 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPreview() {
     NummioTheme {
-        LoginScreen(onNavigateToRoute = {})
+        LoginScreen(onNavigateToRoute = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory((LocalContext.current.applicationContext as MyApplication))))
     }
 }

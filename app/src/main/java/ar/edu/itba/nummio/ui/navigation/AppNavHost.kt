@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
@@ -23,9 +22,7 @@ fun AppNavHost(
     navController: NavHostController = rememberNavController(),
     viewModel: HomeViewModel
 ) {
-
     val startDestination = if (viewModel.uiState.isAuthenticated) "home" else "start"
-
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -46,17 +43,20 @@ fun AppNavHost(
         }
         composable("login") {
             LoginScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable("signup") {
-            SignupScreen (
-                onNavigateToRoute = { route -> navController.navigate(route) }
+            SignupScreen(
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable("recover") {
             RecoverPasswordScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) }
+                onNavigateToRoute = { route -> navController.navigate(route) },
+                viewModel = viewModel
             )
         }
         composable(
