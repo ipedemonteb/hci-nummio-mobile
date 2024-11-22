@@ -1,6 +1,7 @@
 package ar.edu.itba.nummio.data
 
 import PaymentRequest
+import ar.edu.itba.nummio.data.model.Balance
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -84,7 +85,7 @@ interface APIService {
     //WALLET ENDPOINTS
     //(ALL NEED AUTH)
     @GET("api/wallet/balance")
-    suspend fun getBalance(): ar.edu.itba.nummio.data.network.model.Balance
+    suspend fun getBalance(): Balance
 
     @POST("api/wallet/recharge")
     suspend fun recharge(@Body rechargeRequest: ar.edu.itba.nummio.data.network.model.RechargeRequest): ar.edu.itba.nummio.data.network.model.NewBalance

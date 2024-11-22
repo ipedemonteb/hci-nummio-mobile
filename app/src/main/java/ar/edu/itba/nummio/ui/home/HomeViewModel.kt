@@ -14,6 +14,12 @@ import ar.edu.itba.nummio.data.model.Error
 import ar.edu.itba.nummio.data.repository.UserRepository
 import ar.edu.itba.nummio.data.repository.WalletRepository
 import ar.edu.itba.nummio.SessionManager
+import ar.edu.itba.nummio.data.model.AliasRequest
+import ar.edu.itba.nummio.data.model.Amount
+import ar.edu.itba.nummio.data.model.DailyInterest
+import ar.edu.itba.nummio.data.model.DailyReturn
+import ar.edu.itba.nummio.data.model.Investment
+import ar.edu.itba.nummio.data.model.WalletDetails
 import ar.edu.itba.nummio.data.repository.PaymentRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -79,6 +85,31 @@ class HomeViewModel(
 
     //WALLET
 
+    fun getBalance() = runOnViewModelScope(
+        { walletRepository.getBalance() },
+        { state, _ -> state }
+    )
+
+    fun recharge(rechargeRequest: Amount) = runOnViewModelScope(
+        { walletRepository.recharge(rechargeRequest) },
+        { state, _ -> state }
+    )
+
+    fun getInvestment() = runOnViewModelScope(
+        { walletRepository.getInvestment() },
+        { state, _ -> state }
+    )
+
+    fun invest(investRequest: Amount) = runOnViewModelScope(
+        { walletRepository.invest(investRequest) },
+        { state, _ -> state }
+    )
+
+    fun divest(investRequest: Amount) = runOnViewModelScope(
+        { walletRepository.divest(investRequest) },
+        { state, _ -> state }
+    )
+
     fun getCards() = runOnViewModelScope(
         { walletRepository.getCards(true) },
         { state, response -> state.copy(cards = response) }
@@ -106,6 +137,26 @@ class HomeViewModel(
         }
     )
 
+    // @TODO: cambiar state a todas las funciones de aca abajo y las de arriba que hacen lo mismo con el state
+    fun getDailyReturns(page: Int) = runOnViewModelScope(
+        { walletRepository.getDailyReturns(page) },
+        { state, _ -> state }
+    )
+
+    fun getDailyInterest() = runOnViewModelScope(
+        { walletRepository.getDailyInterest() },
+        { state, _ -> state }
+    )
+
+    fun updateAlias(aliasRequest: AliasRequest) = runOnViewModelScope(
+        { walletRepository.updateAlias(aliasRequest) },
+        { state, _ -> state }
+    )
+
+    fun getDetails() = runOnViewModelScope(
+        { walletRepository.getDetails() },
+        { state, _ -> state }
+    )
 
     //PAYMENT
 
