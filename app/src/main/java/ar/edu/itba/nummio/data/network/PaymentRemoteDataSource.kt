@@ -43,7 +43,7 @@ class PaymentRemoteDataSource(
     suspend fun getPaymentByLink(linkUuid: String): NetworkPaymentData {
         return handleApiResponse {
             paymentApiService.getPaymentByLink(linkUuid)
-        }
+        }.payment
     }
 
     suspend fun payByLink(linkUuid: String, type: String): NetworkSuccessAndMessage {

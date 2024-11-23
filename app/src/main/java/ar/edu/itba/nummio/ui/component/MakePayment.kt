@@ -20,6 +20,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,21 +33,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.LightPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun MakePayment() {
+fun MakePayment(
+    viewModel: HomeViewModel
+) {
     var link by remember { mutableStateOf("") }
     var found by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf(false) }
-    val options = listOf(
-        "Balance",
-        "Card 1234"
-    )
+    val options = listOf("Balance") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
+    var cardId by remember { mutableIntStateOf(0) }
+    var type by remember { mutableStateOf("") }
+
+    if (viewModel.uiState.cards == null) {
+        viewModel.getCards()
+    }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
@@ -85,7 +92,7 @@ fun MakePayment() {
                     .padding(horizontal = 40.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                HighContrastBtn( onClick = {found = true}, stringResource(R.string.search_payment) )
+                HighContrastBtn( onClick = {found = true;viewModel.getPaymentByLink(link)}, stringResource(R.string.search_payment) )
             }
         }
         else {
@@ -99,9 +106,10 @@ fun MakePayment() {
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
+                    //Text(viewModel.uiState.currentPayment?.toString()?:"no")
                     Row {
                         OutlinedTextField(
-                            value = "$${stringResource(R.string.user_cvu)}",
+                            value = "$"+(viewModel.uiState.currentPayment?.amount?:0.0).toString(),
                             onValueChange = { },
                             readOnly = true,
                             placeholder = { Text(text = "$${stringResource(R.string.user_cvu)}") },
@@ -156,6 +164,13 @@ fun MakePayment() {
                                             selectedOption = option
                                             expanded = false
                                             selectedMethod = true
+                                            if (option != "Balance") {
+                                                cardId = viewModel.uiState.cards!!.find { it.number.takeLast(4) == option.takeLast(4) }!!.id!!
+                                                type="CARD"
+                                            }
+                                            if(option == "Balance") {
+                                                type="BALANCE"
+                                            }
 
                                         },
                                         text = {
@@ -169,7 +184,7 @@ fun MakePayment() {
                     Spacer(modifier = Modifier.height(8.dp))
                     if(selectedOption == "Balance") {
                         Text (
-                            text = stringResource(R.string.some_balance),
+                            text = "Balance: "+viewModel.uiState.currentBalance?.toString(),
                             color = Color.Gray
                         )
                     }
@@ -189,7 +204,8 @@ fun MakePayment() {
                             Spacer(modifier = Modifier.width(16.dp))
                             Box(modifier = Modifier.width(150.dp)) {
                                 HighContrastBtn(
-                                    onClick = { found = true },
+                                    onClick = { found = true
+                                              viewModel.payByLink(link, type) },
                                     stringResource(R.string.confirm_button)
                                 )
                             }
@@ -208,6 +224,8 @@ fun MakePayment() {
 @Composable
 fun MakePaymentPreview() {
     NummioTheme {
-        MakePayment()
+        MakePayment(
+            viewModel = TODO()
+        )
     }
 }

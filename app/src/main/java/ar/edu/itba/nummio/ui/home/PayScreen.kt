@@ -20,7 +20,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun PayScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     Scaffold(modifier = Modifier
         .fillMaxSize()
@@ -36,7 +37,7 @@ fun PayScreen(
             Row(
                 modifier = Modifier.padding(vertical = 30.dp)
             ) {
-                MakePayment()
+                MakePayment(viewModel)
             }
         }
     }
@@ -46,6 +47,9 @@ fun PayScreen(
 @Composable
 fun PayScreenPreview() {
     NummioTheme {
-        PayScreen({})
+        PayScreen(
+            {},
+            viewModel = TODO()
+        )
     }
 }
