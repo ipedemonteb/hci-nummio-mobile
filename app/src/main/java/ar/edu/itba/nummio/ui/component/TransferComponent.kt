@@ -32,12 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.PaymentRequest
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun TransferComponent(
-    enteredEmail: String = ""
+    enteredEmail: String = "",
+    viewModel: HomeViewModel
 ) {
     var amount by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
@@ -46,8 +49,10 @@ fun TransferComponent(
     var selectedMethod by remember { mutableStateOf(false) }
     val options = listOf(
         "Balance",
-        "Card 1234"
+        "CARD"
     )
+
+    var cardId : Int = 3
 
     Column(modifier = Modifier.fillMaxWidth()) {
             Row {
@@ -154,7 +159,7 @@ fun TransferComponent(
                     Spacer(modifier = Modifier.height(8.dp))
                     if(selectedOption == "Balance") {
                         Text (
-                            text = stringResource(R.string.some_balance),
+                            text = "Balance: $"+viewModel.uiState.currentBalance.toString(),
                             color = Color.Gray
                         )
                     }
@@ -174,7 +179,8 @@ fun TransferComponent(
                             Spacer(modifier = Modifier.width(16.dp))
                             Box(modifier = Modifier.width(150.dp)) {
                                 HighContrastBtn(
-                                    onClick = {},
+                                    onClick = {viewModel.makePayment(PaymentRequest(amount = amount.toDouble(), description = description,
+                                        type = selectedOption, receiverEmail = enteredEmail, cardId = cardId))},
                                     stringResource(R.string.confirm_button)
                                 )
                             }
@@ -186,10 +192,11 @@ fun TransferComponent(
     }
 }
 
+/*
 @Preview
 @Composable
 fun TransferComponentPreview() {
     NummioTheme {
         TransferComponent()
     }
-}
+}*/

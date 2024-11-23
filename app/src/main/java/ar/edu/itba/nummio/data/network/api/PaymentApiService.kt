@@ -14,12 +14,12 @@ import retrofit2.http.Query
 
 interface PaymentApiService {
 
-    @POST("api/payment")
+    @POST("payment")
     suspend fun makePayment(@Body networkPaymentRequest: NetworkPaymentRequest): Response<NetworkNewBalance>
 
     //payment request has different data depending on type?
     //@TODO handle card errors
-    @GET("api/payment")
+    @GET("payment")
     suspend fun getPayments(
         @Query("page") page: Int,
         @Query("direction") direction: String, //@TODO el ? va o no? es ASC o DESC, no null, puedo poner default quizas (lo dejo sin x ahora)
@@ -30,13 +30,13 @@ interface PaymentApiService {
         @Query("cardId") cardId: Int?
     ): Response<List<NetworkPaymentData>>
 
-    @GET("api/payment/{id}")
+    @GET("payment/{id}")
     suspend fun getPayment(@Path("id") id: Int): Response<NetworkPaymentData>
 
-    @GET("api/payment/link/{linkUuid}")
+    @GET("payment/link/{linkUuid}")
     suspend fun getPaymentByLink(@Path("linkUuid") linkUuid: String): Response<NetworkPaymentData>
 
-    @POST("api/payment/link/{linkUuid}")
+    @POST("payment/link/{linkUuid}")
     suspend fun payByLink(
         @Path("linkUuid") linkUuid: String,
         @Body type: NetworkPaymentType

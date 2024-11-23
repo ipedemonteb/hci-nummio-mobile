@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +35,7 @@ import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
+import ar.edu.itba.nummio.ui.component.SocialMedia
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.LightPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
@@ -44,12 +47,12 @@ fun StartScreen (
     viewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ) {
     val uiState = viewModel.uiState
-    Surface {
+    Surface(modifier = Modifier.fillMaxSize()) {
         val modifier = Modifier.fillMaxWidth()
+        if(!uiState.isLandscape) {
         Column(
             modifier = modifier
         ) {
-            if (!uiState.isLandscape) {
                 Row {
                     Column(
                         modifier = modifier.fillMaxWidth()
@@ -60,19 +63,31 @@ fun StartScreen (
                                 )
                             )
                             .background(Purple)
-                            .height(360.dp),
+                            .height(450.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            modifier = modifier.padding(top = 230.dp),
-                            textAlign = TextAlign.Center,
-                            text = stringResource(R.string.welcome_start_msg),
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 25.sp,
-                            lineHeight = 35.sp,
-                            color = Color.White
-                        )
-
+                        Row {
+                            Text(
+                                modifier = modifier.padding(top = 150.dp),
+                                textAlign = TextAlign.Center,
+                                text = stringResource(R.string.nummio),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 50.sp,
+                                lineHeight = 35.sp,
+                                color = Color.White
+                            )
+                        }
+                        Row {
+                            Text(
+                                modifier = modifier.padding(top = 110.dp),
+                                textAlign = TextAlign.Center,
+                                text = stringResource(R.string.welcome_start_msg),
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 25.sp,
+                                lineHeight = 35.sp,
+                                color = Color.White
+                            )
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -95,30 +110,67 @@ fun StartScreen (
                     )
                 }
                 Spacer(modifier = Modifier.height(30.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                SocialMedia()
+            }
+        }
+
+        else {
+            Row(modifier = Modifier.fillMaxWidth()){
+                Column(modifier = Modifier
+                    .fillMaxWidth(0.4f)
                 ) {
-                    Icon(
-                        painter = painterResource(R.drawable.instagram),
-                        contentDescription = null,
-                        tint = DarkPurple,
-                        modifier = Modifier.size(24.dp)
+                    Surface(modifier = Modifier.fillMaxSize(),
+                        shape = RoundedCornerShape(
+                            bottomEnd = 20.dp,
+                            topEnd = 20.dp
+                        ),
+                        color = Purple
+                    ) {
+                        Text(
+                            modifier = modifier.padding(top = 150.dp, ),
+                            textAlign = TextAlign.Center,
+                            text = stringResource(R.string.nummio),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 50.sp,
+                            lineHeight = 35.sp,
+                            color = Color.White
+                        )
+                    }
+
+                }
+                Column(modifier = Modifier
+                    .fillMaxWidth()) {
+                    Text(
+                        modifier = modifier.padding(top = 50.dp),
+                        textAlign = TextAlign.Center,
+                        text = stringResource(R.string.welcome_start_msg),
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 25.sp,
+                        lineHeight = 35.sp,
+                        color = Purple
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Icon(
-                        painter = painterResource(R.drawable.facebook),
-                        contentDescription = null,
-                        tint = DarkPurple,
-                        modifier = Modifier.size(26.dp)
-                    )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Icon(
-                        painter = painterResource(R.drawable.twitter),
-                        contentDescription = null,
-                        tint = DarkPurple,
-                        modifier = Modifier.size(20.dp).offset(y = 3.dp)
-                    )
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(horizontal = 80.dp)
+                    ) {
+                        HighContrastBtn(
+                            { onNavigateToRoute("login") },
+                            stringResource(R.string.login_button)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(horizontal = 80.dp)
+                    ) {
+                        LowContrastBtn(
+                            { onNavigateToRoute("signup") },
+                            stringResource(R.string.register_button)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    SocialMedia()
                 }
             }
         }
@@ -126,7 +178,13 @@ fun StartScreen (
 }
 
 
-@Preview
+@Preview(
+    name = "Landscape",
+    device = Devices.PIXEL_4,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_NO,
+    widthDp = 731,
+    heightDp = 350
+)
 @Composable
 fun StartScreenPreview() {
     NummioTheme {

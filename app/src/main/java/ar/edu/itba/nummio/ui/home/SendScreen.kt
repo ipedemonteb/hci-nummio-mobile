@@ -18,7 +18,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun SendScreen(
     onBackClick: () -> Unit,
-    email: String
+    email: String,
+    viewModel: HomeViewModel
 ){
     Scaffold(modifier = Modifier
         .fillMaxSize()
@@ -30,16 +31,17 @@ fun SendScreen(
             .padding(horizontal = 20.dp)
             .padding(paddingValues))
         {
-            TransferComponent(email)
+            TransferComponent(email, viewModel)
         }
     }
 }
 
 
+/*
 @Preview
 @Composable
 fun SendScreenPreview() {
     NummioTheme() {
         SendScreen({}, "")
     }
-}
+}*/

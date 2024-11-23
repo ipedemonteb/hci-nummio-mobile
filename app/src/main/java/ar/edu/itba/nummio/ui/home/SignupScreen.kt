@@ -4,11 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -49,11 +53,18 @@ fun SignupScreen(
     var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var confirmPasswordVisible by remember { mutableStateOf(false) }
+    val uiState = viewModel.uiState
     Surface(modifier = Modifier
         .background(Color.White)
         .fillMaxSize()
     ) {
-        Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp)) {
+        Column(modifier = Modifier
+            .padding(vertical = 30.dp, horizontal = if(uiState.isLandscape) 100.dp else 30.dp)
+            .verticalScroll(
+                enabled = uiState.isLandscape,
+                state = rememberScrollState()
+            )
+        ) {
             Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp)) {
                 IconButton({
                     onNavigateToRoute("start")
@@ -166,10 +177,12 @@ fun SignupScreen(
                     ),
                 )
             }
-            Row(modifier = Modifier.padding(top = 30.dp)) {
+            Spacer(modifier = Modifier.height(30.dp))
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
                 HighContrastBtn( onClick = {}, text = stringResource(R.string.register_button))
             }
-            Row(modifier = Modifier.padding(vertical = 20.dp)) {
+            Spacer(modifier = Modifier.height(30.dp))
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
                 LowContrastBtn( onClick = { onNavigateToRoute("login") }, text = stringResource(R.string.has_account))
             }
         }

@@ -34,12 +34,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.home.HomeViewModel
+import kotlinx.coroutines.Job
 
 @Composable
 fun WalletComponent(
     deleteCard: Boolean = false,
     onNavigateToAddCard: () -> Unit,
-    onNavigateToConfirmScreen: (String) -> Unit,
+    onNavigateToConfirmScreen: (String, Job) -> Unit,
     viewModel: HomeViewModel
 ) {
     var openPopUp by remember { mutableStateOf(false) }
@@ -48,7 +49,7 @@ fun WalletComponent(
     // @TODO: ver por que cuando se hace llama a la API 2 veces
     if(viewModel.uiState.cards == null)
         viewModel.getCards()
-
+    var cardToDelete: Int? = null
     Box(/*modifier = Modifier.fillMaxSize()*/) {
         Column(
             modifier = Modifier
@@ -85,7 +86,10 @@ fun WalletComponent(
 
                             if (deleteCard) {
                                 IconButton(
-                                    onClick = { onNavigateToConfirmScreen("Deleting a card") }, //@TODO: ver cómo reemplazar por un string de strings.xml (no le gusta que no sea composable)
+                                    onClick = { cardToDelete=card.id
+                                        onNavigateToConfirmScreen("Deleting a card", viewModel.deleteCard(cardToDelete!!))
+
+                                              }, //@TODO: ver cómo reemplazar por un string de strings.xml (no le gusta que no sea composable)
                                     modifier = Modifier
                                         .size(60.dp)
                                         .align(Alignment.CenterVertically)
@@ -101,13 +105,7 @@ fun WalletComponent(
                         }
                     }
                 }
-            }
-            Row(modifier = Modifier.padding(horizontal = 80.dp, vertical = 40.dp)) {
-                HighContrastBtn(onClick = {onNavigateToAddCard()}, stringResource(R.string.add_card))
-            }
-        }
-
-        if (openPopUp) {
+            }/*if (openPopUp) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
@@ -115,16 +113,24 @@ fun WalletComponent(
             ) {
                 ConfirmPopUp(
                     action = "Delete Card",
-                    onConfirm = { isConfirmed = true; openPopUp = false },
+                    onConfirm = { isConfirmed = true; openPopUp = false ; viewModel.deleteCard(cardToDelete!!) },
                     onCancel = { openPopUp = false }
                 )
             }
+        }*/
+            Row(modifier = Modifier.padding(horizontal = 80.dp, vertical = 40.dp)) {
+                HighContrastBtn(onClick = {onNavigateToAddCard()}, stringResource(R.string.add_card))
+            }
         }
+
+
     }
 }
+/*
 
 @Preview()
 @Composable()
 fun WalletComponentPreview() {
     WalletComponent(true, {}, {}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
 }
+*/
