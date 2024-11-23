@@ -25,6 +25,7 @@ import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
 import ar.edu.itba.nummio.ui.home.PayScreen
 import ar.edu.itba.nummio.ui.home.SendScreen
+import ar.edu.itba.nummio.ui.home.VerifyScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
 
 @Composable
@@ -41,7 +42,8 @@ fun AppNavHost(
     ) {
         composable(AppDestinations.START.route) {
             StartScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route) },
+                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route)},
                 viewModel = viewModel
             )
         }
@@ -62,20 +64,23 @@ fun AppNavHost(
         }
         composable(AppDestinations.LOGIN.route) {
             LoginScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onBackClick = {navController.popBackStack() },
+                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route){popUpTo(AppDestinations.START.route)} },
                 onNavigateToRecover = {navController.navigate(AppDestinations.RECOVER_PASSWORD.route)},
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.SIGNUP.route) {
             SignupScreen (
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onBackClick = {navController.popBackStack()},
+                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route){popUpTo(AppDestinations.START.route)} },
+                onNavigateToVerify = {mailAndPassword -> navController.navigate("${AppDestinations.VERIFY_SCREEN.route}/$mailAndPassword")},
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onBackClick = {navController.popBackStack() },
                 viewModel = viewModel
             )
         }
@@ -93,13 +98,7 @@ fun AppNavHost(
             TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route){
-            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message") }, viewModel = viewModel)
-        }
-        composable("${AppDestinations.WALLET.route}/{bool}",
-            arguments = listOf(navArgument("bool") { type = NavType.BoolType })
-            ){
-            backStackEntry ->
-            WalletScreen(wasConfirmed = backStackEntry.arguments?.getBoolean("bool")?: false, onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message"); job.start()}, viewModel = viewModel)
+            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, id-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message/$id") }, viewModel = viewModel)
         }
         composable(AppDestinations.MAKE_PAYMENT.route){
             PayScreen(onBackClick = {navController.popBackStack()})
@@ -122,16 +121,22 @@ fun AppNavHost(
         composable(AppDestinations.DEPOSIT.route){
             DepositScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
-        composable("${AppDestinations.CONFIRM_SCREEN.route}/{message}",
-            arguments = listOf(navArgument("message") { type = NavType.StringType })
+        composable("${AppDestinations.CONFIRM_SCREEN.route}/{message}/{cardId}",
+            arguments = listOf(navArgument("message") { type = NavType.StringType }, navArgument("cardId"){type=NavType.IntType})
+
         ){
             backStackEntry ->
-            ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", onBackClick = {bool -> navController.navigate("${AppDestinations.WALLET.route}/$bool"){
-                popUpTo(AppDestinations.WALLET.route){inclusive = true}
-            } })
+            ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", cardId = backStackEntry.arguments?.getInt("cardId")?:0, onBackClick = {navController.popBackStack()
+            } , viewModel=viewModel)
         }
         composable(AppDestinations.DATA_SCREEN.route){
             DataScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable("${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",
+            arguments = listOf(navArgument("mailAndPassword") { type = NavType.StringType })
+        ){
+                backStackEntry ->
+            VerifyScreen(onBackClick = {navController.popBackStack()}, mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword")?: "", separator = ";")
         }
     }
 }

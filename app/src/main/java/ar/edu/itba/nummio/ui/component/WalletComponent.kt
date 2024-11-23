@@ -40,7 +40,7 @@ import kotlinx.coroutines.Job
 fun WalletComponent(
     deleteCard: Boolean = false,
     onNavigateToAddCard: () -> Unit,
-    onNavigateToConfirmScreen: (String, Job) -> Unit,
+    onNavigateToConfirmScreen: (String, Int) -> Unit,
     viewModel: HomeViewModel
 ) {
     var openPopUp by remember { mutableStateOf(false) }
@@ -87,7 +87,7 @@ fun WalletComponent(
                             if (deleteCard) {
                                 IconButton(
                                     onClick = { cardToDelete=card.id
-                                        onNavigateToConfirmScreen("Deleting a card", viewModel.deleteCard(cardToDelete!!))
+                                        onNavigateToConfirmScreen("Deleting a card", cardToDelete?:0)
 
                                               }, //@TODO: ver cómo reemplazar por un string de strings.xml (no le gusta que no sea composable)
                                     modifier = Modifier

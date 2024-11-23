@@ -32,13 +32,15 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun ConfirmScreen(
     action: String = stringResource(R.string.current_action),
-    onBackClick: (Boolean) -> Unit,
+    cardId:Int = 0,
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
         containerColor = Color.White,
-        topBar = { TopBar(title ="", onBackClick = {onBackClick(false)}) }
+        topBar = { TopBar(title ="", onBackClick = {onBackClick()}) }
     ) {
             paddingValues ->
         Column(modifier = Modifier
@@ -73,14 +75,14 @@ fun ConfirmScreen(
             ) {
                 Box(modifier = Modifier.width(150.dp)) {
                     LowContrastBtn(
-                        onClick = { onBackClick(false) },
+                        onClick = { onBackClick() },
                         stringResource(R.string.cancel_button)
                     )
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Box(modifier = Modifier.width(150.dp)) {
                     HighContrastBtn(
-                        onClick = { onBackClick(true) },
+                        onClick = { onBackClick(); viewModel.deleteCard(cardId) },
                         stringResource(R.string.confirm_button)
                     )
                 }
@@ -93,6 +95,11 @@ fun ConfirmScreen(
 @Composable
 fun ConfirmScreenPreview() {
     NummioTheme {
-        ConfirmScreen(onBackClick = {})
+        ConfirmScreen(
+            onBackClick = {},
+            action = TODO(),
+            cardId = TODO(),
+            viewModel = TODO()
+        )
     }
 }

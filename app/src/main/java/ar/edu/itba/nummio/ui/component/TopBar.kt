@@ -48,7 +48,7 @@ fun TopBar(
                 }
                 Text(
                     text = title,
-                    modifier = Modifier.align(Alignment.Center),
+                    modifier = Modifier.align(Alignment.Center).width(250.dp),
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 28.sp,
@@ -78,7 +78,7 @@ fun TopBar(
 @Composable
 fun TopBarPreview() {
     TopBar(
-        title = "Mi Título",
+        title = "Texto muy muy largo",
         onBackClick = {},
         actionIcon = Pair(
             {
