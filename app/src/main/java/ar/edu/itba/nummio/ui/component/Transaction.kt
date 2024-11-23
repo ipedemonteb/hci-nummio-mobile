@@ -25,8 +25,8 @@ import java.util.Locale
 fun Transaction(
     message: String,
     destination: String,
-    date: Date,
-    amount: Int
+    date: String,
+    amount: Double
 )
 {
     val dateFormat = SimpleDateFormat("d MMM yy", Locale("es", "ES"))
@@ -89,8 +89,9 @@ fun Transaction(
 @Composable
 fun TransactionPreview(){
 
-    Transaction(message = "Transferencia recibida",
+    Transaction(
+        message = "Transferencia recibida",
         destination = "Lewis Hamilton",
-        date = Date(),
-        amount = 5000)
+        date = Date().toString(),
+        amount = 5000.0)
 }

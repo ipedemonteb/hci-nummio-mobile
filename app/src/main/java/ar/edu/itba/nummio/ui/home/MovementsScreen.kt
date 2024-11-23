@@ -34,7 +34,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ar.edu.itba.nummio.PreviewScreenSizes
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.BalanceBox
 import ar.edu.itba.nummio.ui.component.SearchBar
@@ -58,6 +57,18 @@ fun MovementsScreen(
 {
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
+
+    if (viewModel.uiState.shouldUpdatePaymentHistory) {
+        viewModel.getPayments(
+            page = 1,
+            direction = "ASC",
+            pending = null,
+            type = null,
+            range = null,
+            source = null,
+            cardId = null
+        )
+    }
 
     Scaffold(
         topBar = { TopBar(stringResource(R.string.movements_option), onBackClick) },
@@ -128,12 +139,20 @@ fun MovementsScreen(
                     onInputChange = {searchText=it}
                 )
             }
+            Text(viewModel.uiState.paymentHistory?.get(0)?.type.toString())
             LazyColumn(modifier = Modifier.fillMaxHeight().width(368.dp)) {
-                items(movements) { transaction ->
-                    Transaction(transaction.message, transaction.destination, transaction.date, transaction.amount)
-                }
+               /* items(viewModel.uiState.paymentHistory!!) { transaction ->
+                    Transaction("r", "r", "hola", 10.0)
+                }*/
+
+               /*items(viewModel.uiState.paymentHistory!!) { transaction ->
+                    Transaction("mistica", "total", transaction.createdAt, transaction.amount)
+                }*/
             }
+
+
         }
+
     }
 }
 /*
