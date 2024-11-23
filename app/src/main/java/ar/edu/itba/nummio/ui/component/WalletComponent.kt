@@ -39,6 +39,7 @@ import ar.edu.itba.nummio.ui.home.HomeViewModel
 fun WalletComponent(
     deleteCard: Boolean = false,
     onNavigateToAddCard: () -> Unit,
+    onNavigateToConfirmScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
     var openPopUp by remember { mutableStateOf(false) }
@@ -84,7 +85,7 @@ fun WalletComponent(
 
                             if (deleteCard) {
                                 IconButton(
-                                    onClick = { openPopUp = true },
+                                    onClick = { onNavigateToConfirmScreen("Deleting a card") }, //@TODO: ver cómo reemplazar por un string de strings.xml (no le gusta que no sea composable)
                                     modifier = Modifier
                                         .size(60.dp)
                                         .align(Alignment.CenterVertically)
@@ -125,5 +126,5 @@ fun WalletComponent(
 @Preview()
 @Composable()
 fun WalletComponentPreview() {
-    WalletComponent(true, {}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
+    WalletComponent(true, {}, {}, viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
 }

@@ -43,8 +43,10 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun WalletScreen(
+    wasConfirmed: Boolean = false,
     onBackClick: () -> Unit,
     onNavigateToAddCard: () -> Unit,
+    onNavigateToConfirmScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
     var deleteCard by remember { mutableStateOf(false) }
@@ -75,7 +77,7 @@ fun WalletScreen(
             Row(
                 modifier = Modifier.padding(vertical = 0.dp)
             ) {
-                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard, viewModel)
+                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard, onNavigateToConfirmScreen = onNavigateToConfirmScreen, viewModel)
             }
         }
     }
@@ -85,7 +87,7 @@ fun WalletScreen(
 @Composable
 fun WalletScreenPreview() {
     NummioTheme {
-        WalletScreen(onBackClick = {}, onNavigateToAddCard = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory(
+        WalletScreen(onBackClick = {}, onNavigateToAddCard = {}, onNavigateToConfirmScreen = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory(
             LocalContext.current.applicationContext as MyApplication))
         )
     }

@@ -101,10 +101,12 @@
     <string name="movements" translatable="false">Movements</string>
     <string name="investments" translatable="false">Investments</string>
     <string name="send_payments" translatable="false">Send Payments</string>
+    <string name="confirm_screen" translatable="false">Confirm Screen</string>
     <string name="send_amount">Amount to send:</string>
     <string name="send_description">Send description:</string>
     <string name="description">Description</string>
     <string name="recieve_amount">Amount to receive:</string>
     <string name="deposit_screen">Deposit</string>
     <string name="decimal_separator">.</string>
+    <string name="delete_card">Deleting a card</string>
 </resources>
