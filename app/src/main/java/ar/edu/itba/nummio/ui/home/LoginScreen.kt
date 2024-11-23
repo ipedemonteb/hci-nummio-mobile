@@ -15,17 +15,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.DefaultTintColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -47,6 +51,16 @@ fun LoginScreen(
     viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
+    val userEmailHasErrors by remember(userEmail) {
+        derivedStateOf {
+            if (userEmail.isNotEmpty()) {
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()
+            } else {
+                false
+            }
+        }
+    }
+    var showCombinationError by remember { mutableStateOf(false)}
     var userPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val uiState = viewModel.uiState
@@ -63,6 +77,14 @@ fun LoginScreen(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState())
         ) {
+            if (showCombinationError){
+                Text(
+                    text = "Combinacion de mail y contraseña incorrecta",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
             Row(modifier = Modifier
                 .padding(vertical = 5.dp)
                 .fillMaxWidth()) {
@@ -75,7 +97,9 @@ fun LoginScreen(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
                     ),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = userEmailHasErrors,
+                    supportingText = {if (userEmailHasErrors) Text(stringResource(R.string.invalid_mail_format))}
                 )
             }
             Row(modifier = Modifier.padding(vertical = 5.dp)) {
@@ -116,7 +140,11 @@ fun LoginScreen(
             Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
                 HighContrastBtn(
                     onClick = {
-                        viewModel.login(userEmail, userPassword)
+                        if (!userEmailHasErrors) {
+                            viewModel.login(userEmail, userPassword)
+                        }
+                        if (!uiState.isAuthenticated) //@TODO: fix
+                            showCombinationError = true
                     },
                     text = stringResource(R.string.login_button)
                 )
