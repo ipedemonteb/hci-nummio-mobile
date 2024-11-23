@@ -18,7 +18,8 @@ data class HomeUiState(
     val shouldUpdateBalance: Boolean = true,
     val cardToDelete: Int? = null,
     val paymentHistory : List<PaymentData>? = null,
-    val shouldUpdatePaymentHistory: Boolean =  true
+    val shouldUpdatePaymentHistory: Boolean =  true,
+    val latestGeneratedLink : String = ""
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated
