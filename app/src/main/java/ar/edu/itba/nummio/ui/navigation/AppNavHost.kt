@@ -65,6 +65,7 @@ fun AppNavHost(
             LoginScreen(
                 onNavigateToStart = {navController.popBackStack() },
                 onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route){popUpTo(AppDestinations.START.route)} },
+                onNavigateToRecover = {navController.navigate(AppDestinations.RECOVER_PASSWORD.route)},
                 viewModel = viewModel
             )
         }

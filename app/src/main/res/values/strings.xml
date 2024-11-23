@@ -76,7 +76,7 @@
     <string name="enter_password_again">Repeat your password:</string>
     <string name="password_recovery">Password recovery</string>
     <string name="resend_code">Resend code</string>
-    <string name="enter_code">Enter the code sent:</string>
+    <string name="enter_code">Enter the code sent to your email:</string>
     <string name="code">Code</string>
     <string name="send_code">Send Code</string>
     <string name="enter_your_email">Enter your email account:</string>
@@ -113,4 +113,14 @@
     <string name="invalid_mail_format">Input a valid email</string>
     <string name="mandatory_input_error">This field is required</string>
     <string name="same_passwords_error">The passwords must be the same</string>
+    <string name = "card_ending_in">Card ending in</string>
+    <string name = "new_password">Enter your new password:</string>
+    <string name="continue_btn">Continue</string>
+    <string name="validate_msg">Before you continue, you need to verify your account.</string>
+    <string name="insert_name">Insert your name:</string>
+    <string name="name">Name</string>
+    <string name="insert_last_name">Insert your last name:</string>
+    <string name="last_name">Last Name</string>
+    <string name="insert_birth_date">Insert your birth date:</string>
+    <string name="verify_title">Verify Account</string>
 </resources>

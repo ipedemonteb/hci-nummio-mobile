@@ -37,6 +37,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
+import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,8 +46,11 @@ fun RecoverPasswordScreen(
     onNavigateToStart: () -> Unit,
     viewModel: HomeViewModel
 ) {
+    var canEdit by remember { mutableStateOf(true) }
     var userEmail by remember { mutableStateOf("") }
+    var code by remember { mutableStateOf("") }
     var codeSent by remember { mutableStateOf(false) }
+    var password by remember { mutableStateOf("") }
     Surface(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -93,6 +97,7 @@ fun RecoverPasswordScreen(
                     onValueChange = { userEmail = it },
                     label = { Text(stringResource(R.string.email)) },
                     maxLines = 1,
+                    readOnly = !canEdit,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
@@ -103,7 +108,8 @@ fun RecoverPasswordScreen(
 
             if(!codeSent){
                 Row(modifier = Modifier.padding(top = 30.dp)) {
-                    HighContrastBtn(onClick = { codeSent = true }, text = stringResource(R.string.send_code))
+                    HighContrastBtn(onClick = { codeSent = true; viewModel.recoverPassword(userEmail); canEdit = !canEdit}, text = stringResource(R.string.send_code))
+
                 }
             }
             else {
@@ -120,9 +126,33 @@ fun RecoverPasswordScreen(
                         .fillMaxWidth()
                 ) {
                     OutlinedTextField(
-                        value = userEmail,
-                        onValueChange = { userEmail = it },
+                        value = code,
+                        onValueChange = { code = it },
                         label = { Text(stringResource(R.string.code)) },
+                        maxLines = 1,
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = DarkPurple,
+                            cursorColor = DarkPurple
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                Row(modifier = Modifier.padding(top = 20.dp)) {
+                    Text(
+                        text = stringResource(R.string.new_password),
+                        fontSize = 18.sp,
+                        color = DarkPurple
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(vertical = 5.dp)
+                        .fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = { Text(stringResource(R.string.password)) },
                         maxLines = 1,
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = DarkPurple,
@@ -142,11 +172,14 @@ fun RecoverPasswordScreen(
                         color = DarkPurple,
                         textDecoration = TextDecoration.Underline,
                         fontSize = 16.sp,
-                        modifier = Modifier.clickable { }
+                        modifier = Modifier.clickable { viewModel.recoverPassword(userEmail) }
                     )
                 }
                 Row(modifier = Modifier.padding(top = 30.dp)) {
-                    HighContrastBtn(onClick = {}, text = stringResource(R.string.confirm_button))
+                    HighContrastBtn(onClick = {viewModel.resetPassword(token=code, password=password)}, text = stringResource(R.string.confirm_button))
+                }
+                Row(modifier = Modifier.padding(top = 30.dp)) {
+                    LowContrastBtn(onClick = {canEdit = !canEdit}, text = stringResource(R.string.cancel_button))
                 }
             }
         }
