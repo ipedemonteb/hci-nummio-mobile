@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
-import ar.edu.itba.nummio.ui.component.MakePayment
 import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
