@@ -25,6 +25,7 @@ import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
 import ar.edu.itba.nummio.ui.home.PayScreen
 import ar.edu.itba.nummio.ui.home.SendScreen
+import ar.edu.itba.nummio.ui.home.SettingsScreen
 import ar.edu.itba.nummio.ui.home.VerifyScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
 
@@ -181,6 +182,9 @@ fun AppNavHost(
                 separator = ";",
                 viewModel=viewModel
             )
+        }
+        composable(AppDestinations.SETTINGS.route){
+            SettingsScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
     }
 }

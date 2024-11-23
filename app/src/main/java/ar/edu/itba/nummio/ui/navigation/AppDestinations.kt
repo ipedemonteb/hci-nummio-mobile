@@ -28,6 +28,6 @@ enum class AppDestinations(
     DEPOSIT(R.string.deposit_screen, Icons.Filled.Check, "deposits"),
     CONFIRM_SCREEN(R.string.confirm_screen, Icons.Filled.Check, "confirm_screen"),
     DATA_SCREEN(R.string.my_data, Icons.Filled.Check, "my_data"),
-    VERIFY_SCREEN(R.string.verify_title, Icons.Filled.Check, "verify_account")
-
+    VERIFY_SCREEN(R.string.verify_title, Icons.Filled.Check, "verify_account"),
+    SETTINGS(R.string.settings, Icons.Filled.Check, "settings")
 }
