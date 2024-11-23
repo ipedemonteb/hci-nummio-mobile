@@ -22,14 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.home.HomeViewModel
-import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @Composable
@@ -40,6 +37,9 @@ fun Header(
     onNavigateToSettings: () -> Unit,
     viewModel: HomeViewModel
 ) {
+    if (viewModel.uiState.currentUser == null) {
+        viewModel.getCurrentUser()
+    }
     val uiState = viewModel.uiState
     Box(modifier = Modifier
         .background(Color.White))
@@ -61,7 +61,7 @@ fun Header(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = stringResource(profileName),
+                text = viewModel.uiState.currentUser?.firstName + " " + viewModel.uiState.currentUser?.lastName,
                 color = DarkPurple,
                 maxLines = 1,
                 fontSize = 16.sp,

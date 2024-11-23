@@ -184,7 +184,7 @@ class HomeViewModel(
 
     fun getPaymentByLink(linkUuid: String) = runOnViewModelScope(
         { paymentRepository.getPaymentByLink(linkUuid) },
-        { state, _ -> state }
+        { state, response -> state.copy(currentPayment = response) }
     )
 
     fun payByLink(linkUuid: String, type: String) = runOnViewModelScope(

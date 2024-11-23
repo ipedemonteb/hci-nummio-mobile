@@ -3,6 +3,7 @@ package ar.edu.itba.nummio.data.network.api
 import ar.edu.itba.nummio.data.network.model.NetworkNewBalance
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentResponse
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentsResponse
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
@@ -35,7 +36,7 @@ interface PaymentApiService {
     suspend fun getPayment(@Path("id") id: Int): Response<NetworkPaymentData>
 
     @GET("payment/link/{linkUuid}")
-    suspend fun getPaymentByLink(@Path("linkUuid") linkUuid: String): Response<NetworkPaymentData>
+    suspend fun getPaymentByLink(@Path("linkUuid") linkUuid: String): Response<NetworkPaymentResponse>
 
     @POST("payment/link/{linkUuid}")
     suspend fun payByLink(

@@ -24,9 +24,9 @@ data class NetworkPaymentData(
     val linkUuid: String?,
     val createdAt: String,
     val updatedAt: String,
-    val card: NetworkPaymentCard?,
-    val payer: NetworkPaymentUser?,
-    val receiver: NetworkPaymentUser?
+    val card: NetworkPaymentCard? = null,
+    val payer: NetworkPaymentUser? = null,
+    val receiver: NetworkPaymentUser? = null
 ) {
     fun asModel(): PaymentData {
         return PaymentData(
