@@ -25,6 +25,7 @@ import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
 import ar.edu.itba.nummio.ui.home.PayScreen
 import ar.edu.itba.nummio.ui.home.SendScreen
+import ar.edu.itba.nummio.ui.home.VerifyScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
 
 @Composable
@@ -73,6 +74,7 @@ fun AppNavHost(
             SignupScreen (
                 onBackClick = {navController.popBackStack()},
                 onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route){popUpTo(AppDestinations.START.route)} },
+                onNavigateToVerify = {mailAndPassword -> navController.navigate("${AppDestinations.VERIFY_SCREEN.route}/$mailAndPassword")},
                 viewModel = viewModel
             )
         }
@@ -134,6 +136,12 @@ fun AppNavHost(
         }
         composable(AppDestinations.DATA_SCREEN.route){
             DataScreen(onBackClick = {navController.popBackStack()})
+        }
+        composable("${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",
+            arguments = listOf(navArgument("mailAndPassword") { type = NavType.StringType })
+        ){
+                backStackEntry ->
+            VerifyScreen(onBackClick = {navController.popBackStack()}, mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword")?: "", separator = ";")
         }
     }
 }

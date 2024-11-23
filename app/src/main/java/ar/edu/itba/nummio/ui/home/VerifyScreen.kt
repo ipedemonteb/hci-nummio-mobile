@@ -38,7 +38,11 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun VerifyScreen() {
+fun VerifyScreen(
+    onBackClick: () -> Unit,
+    mailAndPassword: String,
+    separator: String
+) {
     val landScape = false
     var codeSent by remember { mutableStateOf(false) }
     var canEdit by remember { mutableStateOf(true) }
@@ -47,10 +51,14 @@ fun VerifyScreen() {
     var code by remember { mutableStateOf("") }
     var date = remember { mutableStateOf(TextFieldValue("")) }
 
+    val (email, password) = mailAndPassword.split(separator, limit = 2).let {
+        it.getOrElse(0) { "" } to it.getOrElse(1) { "" }
+    }
+
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = "Verify Account", onBackClick = { }) }
+        topBar = { TopBar(title = "Verify Account", onBackClick = {onBackClick()}) }
     ) { paddingValues ->
         Column(modifier = Modifier
             .fillMaxSize()
@@ -179,6 +187,6 @@ fun VerifyScreen() {
 @Composable
 fun VerifyScreenPreview() {
     NummioTheme {
-        VerifyScreen()
+        VerifyScreen({},"", "")
     }
 }

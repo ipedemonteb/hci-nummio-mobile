@@ -40,6 +40,7 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 @Composable
 fun SignupScreen(
     onNavigateToLogin: () -> Unit,
+    onNavigateToVerify: (String) -> Unit,
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
@@ -202,6 +203,10 @@ fun SignupScreen(
                     else if (userPassword != confirmPassword) {
                         confirmPasswordErrorText = SAME_PASSWORD_ERROR
                         showConfirmPasswordError = true
+                    }
+
+                    if (!showPasswordError && !showConfirmPasswordError && !emailIsEmpty && !emailHasErrors) {
+                        onNavigateToVerify("${email};${userPassword}") //@TODO: ver si se puede hacer mejor (es muy feo)
                     }
                 }, text = stringResource(R.string.register_button))
             }
