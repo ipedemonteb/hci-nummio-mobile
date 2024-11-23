@@ -22,6 +22,8 @@ import ar.edu.itba.nummio.R
 fun DatePicker(
     date: TextFieldValue,
     onInputChange: (TextFieldValue) -> Unit,
+    enabled: Boolean = true,
+    color: Color = Color.Gray
 ) {
     val placeholder = stringResource(R.string.date_placeholder)
     val maxLength = stringResource(R.string.date_placeholder).length
@@ -29,30 +31,33 @@ fun DatePicker(
     OutlinedTextField(
         value = date,
         onValueChange = { input ->
-            val sanitizedInput = input.text.replace(Regex("[^0-9]"), "")
+            if(enabled) {
+                val sanitizedInput = input.text.replace(Regex("[^0-9]"), "")
 
-            val formattedInput = buildString {
-                sanitizedInput.forEachIndexed { index, char ->
-                    if ((index == 2 || index == 4) && length < maxLength) append("/")
-                    append(char)
+                val formattedInput = buildString {
+                    sanitizedInput.forEachIndexed { index, char ->
+                        if ((index == 2 || index == 4) && length < maxLength) append("/")
+                        append(char)
+                    }
                 }
-            }
 
-            val finalInput = formattedInput.take(maxLength)
-            val cursorPosition = input.selection.start + (finalInput.length - input.text.length)
+                val finalInput = formattedInput.take(maxLength)
+                val cursorPosition = input.selection.start + (finalInput.length - input.text.length)
 
-            onInputChange(
-                TextFieldValue(
-                    text = finalInput,
-                    selection = TextRange(cursorPosition.coerceIn(0, finalInput.length))
+                onInputChange(
+                    TextFieldValue(
+                        text = finalInput,
+                        selection = TextRange(cursorPosition.coerceIn(0, finalInput.length))
+                    )
                 )
-            )
+            }
         },
         modifier = Modifier
             .fillMaxWidth().background(Color.Transparent),
-        placeholder = { Text(text = placeholder.toString(), color = Color.Gray) },
+        placeholder = { Text(text = placeholder.toString(), color = color) },
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
         singleLine = true,
+        readOnly = !enabled,
         colors = TextFieldDefaults.colors(focusedContainerColor = Color.Transparent, unfocusedContainerColor = Color.Transparent, focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent),
     )
 }
