@@ -41,7 +41,8 @@ fun AppNavHost(
     ) {
         composable(AppDestinations.START.route) {
             StartScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route) },
+                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route)},
                 viewModel = viewModel
             )
         }
@@ -62,19 +63,21 @@ fun AppNavHost(
         }
         composable(AppDestinations.LOGIN.route) {
             LoginScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onNavigateToStart = {navController.popBackStack() },
+                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route){popUpTo(AppDestinations.START.route)} },
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.SIGNUP.route) {
             SignupScreen (
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onBackClick = {navController.popBackStack()},
+                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route){popUpTo(AppDestinations.START.route)} },
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
-                onNavigateToRoute = { route -> navController.navigate(route) },
+                onNavigateToStart = {navController.navigate(AppDestinations.START.route){popUpTo(AppDestinations.START.route){inclusive = true} } },
                 viewModel = viewModel
             )
         }

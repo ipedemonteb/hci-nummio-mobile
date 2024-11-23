@@ -43,7 +43,8 @@ import ar.edu.itba.nummio.ui.theme.Purple
 
 @Composable
 fun StartScreen (
-    onNavigateToRoute: (route: String) -> Unit,
+    onNavigateToLogin: () -> Unit,
+    onNavigateToSignup: () -> Unit,
     viewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ) {
     val uiState = viewModel.uiState
@@ -96,7 +97,7 @@ fun StartScreen (
                         .padding(horizontal = 10.dp, vertical = 10.dp)
                 ) {
                     HighContrastBtn(
-                        { onNavigateToRoute("login") },
+                        { onNavigateToLogin() },
                         stringResource(R.string.login_button)
                     )
                 }
@@ -105,7 +106,7 @@ fun StartScreen (
                         .padding(horizontal = 10.dp, vertical = 10.dp)
                 ) {
                     LowContrastBtn(
-                        { onNavigateToRoute("signup") },
+                        { onNavigateToSignup() },
                         stringResource(R.string.register_button)
                     )
                 }
@@ -155,7 +156,7 @@ fun StartScreen (
                             .padding(horizontal = 80.dp)
                     ) {
                         HighContrastBtn(
-                            { onNavigateToRoute("login") },
+                            { onNavigateToLogin() },
                             stringResource(R.string.login_button)
                         )
                     }
@@ -165,7 +166,7 @@ fun StartScreen (
                             .padding(horizontal = 80.dp)
                     ) {
                         LowContrastBtn(
-                            { onNavigateToRoute("signup") },
+                            { onNavigateToSignup() },
                             stringResource(R.string.register_button)
                         )
                     }
@@ -177,7 +178,7 @@ fun StartScreen (
     }
 }
 
-
+/*
 @Preview(
     name = "Landscape",
     device = Devices.PIXEL_4,
@@ -191,3 +192,4 @@ fun StartScreenPreview() {
         StartScreen( {} )
     }
 }
+*/

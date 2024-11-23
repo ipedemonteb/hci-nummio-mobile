@@ -110,4 +110,7 @@
     <string name="deposit_screen">Deposit</string>
     <string name="decimal_separator">.</string>
     <string name="delete_card">Deleting a card</string>
+    <string name="invalid_mail_format">Input a valid email</string>
+    <string name="mandatory_input_error">This field is required</string>
+    <string name="same_passwords_error">The passwords must be the same</string>
 </resources>

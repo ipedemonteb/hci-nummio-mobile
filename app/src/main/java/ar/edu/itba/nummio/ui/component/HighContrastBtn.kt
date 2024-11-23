@@ -17,7 +17,8 @@ import ar.edu.itba.nummio.ui.theme.LightPurple
 @Composable
 fun HighContrastBtn(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
@@ -28,5 +29,6 @@ fun HighContrastBtn(
             disabledContainerColor = DarkPurple,
             disabledContentColor = LightPurple
         ),
+        enabled = enabled
     ) { Text( text ) }
 }

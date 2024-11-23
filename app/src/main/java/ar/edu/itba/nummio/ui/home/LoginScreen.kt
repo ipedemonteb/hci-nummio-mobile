@@ -48,7 +48,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun LoginScreen(
-    onNavigateToRoute: (route: String) -> Unit,
+    onNavigateToStart: () -> Unit,
+    onNavigateToSignup: () -> Unit,
     viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
@@ -67,7 +68,7 @@ fun LoginScreen(
         ) {
             Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp)) {
                 IconButton({
-                    onNavigateToRoute("start")
+                    onNavigateToStart()
                 }) {
                     Icon(
                         painter = painterResource(R.drawable.arrow_left),
@@ -151,12 +152,13 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(30.dp))
             Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
-                HighContrastBtn( onClick = { onNavigateToRoute("signup") }, text = stringResource(R.string.no_account))
+                HighContrastBtn( onClick = { onNavigateToSignup() }, text = stringResource(R.string.no_account))
             }
         }
     }
 }
 
+/*
 @Preview(locale = "es")
 @Composable
 fun LoginScreenPreview() {
@@ -164,3 +166,4 @@ fun LoginScreenPreview() {
         LoginScreen(onNavigateToRoute = {}, viewModel = viewModel(factory = HomeViewModel.provideFactory((LocalContext.current.applicationContext as MyApplication))))
     }
 }
+*/

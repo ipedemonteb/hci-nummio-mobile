@@ -42,7 +42,7 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecoverPasswordScreen(
-    onNavigateToRoute: (route: String) -> Unit,
+    onNavigateToStart: () -> Unit,
     viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
@@ -54,8 +54,7 @@ fun RecoverPasswordScreen(
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp)) {
             Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp),) {
                 IconButton({
-                    //TODO: cambiar
-                    onNavigateToRoute("start")
+                    onNavigateToStart()
                 }) {
                     Icon(
                         painter = painterResource(R.drawable.arrow_left),
