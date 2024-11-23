@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,27 +29,35 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.nummio.MyApplication
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.LightPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun MakePayment() {
+fun MakePayment(
+    viewModel: HomeViewModel
+) {
     var link by remember { mutableStateOf("") }
     var found by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf(false) }
-    val options = listOf(
-        "Balance",
-        "Card 1234"
-    )
+    var amount by remember { mutableStateOf("") }
+    if(viewModel.uiState.cards == null)
+        viewModel.getCards()
+    if(viewModel.uiState.currentBalance == null)
+        viewModel.getBalance()
+    val options = listOf("Balance") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
@@ -134,7 +145,7 @@ fun MakePayment() {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (selectedOption.isEmpty()) stringResource(R.string.method) else selectedOption,
+                            text = selectedOption.ifEmpty { stringResource(R.string.method) },
                             color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
                         )
                     }
@@ -143,20 +154,20 @@ fun MakePayment() {
                             alignment = Alignment.TopStart,
                             onDismissRequest = { expanded = false }
                         ) {
-                            Column(
+                            LazyColumn (
                                 modifier = Modifier
                                     .background(Color.White)
                                     .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
                                     .padding(8.dp)
                                     .width(160.dp)
+                                    .heightIn(max=210.dp)
                             ) {
-                                options.forEach { option ->
+                                items(options) { option ->
                                     DropdownMenuItem(
                                         onClick = {
                                             selectedOption = option
                                             expanded = false
                                             selectedMethod = true
-
                                         },
                                         text = {
                                             Text(text = option)
@@ -169,7 +180,7 @@ fun MakePayment() {
                     Spacer(modifier = Modifier.height(8.dp))
                     if(selectedOption == "Balance") {
                         Text (
-                            text = stringResource(R.string.some_balance),
+                            text = "${stringResource(R.string.my_balance)}: ${viewModel.uiState.currentBalance.toString()}",
                             color = Color.Gray
                         )
                     }
@@ -201,13 +212,10 @@ fun MakePayment() {
     }
 }
 
-
-
-
 @Preview(showBackground = true, locale = "es")
 @Composable
 fun MakePaymentPreview() {
     NummioTheme {
-        MakePayment()
+        MakePayment(viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)))
     }
 }

@@ -129,7 +129,7 @@ fun AppNavHost(
             )
         }
         composable(AppDestinations.MAKE_PAYMENT.route) {
-            PayScreen(onBackClick = { navController.popBackStack() })
+            PayScreen(onBackClick = { navController.popBackStack() }, viewModel)
         }
         composable(AppDestinations.GENERATE_LINK.route) {
             GenerateLinkScreen(onBackClick = { navController.popBackStack() })
