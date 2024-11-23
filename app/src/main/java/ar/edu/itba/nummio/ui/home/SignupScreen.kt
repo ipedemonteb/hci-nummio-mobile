@@ -66,6 +66,7 @@ fun SignupScreen(
     var showConfirmPasswordError by remember { mutableStateOf(false) }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val SAME_PASSWORD_ERROR = stringResource(R.string.same_passwords_error)
+    val PASSWORD_SHORT_ERROR = stringResource(R.string.password_short)
 
     val uiState = viewModel.uiState
     Scaffold(modifier = Modifier
@@ -199,6 +200,9 @@ fun SignupScreen(
                             confirmPasswordErrorText = MANDATORY_INPUT_ERROR
                             showConfirmPasswordError = true
                         }
+                    } else if(userPassword.length < 8) {
+                        passwordErrorText = PASSWORD_SHORT_ERROR
+                        showPasswordError = true
                     }
                     else if (userPassword != confirmPassword) {
                         confirmPasswordErrorText = SAME_PASSWORD_ERROR

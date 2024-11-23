@@ -117,15 +117,17 @@
     <string name = "new_password">Enter your new password:</string>
     <string name="continue_btn">Continue</string>
     <string name="validate_msg">Before you continue, you need to verify your account.</string>
-    <string name="insert_name">Insert your name:</string>
-    <string name="name">Name</string>
-    <string name="insert_last_name">Insert your last name:</string>
+    <string name="insert_name">Input your first name:</string>
+    <string name="name">First name</string>
+    <string name="insert_last_name">Input your last name:</string>
     <string name="last_name">Last Name</string>
-    <string name="insert_birth_date">Insert your birth date:</string>
+    <string name="insert_birth_date">Input your birth date:</string>
     <string name="verify_title">Verify Account</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
     <string name="sent_payment">Payment Sent</string>
     <string name="received_payment">Payment Received</string>
     <string name="invalid_amount">You must input a valid amount</string>
+    <string name="invalid_birthdate">You must input a valid birth date</string>
+    <string name="password_short">Password must be at least 8 characters long</string>
 </resources>
