@@ -3,8 +3,6 @@ package ar.edu.itba.nummio.ui.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -54,9 +52,8 @@ fun BalanceBox(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            /*text = if (saldoVisible) stringResource(id = R.string.show_balance)
-                                else stringResource(id = R.string.hide_balance)*/
-                            text="$" + uiState.currentBalance.toString(),
+                            text = if (saldoVisible) "$" + uiState.currentBalance.toString()
+                                else stringResource(id = R.string.hide_balance),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
