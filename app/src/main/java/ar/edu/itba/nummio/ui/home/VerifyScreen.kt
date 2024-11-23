@@ -36,7 +36,6 @@ import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun VerifyScreen(
@@ -48,14 +47,72 @@ fun VerifyScreen(
     val landScape = false
     var codeSent by remember { mutableStateOf(false) }
     var canEdit by remember { mutableStateOf(true) }
-    var name by remember { mutableStateOf("") }
+    var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
     var date = remember { mutableStateOf(TextFieldValue("")) }
     var dateString = remember { mutableStateOf("") }
 
+    var firstNameError by remember { mutableStateOf("") }
+    var showFirstNameError by remember { mutableStateOf(false) }
+    var lastNameError by remember { mutableStateOf("") }
+    var showLastNameError by remember { mutableStateOf(false) }
+    var birthdateError by remember { mutableStateOf("") }
+    var showBirthdateError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val BIRTHDATE_INPUT_ERROR = stringResource(R.string.invalid_birthdate)
+
     val (email, password) = mailAndPassword.split(separator, limit = 2).let {
         it.getOrElse(0) { "" } to it.getOrElse(1) { "" }
+    }
+
+    fun checkFirstName(): Boolean {
+        showFirstNameError = false
+        if(firstName.isEmpty()) {
+            firstNameError = MANDATORY_INPUT_ERROR
+            showFirstNameError = true
+            return false
+        }
+        return true
+    }
+
+    fun checkLastName(): Boolean {
+        showLastNameError = false
+        if(lastName.isEmpty()) {
+            lastNameError = MANDATORY_INPUT_ERROR
+            showLastNameError = true
+            return false
+        }
+        return true
+    }
+
+    fun checkBirthdate(): Boolean {
+        showBirthdateError = false
+        if(date.value.text.length < 10) {
+            birthdateError = BIRTHDATE_INPUT_ERROR
+            showBirthdateError = true
+            return false
+        }
+        return true
+    }
+
+    fun handleSignup() {
+        canEdit = !canEdit
+
+        val firstNameValidation = checkFirstName()
+        val lastNameValidation = checkLastName()
+        val birthdateValidation = checkBirthdate()
+
+        if(firstNameValidation && lastNameValidation && birthdateValidation) {
+            viewModel.register(
+                firstName = firstName,
+                lastName = lastName,
+                birthDate = date.value.toString(),
+                email = email,
+                password = password
+            )
+            codeSent = !codeSent
+        }
     }
 
     Scaffold(modifier = Modifier
@@ -92,12 +149,14 @@ fun VerifyScreen(
                 }
                 Row {
                     OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
+                        value = firstName,
+                        onValueChange = { firstName = it },
                         label = { Text(stringResource(R.string.name)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        readOnly = !canEdit
+                        readOnly = !canEdit,
+                        isError = showFirstNameError,
+                        supportingText = { if(showFirstNameError) Text(firstNameError) }
                     )
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -115,7 +174,9 @@ fun VerifyScreen(
                         label = { Text(stringResource(R.string.last_name)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        readOnly = !canEdit
+                        readOnly = !canEdit,
+                        isError = showLastNameError,
+                        supportingText = { if(showLastNameError) Text(lastNameError) }
                     )
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -138,8 +199,9 @@ fun VerifyScreen(
                             date = date.value,
                             onInputChange = { input -> date.value = input },
                             enabled = canEdit,
-                            color = Color.DarkGray
+                            color = Color.DarkGray,
                         )
+                        // @TODO: agregar el snackbar con el error de birthdate
                     }
                 }
                 val (day, mon, yr) =date.value.text.split("/", limit = 3).let {
@@ -150,16 +212,14 @@ fun VerifyScreen(
                     )
                 }
 
-
+                Spacer(modifier = Modifier.height(40.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    HighContrastBtn(onClick = {
-                        codeSent = !codeSent
-                        canEdit = !canEdit
-                        viewModel.register(firstName=name,lastName=lastName, birthDate = "2000-01-01", email=email, password=password)
-                        }, text = stringResource(R.string.continue_btn))
+                    HighContrastBtn(
+                        onClick = { handleSignup() },
+                        text = stringResource(R.string.continue_btn)
+                    )
                 }
-            }
-            else {
+            } else {
                 Spacer(modifier = Modifier.height(20.dp))
                 Row {
                     Text(
@@ -185,9 +245,9 @@ fun VerifyScreen(
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
                     LowContrastBtn(onClick = { codeSent = !codeSent
                         canEdit = !canEdit
-                        name = ""
-                         lastName = ""
-                         date.value = TextFieldValue("")}, text = stringResource(R.string.cancel_button))
+                        firstName = ""
+                        lastName = ""
+                        date.value = TextFieldValue("")}, text = stringResource(R.string.cancel_button))
                 }
             }
         }
