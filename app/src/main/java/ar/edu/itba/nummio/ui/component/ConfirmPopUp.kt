@@ -30,7 +30,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 fun ConfirmPopUp(
     action: String = stringResource(R.string.current_action),
     onConfirm: (Boolean) -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
 ) {
     Surface(shape = RoundedCornerShape(8.dp),
         color = Color.White,
@@ -77,10 +77,11 @@ fun ConfirmPopUp(
     }
 }
 
+/*
 @Preview
 @Composable
 fun ConfirmPopUpPreview() {
     NummioTheme {
         ConfirmPopUp(onConfirm = {}, onCancel = {})
     }
-}
+}*/

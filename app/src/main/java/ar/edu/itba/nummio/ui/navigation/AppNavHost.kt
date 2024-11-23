@@ -90,13 +90,13 @@ fun AppNavHost(
             TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route){
-            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message -> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message")}, viewModel = viewModel)
+            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message") }, viewModel = viewModel)
         }
         composable("${AppDestinations.WALLET.route}/{bool}",
             arguments = listOf(navArgument("bool") { type = NavType.BoolType })
             ){
             backStackEntry ->
-            WalletScreen(wasConfirmed = backStackEntry.arguments?.getBoolean("bool")?: false, onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message -> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message")}, viewModel = viewModel)
+            WalletScreen(wasConfirmed = backStackEntry.arguments?.getBoolean("bool")?: false, onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message"); job.start()}, viewModel = viewModel)
         }
         composable(AppDestinations.MAKE_PAYMENT.route){
             PayScreen(onBackClick = {navController.popBackStack()})

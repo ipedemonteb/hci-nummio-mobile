@@ -14,7 +14,8 @@ data class HomeUiState(
     val error: Error? = null,
     val isLandscape: Boolean = false,
     val currentBalance: Double? = null,
-    val shouldUpdateBalance: Boolean = true
+    val shouldUpdateBalance: Boolean = true,
+    val cardToDelete: Int? = null
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

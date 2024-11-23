@@ -126,7 +126,8 @@ class HomeViewModel(
         { state, _ ->
             state.copy(
                 currentCard = null,
-                cards = null
+                cards = null,
+                cardToDelete = null
             )
         }
     )

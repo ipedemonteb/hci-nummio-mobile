@@ -30,15 +30,17 @@ import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.component.WalletComponent
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
+import kotlinx.coroutines.Job
 
 @Composable
 fun WalletScreen(
     wasConfirmed: Boolean = false,
     onBackClick: () -> Unit,
     onNavigateToAddCard: () -> Unit,
-    onNavigateToConfirmScreen: (String) -> Unit,
+    onNavigateToConfirmScreen: (String, Job) -> Unit,
     viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState
     var deleteCard by remember { mutableStateOf(false) }
     val actionIcon: Pair<@Composable () -> Unit, () -> Unit> = Pair(
         {
@@ -51,6 +53,7 @@ fun WalletScreen(
         },
         { deleteCard = !deleteCard }
     )
+
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
@@ -73,6 +76,7 @@ fun WalletScreen(
     }
 }
 
+/*
 @Preview
 @Composable
 fun WalletScreenPreview() {
@@ -81,4 +85,4 @@ fun WalletScreenPreview() {
             LocalContext.current.applicationContext as MyApplication))
         )
     }
-}
+}*/
