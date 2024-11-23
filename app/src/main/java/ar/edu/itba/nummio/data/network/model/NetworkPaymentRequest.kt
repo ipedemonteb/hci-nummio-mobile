@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkPaymentRequest (
-    val amount: Int,
+    val amount: Double,
     val description: String,
     val type: String,
     val receiverEmail: String? = null,

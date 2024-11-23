@@ -114,7 +114,7 @@ fun AppNavHost(
             arguments = listOf(navArgument("email") { type = NavType.StringType })
         ){
             backStackEntry ->
-            SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "")
+            SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "", viewModel = viewModel)
         }
         composable(AppDestinations.DEPOSIT.route){
             DepositScreen(onBackClick = {navController.popBackStack()}, viewModel)

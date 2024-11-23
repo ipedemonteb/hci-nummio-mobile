@@ -1,7 +1,7 @@
 package ar.edu.itba.nummio.data.model
 
 class PaymentRequest (
-    var amount: Int,
+    var amount: Double,
     var description: String,
     var type: String,
     var receiverEmail: String? = null,
