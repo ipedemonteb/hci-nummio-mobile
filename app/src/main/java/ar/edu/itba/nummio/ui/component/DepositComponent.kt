@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
@@ -39,6 +41,7 @@ import ar.edu.itba.nummio.data.model.Amount
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
+import androidx.compose.foundation.lazy.items
 
 @Composable
 fun DepositComponent(
@@ -49,17 +52,37 @@ fun DepositComponent(
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf(false) }
-    val options = listOf(
-        "Other Bank",
-        "Card 1234"
-    )
+    if(viewModel.uiState.cards == null)
+        viewModel.getCards()
+    val options = listOf("Other Bank") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
     val decimalSeparator = stringResource(R.string.decimal_separator)
 
+    var showAmountError by remember { mutableStateOf(false) }
+    var amountError by remember { mutableStateOf("") }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val INVALID_AMOUNT = stringResource(R.string.invalid_amount)
+
     fun depositHandler() {
-        viewModel.recharge(Amount(
-            amount = amount.toDouble()
-        ))
-        onBackClick()
+        showAmountError = false
+        if(amount.isEmpty()) {
+            showAmountError = true
+            amountError = MANDATORY_INPUT_ERROR
+        } else {
+            try {
+                amount.toDouble()
+            } catch (e: Exception) {
+                showAmountError = true
+                amountError = INVALID_AMOUNT
+            }
+        }
+        if(!showAmountError) {
+            viewModel.recharge(
+                Amount(
+                    amount = amount.toDouble()
+                )
+            )
+            onBackClick()
+        }
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -82,7 +105,9 @@ fun DepositComponent(
                             .fillMaxWidth()
                             .background(Color.White),
                         singleLine = true,
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                        isError = showAmountError,
+                        supportingText = { if (showAmountError) Text(amountError) }
                     )
                 }
             }
@@ -108,7 +133,7 @@ fun DepositComponent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = if (selectedOption.isEmpty()) stringResource(R.string.method) else selectedOption,
+                        text = selectedOption.ifEmpty { stringResource(R.string.method) },
                         color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
                     )
                 }
@@ -117,20 +142,20 @@ fun DepositComponent(
                         alignment = Alignment.TopStart,
                         onDismissRequest = { expanded = false }
                     ) {
-                        Column(
+                        LazyColumn (
                             modifier = Modifier
                                 .background(Color.White)
                                 .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
                                 .padding(8.dp)
                                 .width(160.dp)
+                                .heightIn(max=210.dp)
                         ) {
-                            options.forEach { option ->
+                            items(options) { option ->
                                 DropdownMenuItem(
                                     onClick = {
                                         selectedOption = option
                                         expanded = false
                                         selectedMethod = true
-
                                     },
                                     text = {
                                         Text(text = option)
@@ -158,7 +183,7 @@ fun DepositComponent(
                         Box(modifier = Modifier.width(150.dp)) {
                             HighContrastBtn(
                                 onClick = { depositHandler() },
-                                stringResource(R.string.confirm_button)
+                                text = stringResource(R.string.confirm_button)
                             )
                         }
                     }

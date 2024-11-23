@@ -125,4 +125,7 @@
     <string name="verify_title">Verify Account</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="sent_payment">Payment Sent</string>
+    <string name="received_payment">Payment Received</string>
+    <string name="invalid_amount">You must input a valid amount</string>
 </resources>

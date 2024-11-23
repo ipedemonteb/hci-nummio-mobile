@@ -2,6 +2,7 @@ package ar.edu.itba.nummio.ui.home
 
 import ar.edu.itba.nummio.data.model.Card
 import ar.edu.itba.nummio.data.model.Error
+import ar.edu.itba.nummio.data.model.PaymentData
 import ar.edu.itba.nummio.data.model.User
 
 data class HomeUiState(
@@ -15,7 +16,9 @@ data class HomeUiState(
     val isLandscape: Boolean = false,
     val currentBalance: Double? = null,
     val shouldUpdateBalance: Boolean = true,
-    val cardToDelete: Int? = null
+    val cardToDelete: Int? = null,
+    val paymentHistory : List<PaymentData>? = null,
+    val shouldUpdatePaymentHistory: Boolean =  true
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

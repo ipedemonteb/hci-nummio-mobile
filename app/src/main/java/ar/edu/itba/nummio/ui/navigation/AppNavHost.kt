@@ -43,8 +43,8 @@ fun AppNavHost(
     ) {
         composable(AppDestinations.START.route) {
             StartScreen(
-                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route) },
-                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route)},
+                onNavigateToSignup = { navController.navigate(AppDestinations.SIGNUP.route) },
+                onNavigateToLogin = { navController.navigate(AppDestinations.LOGIN.route) },
                 viewModel = viewModel
             )
         }
@@ -53,35 +53,47 @@ fun AppNavHost(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
                 onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
                 onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
-                onNavigateToInvestments = {navController.navigate(AppDestinations.INVESTMENTS.route)},
-                onNavigateToMakePayment= { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
-                onNavigateToGenerateLink= { navController.navigate(AppDestinations.GENERATE_LINK.route) },
-                onNavigateToPromotions= {},
+                onNavigateToInvestments = { navController.navigate(AppDestinations.INVESTMENTS.route) },
+                onNavigateToMakePayment = { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
+                onNavigateToGenerateLink = { navController.navigate(AppDestinations.GENERATE_LINK.route) },
+                onNavigateToPromotions = {},
                 onNavigateToContacts = {},
-                onNavigateToHelp= {},
-                onNavigateToDeposit = {navController.navigate(AppDestinations.DEPOSIT.route)},
+                onNavigateToHelp = {},
+                onNavigateToDeposit = { navController.navigate(AppDestinations.DEPOSIT.route) },
                 viewModel = viewModel
-                )
+            )
         }
         composable(AppDestinations.LOGIN.route) {
             LoginScreen(
-                onBackClick = {navController.popBackStack() },
-                onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route){popUpTo(AppDestinations.START.route)} },
-                onNavigateToRecover = {navController.navigate(AppDestinations.RECOVER_PASSWORD.route)},
+                onBackClick = { navController.popBackStack() },
+                onNavigateToSignup = {
+                    navController.navigate(AppDestinations.SIGNUP.route) {
+                        popUpTo(
+                            AppDestinations.START.route
+                        )
+                    }
+                },
+                onNavigateToRecover = { navController.navigate(AppDestinations.RECOVER_PASSWORD.route) },
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.SIGNUP.route) {
-            SignupScreen (
-                onBackClick = {navController.popBackStack()},
-                onNavigateToLogin = {navController.navigate(AppDestinations.LOGIN.route){popUpTo(AppDestinations.START.route)} },
-                onNavigateToVerify = {mailAndPassword -> navController.navigate("${AppDestinations.VERIFY_SCREEN.route}/$mailAndPassword")},
+            SignupScreen(
+                onBackClick = { navController.popBackStack() },
+                onNavigateToLogin = {
+                    navController.navigate(AppDestinations.LOGIN.route) {
+                        popUpTo(
+                            AppDestinations.START.route
+                        )
+                    }
+                },
+                onNavigateToVerify = { mailAndPassword -> navController.navigate("${AppDestinations.VERIFY_SCREEN.route}/$mailAndPassword") },
                 viewModel = viewModel
             )
         }
         composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
-                onBackClick = {navController.popBackStack() },
+                onBackClick = { navController.popBackStack() },
                 viewModel = viewModel
             )
         }
@@ -91,52 +103,84 @@ fun AppNavHost(
         ) {
             OtherScreen(it.arguments?.getInt("id"))
         }
-        composable(AppDestinations.MOVEMENTS.route){
-            MovementsScreen(viewModel = viewModel, movements = emptyList(), onBackClick = {navController.popBackStack()})
+        composable(AppDestinations.MOVEMENTS.route) {
+            MovementsScreen(
+                viewModel = viewModel,
+                movements = viewModel.uiState.paymentHistory?.map {
+                    it.asTransactionData(
+                        viewModel.uiState.currentUser?.email ?: ""
+                    )
+                }
+                    ?: emptyList(),
+                onBackClick = { navController.popBackStack() })
         }
-        composable(AppDestinations.TRANSFERS.route){
-            TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
+        composable(AppDestinations.TRANSFERS.route) {
+            TransferScreen(
+                recipients = emptyList(),
+                onBackClick = { navController.popBackStack() },
+                onRecipientClick = {},
+                onNavigateToSendScreen = { email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email") }) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
-        composable(AppDestinations.WALLET.route){
-            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, id-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message/$id") }, viewModel = viewModel)
+        composable(AppDestinations.WALLET.route) {
+            WalletScreen(
+                onBackClick = { navController.popBackStack() },
+                onNavigateToAddCard = { navController.navigate(AppDestinations.ADD_CARD.route) },
+                onNavigateToConfirmScreen = { message, id -> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message/$id") },
+                viewModel = viewModel
+            )
         }
-        composable(AppDestinations.MAKE_PAYMENT.route){
-            PayScreen(onBackClick = {navController.popBackStack()})
+        composable(AppDestinations.MAKE_PAYMENT.route) {
+            PayScreen(onBackClick = { navController.popBackStack() })
         }
-        composable(AppDestinations.GENERATE_LINK.route){
-            GenerateLinkScreen(onBackClick = {navController.popBackStack()})
+        composable(AppDestinations.GENERATE_LINK.route) {
+            GenerateLinkScreen(onBackClick = { navController.popBackStack() })
         }
-        composable(AppDestinations.ADD_CARD.route){
-            AddCardScreen(onBackClick = {navController.popBackStack()}, viewModel = viewModel)
+        composable(AppDestinations.ADD_CARD.route) {
+            AddCardScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
-        composable(AppDestinations.INVESTMENTS.route){
-            InvestmentScreen(onBackClick = {navController.popBackStack()})
+        composable(AppDestinations.INVESTMENTS.route) {
+            InvestmentScreen(onBackClick = { navController.popBackStack() })
         }
-        composable("${AppDestinations.SEND_PAYMENT.route}/{email}",
+        composable(
+            "${AppDestinations.SEND_PAYMENT.route}/{email}",
             arguments = listOf(navArgument("email") { type = NavType.StringType })
-        ){
-            backStackEntry ->
-            SendScreen(onBackClick = {navController.popBackStack()}, backStackEntry.arguments?.getString("email")?: "", viewModel = viewModel)
+        ) { backStackEntry ->
+            SendScreen(
+                onBackClick = { navController.popBackStack() },
+                backStackEntry.arguments?.getString("email") ?: "",
+                viewModel = viewModel
+            )
         }
-        composable(AppDestinations.DEPOSIT.route){
-            DepositScreen(onBackClick = {navController.popBackStack()}, viewModel)
+        composable(AppDestinations.DEPOSIT.route) {
+            DepositScreen(onBackClick = { navController.popBackStack() }, viewModel)
         }
-        composable("${AppDestinations.CONFIRM_SCREEN.route}/{message}/{cardId}",
-            arguments = listOf(navArgument("message") { type = NavType.StringType }, navArgument("cardId"){type=NavType.IntType})
+        composable(
+            "${AppDestinations.CONFIRM_SCREEN.route}/{message}/{cardId}",
+            arguments = listOf(
+                navArgument("message") { type = NavType.StringType },
+                navArgument("cardId") { type = NavType.IntType })
 
-        ){
-            backStackEntry ->
-            ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", cardId = backStackEntry.arguments?.getInt("cardId")?:0, onBackClick = {navController.popBackStack()
-            } , viewModel=viewModel)
+        ) { backStackEntry ->
+            ConfirmScreen(
+                action = backStackEntry.arguments?.getString("message") ?: "",
+                cardId = backStackEntry.arguments?.getInt("cardId") ?: 0,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                viewModel = viewModel)
         }
-        composable(AppDestinations.DATA_SCREEN.route){
-            DataScreen(onBackClick = {navController.popBackStack()})
+        composable(AppDestinations.DATA_SCREEN.route) {
+            DataScreen(onBackClick = { navController.popBackStack() })
         }
-        composable("${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",
+        composable(
+            "${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",
             arguments = listOf(navArgument("mailAndPassword") { type = NavType.StringType })
-        ){
-                backStackEntry ->
-            VerifyScreen(onBackClick = {navController.popBackStack()}, mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword")?: "", separator = ";")
+        ) { backStackEntry ->
+            VerifyScreen(
+                onBackClick = { navController.popBackStack() },
+                mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword") ?: "",
+                separator = ";"
+            )
         }
         composable(AppDestinations.SETTINGS.route){
             SettingsScreen(onBackClick = {navController.popBackStack()})

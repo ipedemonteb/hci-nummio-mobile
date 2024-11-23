@@ -7,6 +7,7 @@ import ar.edu.itba.nummio.data.network.model.NetworkNewBalance
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentsResponse
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
 
 class PaymentRemoteDataSource(
@@ -27,7 +28,7 @@ class PaymentRemoteDataSource(
         range: String?,
         source: String?,
         cardId: Int?
-    ): List<NetworkPaymentData> {
+    ): NetworkPaymentsResponse {
         return handleApiResponse {
             paymentApiService.getPayments(page, direction, pending, type, range, source, cardId)
         }

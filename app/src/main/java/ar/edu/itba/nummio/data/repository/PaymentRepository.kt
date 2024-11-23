@@ -31,8 +31,7 @@ class PaymentRepository(
         source: String?,
         cardId: Int?
     ): List<PaymentData> {
-        return remoteDataSource.getPayments(page, direction, pending, type, range, source, cardId)
-            .map { it.asModel() }
+        return remoteDataSource.getPayments(page, direction, pending, type, range, source, cardId).payments.map { it.asModel() }
     }
     suspend fun getPayment(id: Int): PaymentData {
         return remoteDataSource.getPayment(id).asModel()

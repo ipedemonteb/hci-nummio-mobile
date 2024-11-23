@@ -99,4 +99,7 @@
     <string name="verify_title">Verificar Cuenta</string>
     <string name="settings">Ajustes</string>
     <string name="logout">Cerrar Sesion</string>
+    <string name="sent_payment">Pago Realizado</string>
+    <string name="received_payment">Pago Recibido</string>
+    <string name="invalid_amount">Debe ingresar un monto válido</string>
 </resources>
