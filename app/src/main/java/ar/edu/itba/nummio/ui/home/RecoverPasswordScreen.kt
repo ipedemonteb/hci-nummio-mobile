@@ -37,7 +37,7 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecoverPasswordScreen(
-    onNavigateToStart: () -> Unit,
+    onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
     var canEdit by remember { mutableStateOf(true) }
@@ -48,7 +48,7 @@ fun RecoverPasswordScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {onNavigateToStart()})}
+        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {onBackClick()})}
     ){
         paddingValues ->
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp).padding(paddingValues)) {

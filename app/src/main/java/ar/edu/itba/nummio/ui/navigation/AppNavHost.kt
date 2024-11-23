@@ -80,7 +80,7 @@ fun AppNavHost(
         }
         composable(AppDestinations.RECOVER_PASSWORD.route) {
             RecoverPasswordScreen(
-                onNavigateToStart = {navController.navigate(AppDestinations.START.route){popUpTo(AppDestinations.START.route){inclusive = true} } },
+                onBackClick = {navController.popBackStack() },
                 viewModel = viewModel
             )
         }

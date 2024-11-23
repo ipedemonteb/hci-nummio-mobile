@@ -59,7 +59,7 @@
     <string name="enter_email">Ingresa una cuenta de mail:</string>
     <string name="enter_password">Crea una contraseña:</string>
     <string name="enter_password_again">Repetí tu contraseña:</string>
-    <string name="password_recovery">Recupero de\nContraseña</string>
+    <string name="password_recovery">Recupero de Contraseña</string>
     <string name="resend_code">Reenviar código</string>
     <string name="enter_code">Ingresa el código enviado a tu mail:</string>
     <string name="code">Código</string>
