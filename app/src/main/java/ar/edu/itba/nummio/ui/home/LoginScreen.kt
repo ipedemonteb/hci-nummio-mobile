@@ -143,7 +143,7 @@ fun LoginScreen(
                         if (!userEmailHasErrors) {
                             viewModel.login(userEmail, userPassword)
                         }
-                        if (!uiState.isAuthenticated) //@TODO: fix
+                        if (uiState.error != null)
                             showCombinationError = true
                     },
                     text = stringResource(R.string.login_button)
