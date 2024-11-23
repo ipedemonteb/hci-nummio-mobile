@@ -37,7 +37,7 @@ fun WalletScreen(
     wasConfirmed: Boolean = false,
     onBackClick: () -> Unit,
     onNavigateToAddCard: () -> Unit,
-    onNavigateToConfirmScreen: (String, Job) -> Unit,
+    onNavigateToConfirmScreen: (String, Int) -> Unit,
     viewModel: HomeViewModel
 ) {
     val uiState = viewModel.uiState

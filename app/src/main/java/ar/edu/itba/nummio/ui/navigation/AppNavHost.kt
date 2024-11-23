@@ -97,13 +97,7 @@ fun AppNavHost(
             TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route){
-            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message") }, viewModel = viewModel)
-        }
-        composable("${AppDestinations.WALLET.route}/{bool}",
-            arguments = listOf(navArgument("bool") { type = NavType.BoolType })
-            ){
-            backStackEntry ->
-            WalletScreen(wasConfirmed = backStackEntry.arguments?.getBoolean("bool")?: false, onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, job-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route}/$message"); job.start()}, viewModel = viewModel)
+            WalletScreen(onBackClick = {navController.popBackStack()}, onNavigateToAddCard = {navController.navigate(AppDestinations.ADD_CARD.route)}, onNavigateToConfirmScreen = {message, id-> navController.navigate("${AppDestinations.CONFIRM_SCREEN.route }/$message/$id") }, viewModel = viewModel)
         }
         composable(AppDestinations.MAKE_PAYMENT.route){
             PayScreen(onBackClick = {navController.popBackStack()})
@@ -126,13 +120,13 @@ fun AppNavHost(
         composable(AppDestinations.DEPOSIT.route){
             DepositScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
-        composable("${AppDestinations.CONFIRM_SCREEN.route}/{message}",
-            arguments = listOf(navArgument("message") { type = NavType.StringType })
+        composable("${AppDestinations.CONFIRM_SCREEN.route}/{message}/{cardId}",
+            arguments = listOf(navArgument("message") { type = NavType.StringType }, navArgument("cardId"){type=NavType.IntType})
+
         ){
             backStackEntry ->
-            ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", onBackClick = {bool -> navController.navigate("${AppDestinations.WALLET.route}/$bool"){
-                popUpTo(AppDestinations.WALLET.route){inclusive = true}
-            } })
+            ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", cardId = backStackEntry.arguments?.getInt("cardId")?:0, onBackClick = {navController.popBackStack()
+            } , viewModel=viewModel)
         }
         composable(AppDestinations.DATA_SCREEN.route){
             DataScreen(onBackClick = {navController.popBackStack()})
