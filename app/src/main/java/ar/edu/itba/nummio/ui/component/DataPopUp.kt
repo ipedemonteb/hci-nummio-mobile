@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ClipboardManager
@@ -40,89 +42,110 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun DataPopUp() {
-    Surface(shape = RoundedCornerShape(8.dp),
+fun DataPopUp(
+    onDismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismiss) {
+        Surface(
+            shape = RoundedCornerShape(8.dp),
             color = Color.White,
-            modifier = Modifier.padding(horizontal = 20.dp).fillMaxWidth()) {
+            modifier = Modifier.fillMaxWidth().height(450.dp)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .blur(16.dp)
+                    .background(Color.Black.copy(alpha = 0.5f))
+            )
+            Box(
+                modifier = Modifier.background(Color.White, shape = RoundedCornerShape(16.dp))
+                    .padding(24.dp)
 
-        Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 30.dp)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = stringResource(id = R.string.my_data),
-                    color = DarkPurple,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 24.sp
-                )
-                Icon(
-                    imageVector = Icons.Outlined.Close,
-                    contentDescription = null,
-                    tint = DarkPurple,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.pfp),
-                    contentDescription = null,
-                    modifier = Modifier.size(50.dp)
-                        .clip(CircleShape)
-                        .border(2.dp, DarkPurple, CircleShape)
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(
-                    text = stringResource(id = R.string.profileName),
-                    color = DarkPurple,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 20.sp
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row {
-                Text (
-                    text = stringResource(R.string.cvu_title),
-                    color = DarkPurple
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Row {
-                CopyableTextInput(stringResource(R.string.user_cvu), false)
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row {
-                Text (
-                    text = stringResource(R.string.alias_title),
-                    color = DarkPurple
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Row {
-                CopyableTextInput(stringResource(R.string.user_alias), true)
-            }
-            Spacer(modifier = Modifier.height(32.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text (
-                    text = stringResource(R.string.copy_all_data),
-                    style = TextStyle(
-                        color = DarkPurple,
-                        textDecoration = TextDecoration.Underline
-                    ),
-                    modifier = Modifier.clickable {}
-                )
+                Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 30.dp)
+                    .align(Alignment.Center).size(400.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.my_data),
+                            color = DarkPurple,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 24.sp
+                        )
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = null,
+                            tint = DarkPurple,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.pfp),
+                            contentDescription = null,
+                            modifier = Modifier.size(50.dp)
+                                .clip(CircleShape)
+                                .border(2.dp, DarkPurple, CircleShape)
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = stringResource(id = R.string.profileName),
+                            color = DarkPurple,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row {
+                        Text(
+                            text = stringResource(R.string.cvu_title),
+                            color = DarkPurple
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row {
+                        CopyableTextInput(stringResource(R.string.user_cvu), false)
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row {
+                        Text(
+                            text = stringResource(R.string.alias_title),
+                            color = DarkPurple
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row {
+                        CopyableTextInput(stringResource(R.string.user_alias), true)
+                    }
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.copy_all_data),
+                            style = TextStyle(
+                                color = DarkPurple,
+                                textDecoration = TextDecoration.Underline
+                            ),
+                            modifier = Modifier.clickable {}
+                        )
+                    }
+                }
             }
         }
     }
@@ -213,6 +236,6 @@ fun copyToClipboard(context: Context, clipboardManager: ClipboardManager, text: 
 @Composable
 fun DataPopUpPreview() {
     NummioTheme {
-        DataPopUp()
+        DataPopUp({})
     }
 }

@@ -1,0 +1,110 @@
+package ar.edu.itba.nummio.ui.home
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.component.CopyableTextInput
+import ar.edu.itba.nummio.ui.component.HighContrastBtn
+import ar.edu.itba.nummio.ui.component.LowContrastBtn
+import ar.edu.itba.nummio.ui.component.TopBar
+import ar.edu.itba.nummio.ui.theme.DarkPurple
+
+@Composable
+fun DataScreen(
+    onBackClick: () -> Unit
+) {
+
+    Scaffold(
+        topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}) }
+    ) {
+        paddingValues ->
+        Column(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp).padding(paddingValues).size(400.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(bottom = 20.dp)
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.pfp),
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, DarkPurple, CircleShape)
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = stringResource(id = R.string.profileName),
+                    color = DarkPurple,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 20.sp
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row {
+                Text(
+                    text = stringResource(R.string.cvu_title),
+                    color = DarkPurple
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row {
+                CopyableTextInput(stringResource(R.string.user_cvu), false)
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row {
+                Text(
+                    text = stringResource(R.string.alias_title),
+                    color = DarkPurple
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row (modifier = Modifier.padding(bottom = 20.dp)){
+                CopyableTextInput(stringResource(R.string.user_alias), true)
+            }
+            Spacer(modifier = Modifier.height(32.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 60.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                LowContrastBtn(onClick = {}, text = stringResource(R.string.copy_all_data))
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun DataScreenPreview() {
+    DataScreen({})
+}
