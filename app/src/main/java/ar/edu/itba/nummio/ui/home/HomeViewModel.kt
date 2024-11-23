@@ -161,7 +161,7 @@ class HomeViewModel(
 
     fun makePayment(paymentRequest: ar.edu.itba.nummio.data.model.PaymentRequest) = runOnViewModelScope(
         { paymentRepository.makePayment(paymentRequest) },
-        { state, _ -> state.copy(shouldUpdateBalance = true, shouldUpdatePaymentHistory = true) }
+        { state, response -> state.copy(latestGeneratedLink = response.linkUuid, shouldUpdateBalance = true, shouldUpdatePaymentHistory = true) }
     )
 
     fun getPayments(
@@ -184,7 +184,7 @@ class HomeViewModel(
 
     fun getPaymentByLink(linkUuid: String) = runOnViewModelScope(
         { paymentRepository.getPaymentByLink(linkUuid) },
-        { state, _ -> state }
+        { state, response -> state.copy(currentPayment = response) }
     )
 
     fun payByLink(linkUuid: String, type: String) = runOnViewModelScope(

@@ -1,5 +1,6 @@
 package ar.edu.itba.nummio.ui.component
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -30,15 +32,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.PaymentRequest
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
-fun GeneratePayment() {
+fun GeneratePayment(viewModel:HomeViewModel) {
     var amount by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
-    val date = remember { mutableStateOf(TextFieldValue("")) }
-
+    var description = remember { mutableStateOf("") }
+    val current = LocalContext.current
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
             Column {
@@ -75,58 +79,55 @@ fun GeneratePayment() {
             Column {
                 Row {
                     Text(
-                        text = stringResource(R.string.enter_expiry_date),
+                        text = stringResource(R.string.send_description),
                         color = DarkPurple,
                         fontSize = 16.sp
                     )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Row {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White)
-                            .border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
-                            .clickable { expanded = !expanded }
-
-                    ) {
-                        DatePicker(date = date.value, onInputChange = {input -> date.value = input})
-                    }
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-        Row {
-            Column {
-                Row {
-                    Text(
-                        text = stringResource(R.string.check_cvu),
-                        color = DarkPurple,
-                        fontSize = 16.sp
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                Row {
-                    OutlinedTextField(
-                        value =stringResource(R.string.user_cvu),
-                        onValueChange = { },
-                        readOnly = true,
-                        placeholder = { Text(text = stringResource(R.string.user_cvu)) },
+                    /*OutlinedTextField(
+                        value = description,
+                        onValueChange = { description = it },
+                        label = { Text(text = stringResource(R.string.description)) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.White),
+                        singleLine = true,
+                    )*/
+
+                    OutlinedTextField(
+                        value =description.value,
+                        onValueChange = { description.value = it },
+                        label = { Text(text = stringResource(R.string.description)) },modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.White),
                         singleLine = true
+
                     )
+
+
                 }
             }
         }
+        fun shareText(context: android.content.Context, text: String) {
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, text)
+            }
+
+            // Show the chooser to the user
+            context.startActivity(Intent.createChooser(intent, "Share via"))
+        }
+        Text(viewModel.uiState.latestGeneratedLink)
         Spacer(modifier = Modifier.height(50.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Box(modifier = Modifier.padding(horizontal = 60.dp)) {
-                HighContrastBtn(onClick = {}, stringResource(R.string.generate_link))
+                HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value)); shareText(
+                    current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
             }
         }
 
@@ -137,6 +138,8 @@ fun GeneratePayment() {
 @Composable
 fun GeneratePaymentPreview() {
     NummioTheme {
-        GeneratePayment()
+        GeneratePayment(
+            viewModel = TODO()
+        )
     }
 }
