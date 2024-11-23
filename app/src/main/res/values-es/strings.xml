@@ -85,4 +85,5 @@
     <string name="decimal_separator">,</string>
     <string name="delete_card">Borrar una tarjeta</string>
     <string name = "card_ending_in">Tarjeta terminada en</string>
+    <string name="new_password">Ingresá la nueva contraseña:</string>
 </resources>

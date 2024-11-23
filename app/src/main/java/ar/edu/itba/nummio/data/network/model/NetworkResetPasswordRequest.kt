@@ -3,6 +3,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkResetPasswordRequest(
-    val token: String,
+    val code: String,
     val password: String
 )
