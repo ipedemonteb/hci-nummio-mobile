@@ -183,7 +183,7 @@ fun AppNavHost(
             )
         }
         composable(AppDestinations.SETTINGS.route){
-            SettingsScreen(onBackClick = {navController.popBackStack()})
+            SettingsScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
     }
 }
