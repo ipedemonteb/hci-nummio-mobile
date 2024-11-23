@@ -69,6 +69,9 @@ fun MovementsScreen(
             cardId = null
         )
     }
+    if (viewModel.uiState.currentUser==null) {
+        viewModel.getCurrentUser()
+    }
 
     Scaffold(
         topBar = { TopBar(stringResource(R.string.movements_option), onBackClick) },

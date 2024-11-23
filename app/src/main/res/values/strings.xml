@@ -123,4 +123,6 @@
     <string name="last_name">Last Name</string>
     <string name="insert_birth_date">Insert your birth date:</string>
     <string name="verify_title">Verify Account</string>
+    <string name="sent_payment">Payment Sent</string>
+    <string name="received_payment">Payment Received</string>
 </resources>

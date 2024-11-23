@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.nummio.R
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -49,7 +51,7 @@ fun Transaction(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TransactionArrow(modifier = Modifier.size(50.dp), message=="Transferencia recibida") //@TODO: mejorar lógica
+            TransactionArrow(modifier = Modifier.size(50.dp), message== stringResource(R.string.received_payment)) //@TODO: mejorar lógica
 
             Column(
                 modifier = Modifier
@@ -62,7 +64,7 @@ fun Transaction(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = if (message=="Transferencia recibida")"De $destination" else "A $destination", //@TODO: mejorar lógica
+                    text = if (message==stringResource(R.string.received_payment))"$destination" else "$destination", //@TODO: mejorar lógica
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -71,9 +73,9 @@ fun Transaction(
             Column() {
                 Text(
                     modifier = Modifier.padding(bottom = 5.dp),
-                    text = if (message=="Transferencia recibida")"+ $$amount" else "- $$amount", //@TODO: mejorar lógica
+                    text = if (message==stringResource(R.string.received_payment))"+ $$amount" else "- $$amount", //@TODO: mejorar lógica
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (message=="Transferencia recibida") Color(0xFF228B22) else Color.Black
+                    color = if (message==stringResource(R.string.received_payment)) Color(0xFF228B22) else Color.Black
                 )
                 Text(
                     text = date,

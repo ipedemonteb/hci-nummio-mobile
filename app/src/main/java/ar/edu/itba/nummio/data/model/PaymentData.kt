@@ -1,5 +1,8 @@
 package ar.edu.itba.nummio.data.model
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentCard
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentUser
@@ -38,10 +41,10 @@ class PaymentData(
         payer = payer!!.asNetworkModel(),
         receiver = receiver!!.asNetworkModel()
     )
-
-    fun asTransactionData() =
+    @Composable
+    fun asTransactionData(email:String) =
         TransactionData(
-            message = "Pending ver si es enviada o recibida",
+            message = if (email != receiver?.email) stringResource(R.string.sent_payment) else stringResource(R.string.received_payment),
             amount = amount,
             date = createdAt,
             destination = ((receiver?.firstName + " "+ receiver?.lastName) ?: "")
