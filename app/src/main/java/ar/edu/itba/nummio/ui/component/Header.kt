@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ fun Header(
     @DrawableRes pfp: Int,
     @StringRes profileName: Int,
     modifier: Modifier = Modifier,
+    onNavigateToSettings: () -> Unit,
     viewModel: HomeViewModel
 ) {
     val uiState = viewModel.uiState
@@ -66,12 +68,14 @@ fun Header(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
             )
-            Icon(
-                painter = painterResource(R.drawable.settings),
-                contentDescription = null,
-                tint = DarkPurple,
-                modifier = Modifier.size(26.dp)
-            )
+            IconButton(onClick = {onNavigateToSettings()}) {
+                Icon(
+                    painter = painterResource(R.drawable.settings),
+                    contentDescription = null,
+                    tint = DarkPurple,
+                    modifier = Modifier.size(26.dp)
+                )
+            }
         }
     }
 }
