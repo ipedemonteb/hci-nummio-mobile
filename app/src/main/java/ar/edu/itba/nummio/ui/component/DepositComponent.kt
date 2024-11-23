@@ -51,16 +51,9 @@ fun DepositComponent(
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf(false) }
-    val options = mutableListOf(
-        "Other Bank"
-    )
     if(viewModel.uiState.cards == null)
         viewModel.getCards()
-    if(viewModel.uiState.cards != null) {
-        viewModel.uiState.cards!!.forEach { card ->
-            options.add("Card ${card.number.substring(card.number.length - 4, card.number.length)}")
-        }
-    }
+    val options = listOf("Other Bank") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
     val decimalSeparator = stringResource(R.string.decimal_separator)
 
     var showAmountError by remember { mutableStateOf(false) }
