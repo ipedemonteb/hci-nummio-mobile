@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -18,7 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,21 +28,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.HighContrastBtn
 import ar.edu.itba.nummio.ui.component.LowContrastBtn
+import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @Composable
 fun LoginScreen(
-    onNavigateToStart: () -> Unit,
+    onBackClick: () -> Unit,
     onNavigateToSignup: () -> Unit,
     onNavigateToRecover: ()->Unit,
     viewModel: HomeViewModel
@@ -52,42 +50,19 @@ fun LoginScreen(
     var userPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val uiState = viewModel.uiState
-    Surface(modifier = Modifier
+    Scaffold(modifier = Modifier
         .background(Color.White)
-        .fillMaxSize()
+        .fillMaxSize(),
+        topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = onBackClick)}
     ) {
+        paddingValues ->
         Column(modifier = Modifier
             .padding(vertical = 30.dp, horizontal = if(uiState.isLandscape) 100.dp else 30.dp)
+            .padding(paddingValues)
             .verticalScroll(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState())
         ) {
-            Row(modifier = Modifier.padding(vertical = 10.dp).fillMaxWidth().offset(x = (-5).dp)) {
-                IconButton({
-                    onNavigateToStart()
-                }) {
-                    Icon(
-                        painter = painterResource(R.drawable.arrow_left),
-                        contentDescription = null,
-                        tint = DarkPurple,
-                        modifier = Modifier.size(40.dp).offset(x = (-10).dp),
-                    )
-                }
-            }
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 10.dp, top = 30.dp),
-                horizontalArrangement = Arrangement.Center,) {
-                Text(
-                    text = stringResource(R.string.enter_email_and_password),
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 24.sp,
-                    color = DarkPurple,
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    textAlign = TextAlign.Center,
-                    lineHeight = 35.sp
-                )
-            }
             Row(modifier = Modifier
                 .padding(vertical = 5.dp)
                 .fillMaxWidth()) {

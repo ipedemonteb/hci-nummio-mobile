@@ -46,7 +46,7 @@
     <string name="method">Método</string>
     <string name="enter_expiry_date">Ingrese la fecha de vencimiento:</string>
     <string name="date_placeholder">DD/MM/AAAA</string>
-    <string name="welcome_start_msg">¡Bienvenido!\Ingresa a tu cuenta</string>
+    <string name="welcome_start_msg">¡Bienvenido!\nIngresa a tu cuenta</string>
     <string name="login_button">Iniciar Sesión</string>
     <string name="register_button">Registrarse</string>
     <string name="enter_email_and_password">Ingresa tu email y contraseña</string>
@@ -59,7 +59,7 @@
     <string name="enter_email">Ingresa una cuenta de mail:</string>
     <string name="enter_password">Crea una contraseña:</string>
     <string name="enter_password_again">Repetí tu contraseña:</string>
-    <string name="password_recovery">Recupero de Contraseña</string>
+    <string name="password_recovery">Recupero de\nContraseña</string>
     <string name="resend_code">Reenviar código</string>
     <string name="enter_code">Ingresa el código enviado a tu mail:</string>
     <string name="code">Código</string>

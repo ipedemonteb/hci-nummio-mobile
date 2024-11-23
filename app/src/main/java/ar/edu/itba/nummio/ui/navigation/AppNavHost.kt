@@ -64,7 +64,7 @@ fun AppNavHost(
         }
         composable(AppDestinations.LOGIN.route) {
             LoginScreen(
-                onNavigateToStart = {navController.popBackStack() },
+                onBackClick = {navController.popBackStack() },
                 onNavigateToSignup = {navController.navigate(AppDestinations.SIGNUP.route){popUpTo(AppDestinations.START.route)} },
                 onNavigateToRecover = {navController.navigate(AppDestinations.RECOVER_PASSWORD.route)},
                 viewModel = viewModel
