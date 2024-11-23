@@ -19,6 +19,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
@@ -35,7 +35,6 @@ import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.data.model.PaymentRequest
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
-import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun TransferComponent(
@@ -47,13 +46,15 @@ fun TransferComponent(
     var selectedOption by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf(false) }
-    val options = listOf(
-        "Balance",
-        "CARD"
-    )
+    if (viewModel.uiState.cards == null) {
+        //var cardId by remember { mutableStateOf(viewModel.uiState.cards!!.first().id) }
+        viewModel.getCards()
+    }
+    val options = listOf("Balance") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
 
-    var cardId : Int = 3
 
+    var cardId by remember { mutableIntStateOf(0) }
+    var type by remember { mutableStateOf("") }
     Column(modifier = Modifier.fillMaxWidth()) {
             Row {
                 Column {
@@ -146,6 +147,13 @@ fun TransferComponent(
                                             selectedOption = option
                                             expanded = false
                                             selectedMethod = true
+                                            if (option != "Balance") {
+                                                cardId = viewModel.uiState.cards!!.find { it.number.takeLast(4) == option.takeLast(4) }!!.id!!
+                                                type="CARD"
+                                            }
+                                            if(option == "Balance") {
+                                                type="BALANCE"
+                                            }
 
                                         },
                                         text = {
@@ -180,7 +188,7 @@ fun TransferComponent(
                             Box(modifier = Modifier.width(150.dp)) {
                                 HighContrastBtn(
                                     onClick = {viewModel.makePayment(PaymentRequest(amount = amount.toDouble(), description = description,
-                                        type = selectedOption, receiverEmail = enteredEmail, cardId = cardId))},
+                                        type = type, receiverEmail = enteredEmail, cardId = cardId))},
                                     stringResource(R.string.confirm_button)
                                 )
                             }

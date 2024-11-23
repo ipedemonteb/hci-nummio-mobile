@@ -84,4 +84,5 @@
     <string name="deposit_screen">Depositar</string>
     <string name="decimal_separator">,</string>
     <string name="delete_card">Borrar una tarjeta</string>
+    <string name = "card_ending_in">Tarjeta terminada en</string>
 </resources>
