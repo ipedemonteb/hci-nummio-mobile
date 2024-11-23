@@ -17,15 +17,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun BalanceBox(
+    viewModel: HomeViewModel,
     modifier: Modifier = Modifier.fillMaxWidth(),
 ) {
     var saldoVisible by remember { mutableStateOf(true) }
-
+    val uiState = viewModel.uiState
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -51,8 +54,9 @@ fun BalanceBox(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (saldoVisible) stringResource(id = R.string.show_balance)
-                                else stringResource(id = R.string.hide_balance),
+                            /*text = if (saldoVisible) stringResource(id = R.string.show_balance)
+                                else stringResource(id = R.string.hide_balance)*/
+                            text="$" + uiState.currentBalance.toString(),
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Medium,
                         )
@@ -76,6 +80,6 @@ fun BalanceBox(
 @Composable
 fun BalanceBoxPreview() {
     NummioTheme {
-        BalanceBox()
+        BalanceBox(viewModel = viewModel())
     }
 }
