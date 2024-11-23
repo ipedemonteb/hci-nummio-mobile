@@ -29,8 +29,8 @@ fun Transaction(
     amount: Double
 )
 {
-    val dateFormat = SimpleDateFormat("d MMM yy", Locale("es", "ES"))
-    val formattedDate = dateFormat.format(date) // Usando el timestamp para convertirlo en fecha
+    //val dateFormat = SimpleDateFormat("d MMM yy", Locale("es", "ES"))
+    //val formattedDate = dateFormat.format(date) // Usando el timestamp para convertirlo en fecha
 
     Card(
         modifier = Modifier
@@ -76,7 +76,7 @@ fun Transaction(
                     color = if (message=="Transferencia recibida") Color(0xFF228B22) else Color.Black
                 )
                 Text(
-                    text = formattedDate,
+                    text = date,
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.Black
                 )

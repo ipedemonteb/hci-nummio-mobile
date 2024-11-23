@@ -86,7 +86,8 @@ fun AppNavHost(
             OtherScreen(it.arguments?.getInt("id"))
         }
         composable(AppDestinations.MOVEMENTS.route){
-            MovementsScreen(viewModel = viewModel, movements = emptyList(), onBackClick = {navController.popBackStack()})
+            MovementsScreen(viewModel = viewModel, movements = viewModel.uiState.paymentHistory?.map { it.asTransactionData() }
+                ?: emptyList(), onBackClick = {navController.popBackStack()})
         }
         composable(AppDestinations.TRANSFERS.route){
             TransferScreen(recipients = emptyList(), onBackClick = {navController.popBackStack()}, onRecipientClick = {}, onNavigateToSendScreen = {email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email")}) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact

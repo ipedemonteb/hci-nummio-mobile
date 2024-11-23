@@ -3,6 +3,7 @@ package ar.edu.itba.nummio.data.model
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentCard
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentUser
+import ar.edu.itba.nummio.ui.home.TransactionData
 import kotlinx.serialization.Serializable
 
 class PaymentData(
@@ -37,6 +38,15 @@ class PaymentData(
         payer = payer!!.asNetworkModel(),
         receiver = receiver!!.asNetworkModel()
     )
+
+    fun asTransactionData() =
+        TransactionData(
+            message = "Pending ver si es enviada o recibida",
+            amount = amount,
+            date = createdAt,
+            destination = ((receiver?.firstName + " "+ receiver?.lastName) ?: "")
+    )
+
 }
 
 class PaymentCard(

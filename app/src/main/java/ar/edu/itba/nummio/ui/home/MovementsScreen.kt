@@ -44,8 +44,8 @@ import java.util.Date
 data class TransactionData(
     val message: String,
     val destination: String,
-    val date: Date,
-    val amount: Int
+    val date: String,
+    val amount: Double
 )
 
 @Composable
@@ -139,15 +139,12 @@ fun MovementsScreen(
                     onInputChange = {searchText=it}
                 )
             }
-            Text(viewModel.uiState.paymentHistory?.get(0)?.type.toString())
-            LazyColumn(modifier = Modifier.fillMaxHeight().width(368.dp)) {
-               /* items(viewModel.uiState.paymentHistory!!) { transaction ->
-                    Transaction("r", "r", "hola", 10.0)
-                }*/
+             LazyColumn(modifier = Modifier.fillMaxHeight().width(368.dp)) {
+                items(movements) { transaction ->
+                    Transaction(transaction.message, transaction.destination,
+                        transaction.date, transaction.amount)
+                }
 
-               /*items(viewModel.uiState.paymentHistory!!) { transaction ->
-                    Transaction("mistica", "total", transaction.createdAt, transaction.amount)
-                }*/
             }
 
 
