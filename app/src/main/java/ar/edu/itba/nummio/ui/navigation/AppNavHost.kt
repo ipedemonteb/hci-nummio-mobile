@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ar.edu.itba.nummio.ui.home.AddCardScreen
 import ar.edu.itba.nummio.ui.home.ConfirmScreen
+import ar.edu.itba.nummio.ui.home.DataScreen
 import ar.edu.itba.nummio.ui.home.DepositScreen
 import ar.edu.itba.nummio.ui.home.GenerateLinkScreen
 import ar.edu.itba.nummio.ui.home.HomeScreen
@@ -47,7 +48,7 @@ fun AppNavHost(
         composable(AppDestinations.HOME.route) {
             HomeScreen(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
-                onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
+                onNavigateToData = { navController.navigate(AppDestinations.DATA_SCREEN.route) },
                 onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
                 onNavigateToInvestments = {navController.navigate(AppDestinations.INVESTMENTS.route)},
                 onNavigateToMakePayment= { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
@@ -126,6 +127,9 @@ fun AppNavHost(
             ConfirmScreen(action = backStackEntry.arguments?.getString("message")?: "", onBackClick = {bool -> navController.navigate("${AppDestinations.WALLET.route}/$bool"){
                 popUpTo(AppDestinations.WALLET.route){inclusive = true}
             } })
+        }
+        composable(AppDestinations.DATA_SCREEN.route){
+            DataScreen(onBackClick = {navController.popBackStack()})
         }
     }
 }

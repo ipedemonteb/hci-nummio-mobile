@@ -13,6 +13,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,9 +33,11 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 fun TopOptions(
     viewModel: HomeViewModel,
     onNavigateToTransfer: () -> Unit,
-    onNavigateToDeposit: () -> Unit
+    onNavigateToDeposit: () -> Unit,
+    onNavigateToData: () -> Unit
 ) {
     val uiState = viewModel.uiState
+
     Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 12.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -48,7 +52,7 @@ fun TopOptions(
             RoundOption(
                 icon = painterResource(id = R.drawable.id),
                 label = stringResource(id = R.string.data_option),
-                onClick = { }//@TODO: popup
+                onClick = {onNavigateToData()}
             )
             RoundOption(
                 icon =painterResource(id = R.drawable.history),
@@ -98,7 +102,7 @@ fun RoundOption(
 @Composable
 fun TopOptionsPreview() {
     NummioTheme {
-        TopOptions(onNavigateToTransfer = {}, onNavigateToDeposit = {}, viewModel = viewModel())
+        TopOptions(onNavigateToTransfer = {}, onNavigateToDeposit = {}, onNavigateToData = {}, viewModel = viewModel())
     }
 }
 
