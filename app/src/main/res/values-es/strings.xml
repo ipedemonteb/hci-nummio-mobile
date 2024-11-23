@@ -102,4 +102,6 @@
     <string name="sent_payment">Pago Realizado</string>
     <string name="received_payment">Pago Recibido</string>
     <string name="invalid_amount">Debe ingresar un monto válido</string>
+    <string name="invalid_birthdate">Debe ingresar una fecha de nacimiento válida</string>
+    <string name="password_short">La contraseña debe tener al menos 8 caracteres</string>
 </resources>
