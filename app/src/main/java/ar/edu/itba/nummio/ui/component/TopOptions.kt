@@ -13,8 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +32,7 @@ fun TopOptions(
     viewModel: HomeViewModel,
     onNavigateToTransfer: () -> Unit,
     onNavigateToDeposit: () -> Unit,
-    onNavigateToData: () -> Unit
+    onNavigateToMovements: () -> Unit
 ) {
     val uiState = viewModel.uiState
 
@@ -50,16 +48,15 @@ fun TopOptions(
                 onClick = {onNavigateToTransfer()}
             )
             RoundOption(
-                icon = painterResource(id = R.drawable.id),
-                label = stringResource(id = R.string.data_option),
-                onClick = {onNavigateToData()}
+                icon = painterResource(id = R.drawable.history),
+                label = stringResource(id = R.string.movements),
+                onClick = {onNavigateToMovements()}
             )
             RoundOption(
                 icon =painterResource(id = R.drawable.history),
                 label = stringResource(id = R.string.deposit_screen),
                 onClick = {onNavigateToDeposit()},
             )
-
         }
     }
 }
@@ -102,7 +99,7 @@ fun RoundOption(
 @Composable
 fun TopOptionsPreview() {
     NummioTheme {
-        TopOptions(onNavigateToTransfer = {}, onNavigateToDeposit = {}, onNavigateToData = {}, viewModel = viewModel())
+        TopOptions(onNavigateToTransfer = {}, onNavigateToDeposit = {}, onNavigateToMovements = {}, viewModel = viewModel())
     }
 }
 

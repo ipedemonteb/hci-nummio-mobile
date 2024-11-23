@@ -48,7 +48,7 @@ fun AppNavHost(
         composable(AppDestinations.HOME.route) {
             HomeScreen(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
-                onNavigateToData = { navController.navigate(AppDestinations.DATA_SCREEN.route) },
+                onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
                 onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
                 onNavigateToInvestments = {navController.navigate(AppDestinations.INVESTMENTS.route)},
                 onNavigateToMakePayment= { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },

@@ -31,7 +31,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun HomeScreen(
     onNavigateToTransfer: () -> Unit,
-    onNavigateToData: () -> Unit,
+    onNavigateToMovements: () -> Unit,
     onNavigateToCards: () -> Unit,
     onNavigateToInvestments: () -> Unit,
     onNavigateToMakePayment: () -> Unit,
@@ -69,7 +69,7 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            TopOptions(viewModel = viewModel, onNavigateToTransfer = onNavigateToTransfer, onNavigateToDeposit = onNavigateToDeposit, onNavigateToData = onNavigateToData)
+                            TopOptions(viewModel = viewModel, onNavigateToTransfer = onNavigateToTransfer, onNavigateToDeposit = onNavigateToDeposit, onNavigateToMovements = onNavigateToMovements)
                         }
                     }
                 }
