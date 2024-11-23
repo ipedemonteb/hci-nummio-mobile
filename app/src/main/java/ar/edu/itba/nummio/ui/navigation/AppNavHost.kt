@@ -178,7 +178,8 @@ fun AppNavHost(
             VerifyScreen(
                 onBackClick = { navController.popBackStack() },
                 mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword") ?: "",
-                separator = ";"
+                separator = ";",
+                viewModel=viewModel
             )
         }
     }

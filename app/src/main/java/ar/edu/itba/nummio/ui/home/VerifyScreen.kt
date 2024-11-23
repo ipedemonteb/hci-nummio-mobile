@@ -36,12 +36,14 @@ import ar.edu.itba.nummio.ui.component.LowContrastBtn
 import ar.edu.itba.nummio.ui.component.TopBar
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.NummioTheme
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun VerifyScreen(
     onBackClick: () -> Unit,
     mailAndPassword: String,
-    separator: String
+    separator: String,
+    viewModel: HomeViewModel
 ) {
     val landScape = false
     var codeSent by remember { mutableStateOf(false) }
@@ -50,6 +52,7 @@ fun VerifyScreen(
     var lastName by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
     var date = remember { mutableStateOf(TextFieldValue("")) }
+    var dateString = remember { mutableStateOf("") }
 
     val (email, password) = mailAndPassword.split(separator, limit = 2).let {
         it.getOrElse(0) { "" } to it.getOrElse(1) { "" }
@@ -139,12 +142,21 @@ fun VerifyScreen(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(60.dp))
+                val (day, mon, yr) =date.value.text.split("/", limit = 3).let {
+                    Triple(
+                        it.getOrElse(0) { "" },
+                        it.getOrElse(1) { "" },
+                        it.getOrElse(2) { "" }
+                    )
+                }
+
+
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
                     HighContrastBtn(onClick = {
                         codeSent = !codeSent
                         canEdit = !canEdit
-                    }, text = stringResource(R.string.continue_btn))
+                        viewModel.register(firstName=name,lastName=lastName, birthDate = "2000-01-01", email=email, password=password)
+                        }, text = stringResource(R.string.continue_btn))
                 }
             }
             else {
@@ -158,8 +170,8 @@ fun VerifyScreen(
                 }
                 Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {  },
+                        value = code,
+                        onValueChange = { code=it },
                         label = { Text(stringResource(R.string.code)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
@@ -167,7 +179,7 @@ fun VerifyScreen(
                 }
                 Spacer(modifier = Modifier.height(40.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    HighContrastBtn(onClick = {  }, text = stringResource(R.string.continue_btn))
+                    HighContrastBtn(onClick = {viewModel.verifyUser(code)}, text = stringResource(R.string.continue_btn))
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
@@ -187,6 +199,9 @@ fun VerifyScreen(
 @Composable
 fun VerifyScreenPreview() {
     NummioTheme {
-        VerifyScreen({},"", "")
+        VerifyScreen(
+            {}, "", "",
+            viewModel = TODO()
+        )
     }
 }
