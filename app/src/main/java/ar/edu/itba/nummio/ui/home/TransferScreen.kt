@@ -1,4 +1,3 @@
-import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,7 +14,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +36,6 @@ data class ContactData(
     val profileImage: Any,
 )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TransferScreen(
     recipients: List<ContactData>,
@@ -47,6 +45,15 @@ fun TransferScreen(
 ) {
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
+    val emailHasErrors by remember(cvuText) {
+        derivedStateOf {
+            if (cvuText.isNotEmpty()) {
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(cvuText).matches()
+            } else {
+                false
+            }
+        }
+    }
     Column (modifier = Modifier.padding(start = 10.dp, end = 10.dp)){
         Scaffold(
             topBar = {
@@ -75,7 +82,7 @@ fun TransferScreen(
                             color = Color.LightGray,
                             shape = RoundedCornerShape(10.dp)
                         ),
-                    horizontalArrangement = Arrangement.SpaceBetween, // Arrange items with space between
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextField(
@@ -87,7 +94,9 @@ fun TransferScreen(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
                             disabledContainerColor = Color.White,
-                        )
+                        ),
+                        //isError = emailHasErrors,
+                        //supportingText = {if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format))}
                     )
                     IconButton(
                         onClick = { onNavigateToSendScreen(cvuText) },

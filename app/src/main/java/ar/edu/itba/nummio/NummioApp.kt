@@ -50,7 +50,7 @@ fun NummioApp(
                 Header(pfp = R.drawable.pfp, profileName = R.string.profileName, onNavigateToSettings = {navController.navigate(AppDestinations.SETTINGS.route)}, viewModel = viewModel)
             }},
             bottomBar = {
-                if (currentRoute != AppDestinations.START.route && currentRoute != AppDestinations.LOGIN.route && currentRoute != AppDestinations.SIGNUP.route && currentRoute != AppDestinations.RECOVER_PASSWORD.route) {
+                if (currentRoute == AppDestinations.HOME.route || currentRoute == AppDestinations.DATA_SCREEN.route) {
                     BottomBar(modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
                         onNavigateToHome = {navController.navigate(AppDestinations.HOME.route){
                             popUpTo(AppDestinations.HOME.route)
