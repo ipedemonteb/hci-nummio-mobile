@@ -141,7 +141,7 @@ fun VerifyScreen() {
                 Spacer(modifier = Modifier.height(60.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
                     HighContrastBtn(onClick = {
-                        codeSent = !codeSent;
+                        codeSent = !codeSent
                         canEdit = !canEdit
                     }, text = stringResource(R.string.continue_btn))
                 }
@@ -170,10 +170,10 @@ fun VerifyScreen() {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    LowContrastBtn(onClick = { codeSent = !codeSent;
-                        canEdit = !canEdit;
-                        name = ""; 
-                         lastName = "";
+                    LowContrastBtn(onClick = { codeSent = !codeSent
+                        canEdit = !canEdit
+                        name = ""
+                         lastName = ""
                          date.value = TextFieldValue("")}, text = stringResource(R.string.cancel_button))
                 }
             }

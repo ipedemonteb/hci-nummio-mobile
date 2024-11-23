@@ -57,7 +57,7 @@
     <string name="create_account">Crear una cuneta</string>
     <string name="confirm_password">Confirmar Contraseña</string>
     <string name="enter_email">Ingresa una cuenta de mail:</string>
-    <string name="enter_password">Creá una contraseña:</string>
+    <string name="enter_password">Crea una contraseña:</string>
     <string name="enter_password_again">Repetí tu contraseña:</string>
     <string name="password_recovery">Recupero de Contraseña</string>
     <string name="resend_code">Reenviar código</string>
@@ -84,6 +84,8 @@
     <string name="deposit_screen">Depositar</string>
     <string name="decimal_separator">,</string>
     <string name="delete_card">Borrar una tarjeta</string>
+    <string name = "card_ending_in">Tarjeta terminada en</string>
+    <string name="new_password">Ingresa la nueva contraseña:</string>
     <string name="continue_btn">Continuar</string>
     <string name="validate_msg">Antes de continuar, debes verificar tu cuenta.</string>
     <string name="insert_name">Ingresa tu nombre:</string>

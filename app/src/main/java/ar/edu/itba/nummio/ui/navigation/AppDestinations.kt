@@ -27,5 +27,6 @@ enum class AppDestinations(
     SEND_PAYMENT(R.string.send_payments, Icons.Filled.Check, "send_payments"),
     DEPOSIT(R.string.deposit_screen, Icons.Filled.Check, "deposits"),
     CONFIRM_SCREEN(R.string.confirm_screen, Icons.Filled.Check, "confirm_screen"),
-    DATA_SCREEN(R.string.my_data, Icons.Filled.Check, "my_data")
+    DATA_SCREEN(R.string.my_data, Icons.Filled.Check, "my_data"),
+
 }

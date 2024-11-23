@@ -110,6 +110,8 @@
     <string name="deposit_screen">Deposit</string>
     <string name="decimal_separator">.</string>
     <string name="delete_card">Deleting a card</string>
+    <string name = "card_ending_in">Card ending in</string>
+    <string name = "new_password">Enter your new password:</string>
     <string name="continue_btn">Continue</string>
     <string name="validate_msg">Before you continue, you need to verify your account.</string>
     <string name="insert_name">Insert your name:</string>
