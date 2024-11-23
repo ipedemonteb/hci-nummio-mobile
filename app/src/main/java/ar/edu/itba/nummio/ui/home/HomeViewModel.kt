@@ -81,12 +81,12 @@ class HomeViewModel(
 
     fun getBalance() = runOnViewModelScope(
         { walletRepository.getBalance() },
-        { state, _ -> state }
+        { state, response -> state.copy(currentBalance = response.balance, shouldUpdateBalance = false) }
     )
 
     fun recharge(rechargeRequest: Amount) = runOnViewModelScope(
         { walletRepository.recharge(rechargeRequest) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateBalance = true) }
     )
 
     fun getInvestment() = runOnViewModelScope(
@@ -96,12 +96,12 @@ class HomeViewModel(
 
     fun invest(investRequest: Amount) = runOnViewModelScope(
         { walletRepository.invest(investRequest) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateBalance = true) }
     )
 
     fun divest(investRequest: Amount) = runOnViewModelScope(
         { walletRepository.divest(investRequest) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateBalance = true) }
     )
 
     fun getCards() = runOnViewModelScope(
@@ -160,7 +160,7 @@ class HomeViewModel(
 
     fun makePayment(paymentRequest: ar.edu.itba.nummio.data.model.PaymentRequest) = runOnViewModelScope(
         { paymentRepository.makePayment(paymentRequest) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateBalance = true) }
     )
 
     fun getPayments(
@@ -188,7 +188,7 @@ class HomeViewModel(
 
     fun payByLink(linkUuid: String, type: String) = runOnViewModelScope(
         { paymentRepository.payByLink(linkUuid, type) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateBalance = true)}
     )
 
 

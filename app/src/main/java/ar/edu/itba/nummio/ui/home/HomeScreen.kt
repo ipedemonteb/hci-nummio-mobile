@@ -43,6 +43,10 @@ fun HomeScreen(
     viewModel: HomeViewModel
 ) {
     val uiState = viewModel.uiState
+    if( uiState.shouldUpdateBalance && uiState.canGetCurrentUser)
+    {
+        viewModel.getBalance()
+    }
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
@@ -61,7 +65,7 @@ fun HomeScreen(
                         }
                         Spacer(modifier = Modifier.height(24.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            BalanceBox()
+                            BalanceBox(viewModel)
                         }
                         Spacer(modifier = Modifier.height(32.dp))
                         Row(modifier = Modifier.fillMaxWidth()) {

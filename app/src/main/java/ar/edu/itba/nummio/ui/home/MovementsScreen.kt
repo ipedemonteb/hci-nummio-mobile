@@ -51,6 +51,7 @@ data class TransactionData(
 
 @Composable
 fun MovementsScreen(
+    viewModel : HomeViewModel,
     movements: List<TransactionData>,
     onBackClick : ()->Unit,
 )
@@ -64,7 +65,7 @@ fun MovementsScreen(
     {
         paddingValues ->
         Column(modifier = Modifier.padding(paddingValues), horizontalAlignment = Alignment.CenterHorizontally){
-            BalanceBox(modifier = Modifier.width(336.dp))
+            BalanceBox(viewModel=viewModel,modifier = Modifier.width(336.dp))
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -135,6 +136,7 @@ fun MovementsScreen(
         }
     }
 }
+/*
 
 @PreviewScreenSizes
 @Composable
@@ -191,4 +193,4 @@ fun MovementsScreenPreview()
         )
     )
     MovementsScreen(transactionData, {})
-}
+}*/
