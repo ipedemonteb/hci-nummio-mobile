@@ -20,7 +20,8 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun GenerateLinkScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     Scaffold(modifier = Modifier
         .fillMaxSize()
@@ -35,16 +36,20 @@ fun GenerateLinkScreen(
             Row(
                 modifier = Modifier.padding(vertical = 30.dp)
             ) {
-                GeneratePayment()
+                GeneratePayment(viewModel)
             }
         }
     }
 }
 
+/*
 @Preview
 @Composable
 fun GenerateLinkScreenPreview() {
     NummioTheme {
-        GenerateLinkScreen({})
+        GenerateLinkScreen(
+            {},
+            viewModel = TODO()
+        )
     }
-}
+}*/

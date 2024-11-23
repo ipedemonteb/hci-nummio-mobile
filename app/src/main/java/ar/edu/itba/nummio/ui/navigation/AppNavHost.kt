@@ -133,7 +133,7 @@ fun AppNavHost(
             PayScreen(onBackClick = { navController.popBackStack() })
         }
         composable(AppDestinations.GENERATE_LINK.route) {
-            GenerateLinkScreen(onBackClick = { navController.popBackStack() })
+            GenerateLinkScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(AppDestinations.ADD_CARD.route) {
             AddCardScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
@@ -179,11 +179,12 @@ fun AppNavHost(
             VerifyScreen(
                 onBackClick = { navController.popBackStack() },
                 mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword") ?: "",
-                separator = ";"
+                separator = ";",
+                viewModel=viewModel
             )
         }
         composable(AppDestinations.SETTINGS.route){
-            SettingsScreen(onBackClick = {navController.popBackStack()})
+            SettingsScreen(onBackClick = {navController.popBackStack()}, viewModel)
         }
     }
 }

@@ -12,7 +12,7 @@ object RetrofitClient {
     // No usar localhost o la IP 127.0.0.1 porque es la interfaz de loopback
     // del emulador. La forma de salir del emulador para acceder al localhost
     // de host del mismo es usando la IP 10.0.2.2.
-    private const val BASE_URL = "http://192.168.0.84:8080/api/"
+    private const val BASE_URL = "http://10.0.2.2:8080/api/"
 
     @Volatile
     private var instance: Retrofit? = null
