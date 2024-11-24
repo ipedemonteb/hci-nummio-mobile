@@ -111,4 +111,6 @@
     <string name="invalid_login">Combinación de email y contraseña incorrecta</string>
     <string name="user_not_verified">El usuario no está verificado</string>
     <string name="email_used">Ese email ya fue utilizado</string>
+    <string name="share_all_data">Compartir todos mis datos</string>
+    <string name="update_alias">Actualizar Alias</string>
 </resources>
