@@ -160,4 +160,5 @@
     <string name="amount_positive">Amount must be positive</string>
     <string name="invalid_alias">Invalid alias. Must be in the format: \'word1.word2\' with only letters, numbers, and dots.</string>
     <string name="missing_alias">Alias must not be empty.</string>
+    <string name="missing_email">Email must not be empty.</string>
 </resources>
