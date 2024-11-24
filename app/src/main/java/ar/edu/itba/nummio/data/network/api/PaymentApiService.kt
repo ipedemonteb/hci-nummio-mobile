@@ -5,6 +5,7 @@ import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentResponse
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentTypeCard
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentsResponse
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
 import retrofit2.Response
@@ -42,5 +43,11 @@ interface PaymentApiService {
     suspend fun payByLink(
         @Path("linkUuid") linkUuid: String,
         @Body type: NetworkPaymentType
+    ): Response<NetworkSuccessAndMessage>
+
+    @POST("payment/link/{linkUuid}")
+    suspend fun payByLinkCard(
+        @Path("linkUuid") linkUuid: String,
+        @Body type: NetworkPaymentTypeCard
     ): Response<NetworkSuccessAndMessage>
 }

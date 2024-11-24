@@ -42,4 +42,7 @@ class PaymentRepository(
     suspend fun payByLink(linkUuid: String, type: String) {
         remoteDataSource.payByLink(linkUuid, type)
     }
+    suspend fun payByLinkCard(linkUuid: String, type: String, cardId: Int) {
+        remoteDataSource.payByLinkCard(linkUuid, type, cardId)
+    }
 }

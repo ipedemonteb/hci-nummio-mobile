@@ -7,6 +7,7 @@ import ar.edu.itba.nummio.data.network.model.NetworkNewBalance
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentData
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentRequest
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentType
+import ar.edu.itba.nummio.data.network.model.NetworkPaymentTypeCard
 import ar.edu.itba.nummio.data.network.model.NetworkPaymentsResponse
 import ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage
 
@@ -49,6 +50,12 @@ class PaymentRemoteDataSource(
     suspend fun payByLink(linkUuid: String, type: String): NetworkSuccessAndMessage {
         return handleApiResponse {
             paymentApiService.payByLink(linkUuid, NetworkPaymentType(type))
+        }
+    }
+
+    suspend fun payByLinkCard(linkUuid: String, type: String, cardId: Int): NetworkSuccessAndMessage {
+        return handleApiResponse {
+            paymentApiService.payByLinkCard(linkUuid, NetworkPaymentTypeCard(type, cardId))
         }
     }
 }
