@@ -141,4 +141,7 @@
     <string name="card_delete">Card deletion</string>
     <string name="other_bank">Other Bank</string>
     <string name="generated_link">Generated link:</string>
+    <string name="operation_result_title">Operation Result</string>
+    <string name="operation_success">Operation completed successfully. %s</string>
+    <string name="operation_mistake">Error. The operation could not be completed. %s</string>
 </resources>
