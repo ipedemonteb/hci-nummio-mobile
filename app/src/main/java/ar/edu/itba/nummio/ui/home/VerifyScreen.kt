@@ -41,7 +41,6 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun VerifyScreen(
     onBackClick: () -> Unit,
-    onNavigateToLogin: () -> Unit,
     mailAndPassword: String,
     separator: String,
     viewModel: HomeViewModel
@@ -127,7 +126,7 @@ fun VerifyScreen(
             .padding(paddingValues)
             .fillMaxWidth()
             .padding(
-                horizontal = if(uiState.isLandscape) 76.dp else 30.dp
+                horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp}
             )
             .verticalScroll(
                 enabled = uiState.isLandscape,
@@ -228,7 +227,7 @@ fun VerifyScreen(
                 dateString.value = "${yr}-${mon}-${day}"
 
                 Spacer(modifier = Modifier.height(40.dp))
-                Row(modifier = Modifier.padding(horizontal = 40.dp)) {
+                Row(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 40.dp)) {
                     HighContrastBtn(
                         onClick = { handleSignup() },
                         text = stringResource(R.string.continue_btn)
@@ -264,15 +263,15 @@ fun VerifyScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(40.dp))
-                Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                        HighContrastBtn(onClick = {
+                Row(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 40.dp)) {
+                    HighContrastBtn(onClick = {
                             viewModel.verifyUser(code)
                         },
                         text = stringResource(R.string.continue_btn)
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
-                Row(modifier = Modifier.padding(horizontal = 40.dp)) {
+                Row(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 40.dp)) {
                     LowContrastBtn(onClick = {
                         viewModel.resetCodeSent()
                         canEdit = !canEdit
@@ -291,7 +290,7 @@ fun VerifyScreen(
 fun VerifyScreenPreview() {
     NummioTheme {
         VerifyScreen(
-            {}, {},"", "",
+            {}, "", "",
             viewModel = TODO()
         )
     }

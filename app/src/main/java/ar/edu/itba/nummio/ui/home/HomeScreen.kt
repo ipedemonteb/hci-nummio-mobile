@@ -49,10 +49,10 @@ fun HomeScreen(
     }
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(horizontal = if (viewModel.uiState.isOver600dp) {if(viewModel.uiState.isLandscape) 80.dp else 50.dp} else 0.dp)) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Column(
-                        modifier = Modifier.padding(horizontal = if (uiState.isLandscape) 76.dp else 26.dp)
+                        modifier = Modifier.padding(horizontal = if (uiState.isLandscape) {if (viewModel.uiState.isOver600dp) 0.dp else 76.dp} else {if (viewModel.uiState.isOver600dp) 0.dp else 26.dp})
                             .background(Color.White)
                     ) {
 

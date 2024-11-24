@@ -46,7 +46,7 @@ fun Header(
     {
         Row(
             modifier = modifier.fillMaxWidth()
-                .padding(horizontal = if(uiState.isLandscape) 76.dp else 20.dp, vertical = if(uiState.isLandscape) 12.dp else 26.dp),
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp}, vertical = if(uiState.isLandscape) {if (viewModel.uiState.isOver600dp) 40.dp else 12.dp} else {if (viewModel.uiState.isOver600dp) 30.dp else 26.dp}),
 
             verticalAlignment = Alignment.CenterVertically
         ) {

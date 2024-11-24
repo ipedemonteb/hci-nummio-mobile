@@ -51,6 +51,10 @@ class HomeViewModel(
         }
     )
 
+    fun setFormFactor(isOver600dp:Boolean) {
+        uiState = uiState.copy(isOver600dp = isOver600dp)
+    }
+
     fun resetCodeSent() {
         uiState = uiState.copy(codeSent = false)
     }

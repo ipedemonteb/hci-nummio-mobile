@@ -36,7 +36,7 @@ fun TopOptions(
 ) {
     val uiState = viewModel.uiState
 
-    Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 6.dp)) {
+    Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) {if (viewModel.uiState.isOver600dp) 200.dp else 80.dp} else {if (viewModel.uiState.isOver600dp) 80.dp else 6.dp})) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,

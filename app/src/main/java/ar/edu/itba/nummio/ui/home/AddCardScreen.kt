@@ -76,7 +76,7 @@ fun AddCardScreen(
         paddingValues ->
         Column(modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = if(viewModel.uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
             .padding(paddingValues)
             .verticalScroll(rememberScrollState())
         ) {
@@ -91,10 +91,10 @@ fun AddCardScreen(
                     cvv = cvv
                 )
             }
-            Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = 20.dp)) {
+            Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = if (viewModel.uiState.isOver600dp) 200.dp else  20.dp)) {
                 HighContrastBtn({ addCardHandler() }, stringResource(R.string.add_card_title))
             }
-            Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = 20.dp)) {
+            Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 20.dp)) {
                 LowContrastBtn({ onBackClick() }, stringResource(R.string.cancel_button))
             }
         }

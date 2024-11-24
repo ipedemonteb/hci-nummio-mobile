@@ -42,6 +42,7 @@ fun GeneratePayment(viewModel:HomeViewModel) {
     var amount by remember { mutableStateOf("") }
     var expanded by remember { mutableStateOf(false) }
     var description = remember { mutableStateOf("") }
+    val clicked = remember { mutableStateOf(false) }
     val current = LocalContext.current
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
@@ -113,21 +114,25 @@ fun GeneratePayment(viewModel:HomeViewModel) {
         fun shareText(context: android.content.Context, text: String) {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, text)
+                putExtra(Intent.EXTRA_TEXT, viewModel.uiState.latestGeneratedLink)
             }
 
             // Show the chooser to the user
             context.startActivity(Intent.createChooser(intent, "Share via"))
         }
-        Text(viewModel.uiState.latestGeneratedLink)
+        if(clicked.value){
+        Row (modifier = Modifier.padding(top=30.dp)){
+            CopyableTextInput(viewModel.uiState.latestGeneratedLink, editable = false)
+        }}
         Spacer(modifier = Modifier.height(50.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Box(modifier = Modifier.padding(horizontal = 60.dp)) {
-                HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value)); shareText(
-                    current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
+            Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp)) {
+                HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value));
+                    clicked.value=true
+                    shareText(current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
             }
         }
 

@@ -43,51 +43,110 @@ fun BottomOptions(
 ) {
     val uiState = viewModel.uiState
     //if(!uiState.isLandscape) {
-        Column {
+
+    Column {
+        if (viewModel.uiState.isOver600dp && viewModel.uiState.isLandscape) {
+
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = if(uiState.isLandscape) 186.dp else 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = 90.dp
+                    )
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.stock),
                     label = stringResource(id = R.string.investments_option),
-                    onClick = {onNavigateToInvestments()}
+                    onClick = { onNavigateToInvestments() }
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.receipt),
                     label = stringResource(id = R.string.payment_option),
-                    onClick = {onNavigateToMakePayment()}
+                    onClick = { onNavigateToMakePayment() }
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.link),
                     label = stringResource(id = R.string.generate_link_option),
-                    onClick = {onNavigateToGenerateLink()}
+                    onClick = { onNavigateToGenerateLink() }
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.promotion),
+                    label = stringResource(id = R.string.promotions_option),
+                    onClick = { onNavigateToPromotions() }
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.contacts),
+                    label = stringResource(id = R.string.contacts_option),
+                    onClick = { onNavigateToContacts() }
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.more),
+                    label = stringResource(id = R.string.help_option),
+                    onClick = { onNavigateToHelp() }
+                )
+            }
+
+
+        } else {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = if (uiState.isLandscape) 186.dp else {
+                            if (viewModel.uiState.isOver600dp) 90.dp else 20.dp
+                        }
+                    )
+            ) {
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.stock),
+                    label = stringResource(id = R.string.investments_option),
+                    onClick = { onNavigateToInvestments() }
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.receipt),
+                    label = stringResource(id = R.string.payment_option),
+                    onClick = { onNavigateToMakePayment() }
+                )
+                SquaredOption(
+                    icon = painterResource(id = R.drawable.link),
+                    label = stringResource(id = R.string.generate_link_option),
+                    onClick = { onNavigateToGenerateLink() }
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = if(uiState.isLandscape) 186.dp else 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        horizontal = if (uiState.isLandscape) 186.dp else {
+                            if (viewModel.uiState.isOver600dp) 90.dp else 20.dp
+                        }
+                    )
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.promotion),
                     label = stringResource(id = R.string.promotions_option),
-                    onClick = {onNavigateToPromotions()}
+                    onClick = { onNavigateToPromotions() }
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.contacts),
                     label = stringResource(id = R.string.contacts_option),
-                    onClick = {onNavigateToContacts()}
+                    onClick = { onNavigateToContacts() }
                 )
                 SquaredOption(
                     icon = painterResource(id = R.drawable.more),
                     label = stringResource(id = R.string.help_option),
-                    onClick = {onNavigateToHelp()}
+                    onClick = { onNavigateToHelp() }
                 )
             }
         }
+    }
     /*}
     else {
         Column(modifier = Modifier.padding(horizontal = 60.dp)) {
@@ -138,17 +197,21 @@ fun SquaredOption(
     icon: Painter,
     label: String,
     onClick: () -> Unit
-){
-    Box(modifier = Modifier.shadow(8.dp, RoundedCornerShape(8.dp))
-                            .background(Color.White, RoundedCornerShape(8.dp))
-        .clickable(onClick = {onClick()}),
-        ) {
+) {
+    Box(
+        modifier = Modifier
+            .shadow(8.dp, RoundedCornerShape(8.dp))
+            .background(Color.White, RoundedCornerShape(8.dp))
+            .clickable(onClick = { onClick() }),
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
-            modifier = Modifier.size(
-                width = 110.dp,
-                height = 130.dp)
+            modifier = Modifier
+                .size(
+                    width = 110.dp,
+                    height = 130.dp
+                )
                 .padding(horizontal = 12.dp)
 
         ) {

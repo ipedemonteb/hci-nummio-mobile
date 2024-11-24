@@ -47,6 +47,9 @@ fun DataScreen(
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
+    if (viewModel.uiState.currentUser == null) {
+        viewModel.getCurrentUser()
+    }
     val uiState = viewModel.uiState
     Scaffold(
         topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}, viewModel = viewModel) }
@@ -57,7 +60,7 @@ fun DataScreen(
         val context = LocalContext.current
         Column(
             modifier = Modifier
-                .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
                 .padding(paddingValues)
                 .verticalScroll(
                     enabled = uiState.isLandscape,
@@ -80,7 +83,7 @@ fun DataScreen(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = stringResource(id = R.string.profileName),
+                    text = viewModel.uiState.currentUser?.firstName + " " + viewModel.uiState.currentUser?.lastName,
                     color = DarkPurple,
                     fontWeight = FontWeight.Medium,
                     fontSize = 20.sp
@@ -110,7 +113,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 60.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 LowContrastBtn(onClick = {

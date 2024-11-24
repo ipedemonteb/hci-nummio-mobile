@@ -184,7 +184,6 @@ fun AppNavHost(
         ) { backStackEntry ->
             VerifyScreen(
                 onBackClick = { navController.popBackStack() },
-                onNavigateToLogin = { navController.navigate(AppDestinations.LOGIN.route) },
                 mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword") ?: "",
                 separator = ";",
                 viewModel=viewModel
