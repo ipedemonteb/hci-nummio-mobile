@@ -99,7 +99,7 @@
     <string name="generate_links" translatable="false">Generate Links</string>
     <string name="add_cards" translatable="false">Add Cards</string>
     <string name="password_recoveries" translatable="false">Recover Passwords</string>
-    <string name="movements" translatable="false">Movements</string>
+    <string name="movements">Movements</string>
     <string name="investments" translatable="false">Investments</string>
     <string name="send_payments" translatable="false">Send Payments</string>
     <string name="confirm_screen" translatable="false">Confirm Screen</string>
