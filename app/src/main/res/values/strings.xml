@@ -166,4 +166,6 @@
     <string name="card_expired">Card has already expired</string>
     <string name="card_added">Card added successfully.</string>
     <string name="go_to_wallet">Go to My Wallet</string>
+    <string name="user_verified">User verified successfully.</string>
+    <string name="go_to_start">Go back</string>
 </resources>

@@ -49,9 +49,7 @@ fun AppNavHost(
             else
                 AppDestinations.HOME.route
         } else {
-            if (viewModel.uiState.hasBeenVerified)
-                AppDestinations.LOGIN.route
-            else if(viewModel.uiState.recoverConfirmed)
+            if(viewModel.uiState.recoverConfirmed || viewModel.uiState.hasBeenVerified)
                 AppDestinations.RESULT_SCREEN.route
             else
                 AppDestinations.START.route
@@ -212,6 +210,8 @@ fun AppNavHost(
                 onNavigateToRoute = {
                     if (viewModel.uiState.recoverConfirmed)
                         navController.navigate(AppDestinations.LOGIN.route)
+                    else if (viewModel.uiState.hasBeenVerified)
+                        navController.navigate(AppDestinations.START.route)
                     else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         navController.navigate(AppDestinations.HOME.route)
                     else if(viewModel.uiState.cardAdded)
@@ -220,6 +220,8 @@ fun AppNavHost(
                 postNavigate = {
                     if(viewModel.uiState.recoverConfirmed)
                         {}
+                    else if(viewModel.uiState.hasBeenVerified)
+                        {viewModel.resetHasBeenVerified(); viewModel.resetCodeSent()}
                     else if(viewModel.uiState.paymentConfirmed)
                         {viewModel.resetPaymentConfirmed()}
                     else if(viewModel.uiState.rechargeConfirmed)
@@ -234,6 +236,8 @@ fun AppNavHost(
                 msg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.recover_confirmed
+                    else if(viewModel.uiState.hasBeenVerified)
+                        R.string.user_verified
                     else if(viewModel.uiState.paymentConfirmed)
                         R.string.payment_confirmed
                     else if(viewModel.uiState.rechargeConfirmed)
@@ -247,6 +251,8 @@ fun AppNavHost(
                 btnMsg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.go_to_login
+                    else if(viewModel.uiState.hasBeenVerified)
+                        R.string.go_to_start
                     else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         R.string.go_to_home
                     else if(viewModel.uiState.cardAdded)

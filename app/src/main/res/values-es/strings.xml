@@ -140,4 +140,6 @@
     <string name="card_expired">La tarjeta ya expiró</string>
     <string name="card_added">Tarjeta agregada satisfactoriamente.</string>
     <string name="go_to_wallet">Ir a Mis Tarjetas</string>
+    <string name="user_verified">Usuario verificado satisfactoriamente.</string>
+    <string name="go_to_start">Volver</string>
 </resources>

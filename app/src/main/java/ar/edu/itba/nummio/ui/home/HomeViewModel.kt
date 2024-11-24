@@ -67,8 +67,7 @@ class HomeViewModel(
     fun verifyUser(code:String) = runOnViewModelScope(
         { userRepository.verifyUser(code) },
         { state, _ -> state.copy(
-                hasBeenVerified = state.error == null,
-                codeSent = false
+                hasBeenVerified = true,
             ) }
     )
     fun register ( firstName: String,
@@ -99,6 +98,10 @@ class HomeViewModel(
 
     fun resetCardAdded() {
         uiState = uiState.copy(aliasEdited = false)
+    }
+
+    fun resetHasBeenVerified() {
+        uiState = uiState.copy(hasBeenVerified = false)
     }
 
     //WALLET
