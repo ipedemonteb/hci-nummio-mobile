@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -55,6 +58,7 @@ fun MovementsScreen(
     onBackClick : ()->Unit,
 )
 {
+    var uiState = viewModel.uiState
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
 
@@ -74,11 +78,19 @@ fun MovementsScreen(
     }
 
     Scaffold(
-        topBar = { TopBar(stringResource(R.string.movements_option), onBackClick) },
+        topBar = { TopBar(stringResource(R.string.movements_option), onBackClick, viewModel = viewModel) },
     )
     {
         paddingValues ->
-        Column(modifier = Modifier.padding(paddingValues), horizontalAlignment = Alignment.CenterHorizontally){
+        Column(modifier = Modifier
+            .padding(paddingValues)
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+            .verticalScroll(
+                enabled = uiState.isLandscape,
+                state = rememberScrollState()
+            )
+            .heightIn(max = 600.dp),
+            horizontalAlignment = Alignment.CenterHorizontally){
             BalanceBox(viewModel=viewModel,modifier = Modifier.width(336.dp))
 
             Row(

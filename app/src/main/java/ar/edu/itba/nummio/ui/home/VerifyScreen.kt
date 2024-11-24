@@ -44,7 +44,7 @@ fun VerifyScreen(
     separator: String,
     viewModel: HomeViewModel
 ) {
-    val landScape = false
+    val uiState = viewModel.uiState
     var codeSent by remember { mutableStateOf(false) }
     var canEdit by remember { mutableStateOf(true) }
     var firstName by remember { mutableStateOf("") }
@@ -122,18 +122,18 @@ fun VerifyScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = "Verify Account", onBackClick = {onBackClick()}) }
+        topBar = { TopBar(title = "Verify Account", onBackClick = {onBackClick()}, viewModel = viewModel) }
     ) { paddingValues ->
         Column(modifier = Modifier
-            .fillMaxSize()
+            .padding(paddingValues)
+            .fillMaxWidth()
             .padding(
-                horizontal = if (landScape/*uiState.isLandscape*/) 100.dp else 30.dp
+                horizontal = if(uiState.isLandscape) 76.dp else 30.dp
             )
             .verticalScroll(
-                enabled = landScape, //uiState.isLandscape,
+                enabled = uiState.isLandscape,
                 state = rememberScrollState()
             )
-            .padding(paddingValues)
         ) {
             Row(modifier = Modifier.padding(bottom = 10.dp)) {
                 Text(

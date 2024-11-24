@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
 import ar.edu.itba.nummio.ui.theme.VeryLightPurple
 
@@ -23,16 +24,18 @@ import ar.edu.itba.nummio.ui.theme.VeryLightPurple
 fun TopBar(
     title: String,
     onBackClick: () -> Unit,
-    actionIcon: Pair<(@Composable () -> Unit), () -> Unit>? = null
+    actionIcon: Pair<(@Composable () -> Unit), () -> Unit>? = null,
+    viewModel: HomeViewModel,
 ) {
+    val uiState = viewModel.uiState
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 30.dp),
+            .padding(vertical = if(uiState.isLandscape) 15.dp else 30.dp),
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 IconButton(onClick = { onBackClick() }) {
@@ -74,6 +77,7 @@ fun TopBar(
     }
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun TopBarPreview() {
@@ -88,7 +92,10 @@ fun TopBarPreview() {
                     tint = DarkPurple
                 )
             },
-            { /* función onClick */ }
+            { */
+/* función onClick *//*
+ }
         )
     )
 }
+*/

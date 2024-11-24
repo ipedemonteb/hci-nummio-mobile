@@ -42,12 +42,12 @@ fun BottomOptions(
     onNavigateToHelp: () -> Unit
 ) {
     val uiState = viewModel.uiState
-    if(!uiState.isLandscape) {
+    //if(!uiState.isLandscape) {
         Column {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = if(uiState.isLandscape) 186.dp else 20.dp)
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.stock),
@@ -69,7 +69,7 @@ fun BottomOptions(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+                modifier = Modifier.fillMaxWidth().padding(horizontal = if(uiState.isLandscape) 186.dp else 20.dp)
             ) {
                 SquaredOption(
                     icon = painterResource(id = R.drawable.promotion),
@@ -88,7 +88,7 @@ fun BottomOptions(
                 )
             }
         }
-    }
+    /*}
     else {
         Column(modifier = Modifier.padding(horizontal = 60.dp)) {
             Row(
@@ -129,6 +129,8 @@ fun BottomOptions(
             }
         }
     }
+
+     */
 }
 
 @Composable

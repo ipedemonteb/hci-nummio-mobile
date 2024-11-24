@@ -28,18 +28,23 @@ import ar.edu.itba.nummio.ui.home.SendScreen
 import ar.edu.itba.nummio.ui.home.SettingsScreen
 import ar.edu.itba.nummio.ui.home.VerifyScreen
 import ar.edu.itba.nummio.ui.home.WalletScreen
+import ar.edu.itba.nummio.ui.home.windowScreenWidth
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
+    windowSizeClass: windowScreenWidth
 ) {
+    var isExpanded = windowSizeClass == windowScreenWidth.EXPANDED
+    //Para cada pantalla en particular, pasarle el booleano isExpanded como un "Es tablet?"
+
     val startDestination = if (viewModel.uiState.isAuthenticated) "home" else "start"
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
     ) {
         composable(AppDestinations.START.route) {
             StartScreen(
@@ -119,7 +124,8 @@ fun AppNavHost(
                 recipients = emptyList(),
                 onBackClick = { navController.popBackStack() },
                 onRecipientClick = {},
-                onNavigateToSendScreen = { email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email") }) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
+                onNavigateToSendScreen = { email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email") },
+                viewModel = viewModel) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route) {
             WalletScreen(
@@ -139,7 +145,7 @@ fun AppNavHost(
             AddCardScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(AppDestinations.INVESTMENTS.route) {
-            InvestmentScreen(onBackClick = { navController.popBackStack() })
+            InvestmentScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(
             "${AppDestinations.SEND_PAYMENT.route}/{email}",
@@ -170,7 +176,7 @@ fun AppNavHost(
                 viewModel = viewModel)
         }
         composable(AppDestinations.DATA_SCREEN.route) {
-            DataScreen(onBackClick = { navController.popBackStack() })
+            DataScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(
             "${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",

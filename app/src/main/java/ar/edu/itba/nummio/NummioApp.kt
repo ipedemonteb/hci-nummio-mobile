@@ -24,7 +24,9 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 import ar.edu.itba.nummio.ui.component.Header
 import ar.edu.itba.nummio.ui.navigation.AppDestinations
 import ar.edu.itba.nummio.ui.home.HomeViewModel
+import ar.edu.itba.nummio.ui.home.windowScreenWidth
 import ar.edu.itba.nummio.ui.navigation.AppNavHost
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -38,6 +40,13 @@ fun NummioApp(
     val configuration = LocalConfiguration.current
     val isLandscape = remember(configuration.orientation) {
         configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+    }
+
+    val screenWidth = configuration.screenWidthDp
+    val screenHeight = configuration.screenHeightDp
+    val windowSizeClass = when {
+        screenWidth < 600 -> windowScreenWidth.COMPACT
+        else -> windowScreenWidth.EXPANDED
     }
 
     LaunchedEffect(isLandscape) {
@@ -72,7 +81,8 @@ fun NummioApp(
             AppNavHost(
                 navController = navController,
                 modifier = Modifier.padding(innerPadding),
-                viewModel = viewModel
+                viewModel = viewModel,
+                windowSizeClass = windowSizeClass
             )
         }
     }

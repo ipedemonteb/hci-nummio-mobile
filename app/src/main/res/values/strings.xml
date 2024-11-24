@@ -18,7 +18,7 @@
     <string name="my_balance">My Balance</string>
     <string name="show_balance" translatable="false">$1000.00</string>
     <string name="hide_balance" translatable="false">$********</string>
-    <string name="transfer_option">Transfer</string>
+    <string name="transfer_option">Send</string>
     <string name="data_option">My Data</string>
     <string name="movements_option">Movements</string>
     <string name="investments_option">Investments</string>
@@ -130,6 +130,7 @@
     <string name="invalid_amount">You must input a valid amount</string>
     <string name="invalid_birthdate">You must input a valid birth date</string>
     <string name="password_short">Password must be at least 8 characters long</string>
+    <string name="confirm_transaction">Confirm Transaction</string>
     <string name="missing_code">Code must not be empty</string>
     <string name="invalid_verification_code">Invalid code</string>
     <string name="unexpected_error">Unexpected error</string>

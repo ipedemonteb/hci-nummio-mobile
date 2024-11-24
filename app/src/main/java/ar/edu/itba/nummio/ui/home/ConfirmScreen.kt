@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,60 +38,70 @@ fun ConfirmScreen(
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
         containerColor = Color.White,
-        topBar = { TopBar(title ="", onBackClick = {onBackClick()}) }
+        topBar = { TopBar(title ="", onBackClick = {onBackClick()}, viewModel = viewModel) }
     ) {
             paddingValues ->
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
-            .padding(bottom = 200.dp)
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+            .padding(top = if(uiState.isLandscape) 20.dp else 60.dp)
             .padding(paddingValues),
-            verticalArrangement = Arrangement.Center
         ) {
-            Row(modifier = Modifier.background(Color.White).fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center) {
-                Text(
-                    text = stringResource(R.string.confirm_action),
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 28.sp,
-                    color = DarkPurple,
-                    modifier = Modifier.background(Color.White),
-                    textAlign = TextAlign.Center
-                )
-            }
-            Row(modifier = Modifier.background(Color.White).padding(top = 16.dp).padding(horizontal = 10.dp)) {
-                Text(
-                    text = stringResource(R.string.action_text, action),
-                    fontSize = 24.sp,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Box(modifier = Modifier.width(150.dp)) {
-                    LowContrastBtn(
-                        onClick = { onBackClick() },
-                        stringResource(R.string.cancel_button)
-                    )
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Box(modifier = Modifier.width(150.dp)) {
-                    HighContrastBtn(
-                        onClick = { onBackClick(); viewModel.deleteCard(cardId) },
-                        stringResource(R.string.confirm_button)
-                    )
+            Box {
+                Column {
+                    Row(
+                        modifier = Modifier.background(Color.White).fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.confirm_action),
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 28.sp,
+                            color = DarkPurple,
+                            modifier = Modifier.background(Color.White),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.background(Color.White).padding(top = 16.dp)
+                            .padding(horizontal = 10.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.action_text, action),
+                            fontSize = 24.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Box(modifier = Modifier.width(150.dp)) {
+                            LowContrastBtn(
+                                onClick = { onBackClick() },
+                                stringResource(R.string.cancel_button)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Box(modifier = Modifier.width(150.dp)) {
+                            HighContrastBtn(
+                                onClick = { onBackClick(); viewModel.deleteCard(cardId) },
+                                stringResource(R.string.confirm_button)
+                            )
+                        }
+                    }
                 }
             }
         }
     }
 }
+/*
 
 @Preview
 @Composable
@@ -103,3 +115,4 @@ fun ConfirmScreenPreview() {
         )
     }
 }
+*/
