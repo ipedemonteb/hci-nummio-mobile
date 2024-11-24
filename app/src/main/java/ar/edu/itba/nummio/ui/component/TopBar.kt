@@ -31,11 +31,11 @@ fun TopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = if(uiState.isLandscape) 15.dp else 30.dp),
+            .padding(vertical = if(uiState.isLandscape) {if (viewModel.uiState.isOver600dp) 25.dp else 15.dp} else {30.dp}),
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 IconButton(onClick = { onBackClick() }) {

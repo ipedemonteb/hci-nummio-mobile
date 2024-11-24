@@ -84,14 +84,14 @@ fun MovementsScreen(
         paddingValues ->
         Column(modifier = Modifier
             .padding(paddingValues)
-            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
             .verticalScroll(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState()
             )
             .heightIn(max = 600.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
-            BalanceBox(viewModel=viewModel,modifier = Modifier.width(336.dp))
+            BalanceBox(viewModel=viewModel,modifier = Modifier.fillMaxWidth())
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -154,7 +154,7 @@ fun MovementsScreen(
                     onInputChange = {searchText=it}
                 )
             }
-             LazyColumn(modifier = Modifier.fillMaxHeight().width(368.dp)) {
+             LazyColumn(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
                 items(movements) { transaction ->
                     Transaction(transaction.message, transaction.destination,
                         transaction.date, transaction.amount)

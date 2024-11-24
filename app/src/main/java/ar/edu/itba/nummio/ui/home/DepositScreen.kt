@@ -37,7 +37,7 @@ fun DepositScreen(
     ) { paddingValues ->
         Column(modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp, vertical = 20.dp)
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp}, vertical = 20.dp)
             .padding(paddingValues)
             .background(Color.White)
             .verticalScroll(

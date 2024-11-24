@@ -1,9 +1,11 @@
 package ar.edu.itba.nummio.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -53,12 +55,12 @@ fun StartScreen (
                                 )
                             )
                             .background(Purple)
-                            .height(450.dp),
+                            .height(if (viewModel.uiState.isOver600dp) 600.dp else 450.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row {
                             Text(
-                                modifier = modifier.padding(top = 150.dp),
+                                modifier = modifier.padding(top = if (viewModel.uiState.isOver600dp) 250.dp else 150.dp),
                                 textAlign = TextAlign.Center,
                                 text = stringResource(R.string.nummio),
                                 fontWeight = FontWeight.Bold,
@@ -81,9 +83,10 @@ fun StartScreen (
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth()
-                        .padding(horizontal = 10.dp, vertical = 10.dp)
+                        .padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 10.dp, vertical = 10.dp)
                 ) {
                     HighContrastBtn(
                         { onNavigateToLogin() },
@@ -92,7 +95,7 @@ fun StartScreen (
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth()
-                        .padding(horizontal = 10.dp, vertical = 10.dp)
+                        .padding(horizontal=if (viewModel.uiState.isOver600dp) 200.dp else 10.dp, vertical = 10.dp)
                 ) {
                     LowContrastBtn(
                         { onNavigateToSignup() },
@@ -107,7 +110,7 @@ fun StartScreen (
         else {
             Row(modifier = Modifier.fillMaxWidth()){
                 Column(modifier = Modifier
-                    .fillMaxWidth(0.4f)
+                    .fillMaxWidth(0.4f),
                 ) {
                     Surface(modifier = Modifier.fillMaxSize(),
                         shape = RoundedCornerShape(
@@ -117,7 +120,7 @@ fun StartScreen (
                         color = Purple
                     ) {
                         Text(
-                            modifier = modifier.padding(top = 150.dp, ),
+                            modifier = modifier.padding(top = if (viewModel.uiState.isOver600dp) 300.dp else 150.dp, ),
                             textAlign = TextAlign.Center,
                             text = stringResource(R.string.nummio),
                             fontWeight = FontWeight.Bold,
@@ -131,7 +134,7 @@ fun StartScreen (
                 Column(modifier = Modifier
                     .fillMaxWidth()) {
                     Text(
-                        modifier = modifier.padding(top = 50.dp),
+                        modifier = modifier.padding(top = if (viewModel.uiState.isOver600dp) 200.dp else 50.dp),
                         textAlign = TextAlign.Center,
                         text = stringResource(R.string.welcome_start_msg),
                         fontWeight = FontWeight.Medium,
