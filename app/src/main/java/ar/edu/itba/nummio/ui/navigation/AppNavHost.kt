@@ -212,7 +212,7 @@ fun AppNavHost(
                 onNavigateToRoute = {
                     if (viewModel.uiState.recoverConfirmed)
                         navController.navigate(AppDestinations.LOGIN.route)
-                    else if(viewModel.uiState.paymentConfirmed)
+                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
                         navController.navigate(AppDestinations.HOME.route)
                 },
                 postNavigate = {
