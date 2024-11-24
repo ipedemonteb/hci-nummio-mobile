@@ -66,6 +66,7 @@ fun AddCardScreen(
     var showCvvError by remember { mutableStateOf(false) }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val NUMBER_ERROR = stringResource(R.string.invalid_card_number)
+    val INVALID_MONTH = stringResource(R.string.invalid_month)
 
     fun addCardHandler() {
         val number = cardNumber.value
@@ -91,6 +92,9 @@ fun AddCardScreen(
         if(expiryMonth.value.isEmpty()) {
             showMonthError = true
             monthError = MANDATORY_INPUT_ERROR
+        } else if(expiryMonth.value.toInt() < 1 || expiryMonth.value.toInt() > 12) {
+            showMonthError = true
+            monthError = INVALID_MONTH
         }
         if(expiryYear.value.isEmpty()) {
             showYearError = true

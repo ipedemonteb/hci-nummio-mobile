@@ -135,4 +135,5 @@
     <string name="invalid_alias">Alias inválido. Debe ser de la forma: \'palabra1.palabra2\' con solo letras, números y puntos.</string>
     <string name="missing_alias">El alias no debe ser vacío.</string>
     <string name="invalid_card_number">El número de tarjeta debe ser de 15, 16 o 19 dígitos</string>
+    <string name="invalid_month">Mes inválido</string>
 </resources>
