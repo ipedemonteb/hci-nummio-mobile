@@ -105,10 +105,11 @@
     <string name="invalid_birthdate">Debe ingresar una fecha de nacimiento válida</string>
     <string name="password_short">La contraseña debe tener al menos 8 caracteres</string>
     <string name="confirm_transaction">Confirmar Operación</string>
-    <string name="invalid_verification_code">Código inválido</string>
+    <string name="invalid_code">Código inválido</string>
     <string name="missing_code">El código no puede ser vacío</string>
     <string name="unexpected_error">Error inesperado</string>
     <string name="invalid_login">Combinación de email y contraseña incorrecta</string>
     <string name="user_not_verified">El usuario no está verificado</string>
     <string name="email_used">Ese email ya fue utilizado</string>
+    <string name="user_not_exists">No existe un usuario con ese email</string>
 </resources>

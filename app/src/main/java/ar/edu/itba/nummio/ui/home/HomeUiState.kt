@@ -22,7 +22,9 @@ data class HomeUiState(
     val latestGeneratedLink : String = "",
     val currentPayment: PaymentData? = null,
     val isOver600dp: Boolean = false,
-    val codeSent: Boolean = false
+    val codeSent: Boolean = false,
+    val recoverCodeSent: Boolean = false,
+    val recoverConfirmed: Boolean = false
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

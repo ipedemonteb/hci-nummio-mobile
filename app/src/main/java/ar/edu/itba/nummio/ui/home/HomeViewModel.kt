@@ -36,7 +36,7 @@ class HomeViewModel(
 
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
-        { state, _ -> state.copy(isAuthenticated = true, hasBeenVerified = false) }
+        { state, _ -> state.copy(isAuthenticated = true, hasBeenVerified = false, recoverConfirmed = false) }
     )
 
     fun logout() = runOnViewModelScope(
@@ -77,20 +77,20 @@ class HomeViewModel(
                    password: String
     ) = runOnViewModelScope(
         { userRepository.register(firstName, lastName, birthDate, email, password) },
-        { state, _ -> state.copy(codeSent = true) } //@TODO what state to set?
+        { state, _ -> state.copy(codeSent = true, recoverConfirmed = false) }
     )
     fun resetPassword(token: String, password: String) = runOnViewModelScope(
         { userRepository.resetPassword(token, password) },
-        { state, _ -> state } //@TODO what state to set?
+        { state, _ -> state.copy(recoverCodeSent = false, recoverConfirmed = true) }
     )
     fun recoverPassword(email: String) = runOnViewModelScope(
         { userRepository.recoverPassword(email) },
-        { state, _ -> state } //@TODO what state to set?
+        { state, _ -> state.copy(recoverCodeSent = true, recoverConfirmed = false) }
     )
 
-
-
-
+    fun resetRecoverPasswordSent() {
+        uiState = uiState.copy(recoverCodeSent = false, recoverConfirmed = false)
+    }
 
     //WALLET
 
