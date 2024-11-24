@@ -70,6 +70,8 @@ fun ConfirmScreen(
                     Row(
                         modifier = Modifier.background(Color.White).padding(top = 16.dp)
                             .padding(horizontal = 10.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
                             text = stringResource(R.string.action_text, action),

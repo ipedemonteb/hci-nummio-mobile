@@ -76,7 +76,7 @@ fun SignupScreen(
     ) {
         paddingValues ->
         Column(modifier = Modifier
-            .padding(vertical = 0.dp, horizontal = if(uiState.isLandscape) 100.dp else 30.dp)
+            .padding(vertical = 0.dp, horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
             .padding(paddingValues)
             .verticalScroll(
                 enabled = uiState.isLandscape,
@@ -183,7 +183,7 @@ fun SignupScreen(
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 0.dp})) {
                 HighContrastBtn( onClick = {
                     showPasswordError = false
                     showConfirmPasswordError = false
@@ -215,7 +215,7 @@ fun SignupScreen(
                 }, text = stringResource(R.string.register_button))
             }
             Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else 0.dp)) {
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 0.dp})) {
                 LowContrastBtn( onClick = { onNavigateToLogin() }, text = stringResource(R.string.has_account))
             }
         }

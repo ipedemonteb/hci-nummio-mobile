@@ -47,6 +47,49 @@ fun TransferScreen(
     onNavigateToSendScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
+
+
+    val recipients = listOf(
+        ContactData(
+            name = "Franco Colapinto",
+            bank = "Cuenta Galicia",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Fernando Alonso",
+            bank = "Cuenta Santander",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Carlos Sainz",
+            bank = "Cuenta Nummio",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Ayrton Senna",
+            bank = "Cuenta Nummio",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Michael Schumacher",
+            bank = "Cuenta Galicia",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Lewis Hamilton",
+            bank = "Cuenta Santander",
+            profileImage = Icons.Default.Person,
+        ),
+        ContactData(
+            name = "Sebastian Vettel",
+            bank = "Cuenta Nummio",
+            profileImage = Icons.Default.Person,
+        )
+    )
+
+
+
+
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
     val uiState = viewModel.uiState
@@ -77,7 +120,7 @@ fun TransferScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(horizontal = if(uiState.isLandscape) 76.dp else 20.dp)
+                    .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 20.dp})
                     .verticalScroll(
                         enabled = uiState.isLandscape,
                         state = rememberScrollState()
@@ -158,7 +201,7 @@ fun TransferScreen(
                     modifier = Modifier
                         .weight(1f, false)
                         .fillMaxHeight()
-                        .width(360.dp)
+                        .fillMaxWidth()
                         .padding(bottom = 20.dp)
                 ) {
                     items(recipients) { recipient ->

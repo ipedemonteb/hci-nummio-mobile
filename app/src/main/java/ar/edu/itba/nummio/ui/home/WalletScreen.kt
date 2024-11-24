@@ -64,7 +64,7 @@ fun WalletScreen(
         paddingValues->
         Column(modifier = Modifier
             .padding(paddingValues)
-            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
             .verticalScroll(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState()

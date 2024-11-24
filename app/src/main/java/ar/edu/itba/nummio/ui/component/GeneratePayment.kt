@@ -125,7 +125,7 @@ fun GeneratePayment(viewModel:HomeViewModel) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Box(modifier = Modifier.padding(horizontal = 60.dp)) {
+            Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp)) {
                 HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value)); shareText(
                     current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
             }

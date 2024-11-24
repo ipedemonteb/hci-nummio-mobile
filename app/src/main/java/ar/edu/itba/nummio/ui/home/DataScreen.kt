@@ -57,7 +57,7 @@ fun DataScreen(
         val context = LocalContext.current
         Column(
             modifier = Modifier
-                .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
                 .padding(paddingValues)
                 .verticalScroll(
                     enabled = uiState.isLandscape,
@@ -110,7 +110,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 60.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 LowContrastBtn(onClick = {
