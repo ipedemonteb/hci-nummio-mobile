@@ -1,5 +1,7 @@
 package ar.edu.itba.nummio.ui.home
 
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -46,6 +49,9 @@ fun DataScreen(
         topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}) }
     ) {
         paddingValues ->
+        val CVU = stringResource(R.string.user_cvu)
+        val ALIAS = stringResource(R.string.user_alias)
+        val context = LocalContext.current
         Column(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp).padding(paddingValues).size(400.dp),
             horizontalAlignment = Alignment.Start
@@ -97,7 +103,11 @@ fun DataScreen(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 60.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                LowContrastBtn(onClick = {}, text = stringResource(R.string.copy_all_data))
+                LowContrastBtn(onClick = {
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val combinedText = "CVU: ${CVU}\nAlias: $ALIAS"
+                    val clip = android.content.ClipData.newPlainText("copiar_dos_valores", combinedText)
+                    clipboard.setPrimaryClip(clip)}, text = stringResource(R.string.copy_all_data))
             }
         }
     }

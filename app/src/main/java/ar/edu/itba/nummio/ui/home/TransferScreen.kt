@@ -71,6 +71,7 @@ fun TransferScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
+                /*
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -85,32 +86,35 @@ fun TransferScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextField(
+                */
+                    OutlinedTextField(
                         value = cvuText,
                         onValueChange = { cvuText = it },
-                        placeholder = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
+                        label = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
                         maxLines = 1,
-                        colors = TextFieldDefaults.colors(
+                        //modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
-                            unfocusedContainerColor = Color.White,
-                            disabledContainerColor = Color.White,
+                            cursorColor = Color.Gray,
                         ),
-                        //isError = emailHasErrors,
-                        //supportingText = {if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format))}
+                        isError = emailHasErrors,
+                        supportingText = {if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format))},
+                        shape = RoundedCornerShape(16.dp),
+                        trailingIcon = {IconButton(
+                            onClick = { onNavigateToSendScreen(cvuText) },
+                            modifier = Modifier
+                                .size(48.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.arrow_right),
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp),
+                                tint = DarkPurple
+                            )
+                        }}
                     )
-                    IconButton(
-                        onClick = { onNavigateToSendScreen(cvuText) },
-                        modifier = Modifier
-                            .size(48.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_right),
-                            contentDescription = null,
-                            modifier = Modifier.size(32.dp),
-                            tint = DarkPurple
-                        )
-                    }
-                }
+
+                //}
 
 
                 Row(
