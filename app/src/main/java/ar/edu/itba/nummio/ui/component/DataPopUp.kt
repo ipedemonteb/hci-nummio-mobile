@@ -231,6 +231,79 @@ fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {},hasFi
     }
 }
 
+@Composable
+fun SimpleCopyableTextInput(cvu : String, editable: Boolean) {
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+        ,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
+                .background(Color.White, RoundedCornerShape(8.dp))
+                .padding(horizontal = 10.dp, vertical = 12.dp)
+        ) {
+            BasicTextField(
+                value = cvu,
+                onValueChange = {},
+                readOnly = true,
+                textStyle = TextStyle(
+                    fontSize = 14.sp,
+                    color = Color.Gray
+                ),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row {
+            if(editable) {
+                Box(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .size(24.dp)
+                        .clickable {
+                            copyToClipboard(context, clipboardManager, cvu)
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.pencil),
+                        contentDescription = null,
+                        tint = Color.Gray,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(2.dp))
+            }
+            Box(
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .size(24.dp)
+                    .clickable {
+                        copyToClipboard(context, clipboardManager, cvu)
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.copy),
+                    contentDescription = null,
+                    tint = Color.Gray,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+        }
+    }
+}
 
 fun copyToClipboard(context: Context, clipboardManager: ClipboardManager, text: String) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager

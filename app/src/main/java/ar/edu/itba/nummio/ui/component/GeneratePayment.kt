@@ -2,6 +2,7 @@ package ar.edu.itba.nummio.ui.component
 
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -117,7 +119,7 @@ fun GeneratePayment(viewModel:HomeViewModel) {
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row {
-                CopyableTextInput(viewModel.uiState.latestGeneratedLink, editable = false)
+                SimpleCopyableTextInput(viewModel.uiState.latestGeneratedLink, editable = false)
             }
         }
         Spacer(modifier = Modifier.height(50.dp))
@@ -126,9 +128,24 @@ fun GeneratePayment(viewModel:HomeViewModel) {
             horizontalArrangement = Arrangement.Center
         ) {
             Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else {if(viewModel.uiState.isLandscape) 140.dp else 60.dp})) {
-                HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value));
-                    clicked.value=true
-                    shareText(current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
+                if (!clicked.value) {
+                    HighContrastBtn(
+                        onClick = {
+                            viewModel.makePayment(
+                                PaymentRequest(
+                                    amount = amount.toDouble(),
+                                    type = "LINK",
+                                    description = description.value
+                                )
+                            );
+                            clicked.value = true
+                        }, stringResource(R.string.generate_link)
+                    )
+                }
+                else {
+                    Text(text = stringResource(R.string.share_link), modifier = Modifier.clickable { shareText(current, viewModel.uiState.latestGeneratedLink) }, color = DarkPurple,
+                        textDecoration = TextDecoration.Underline)
+                }
             }
         }
 
