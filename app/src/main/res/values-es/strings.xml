@@ -117,4 +117,6 @@
     <string name="generated_link">Link generado:</string>
     <string name="share_all_data">Compartir todos mis datos</string>
     <string name="update_alias">Actualizar Alias</string>
+    <string name="confirm_changes">Confirmar cambios</string>
+    <string name="alias_edited">El alias ha sido editado exitosamente</string>
 </resources>

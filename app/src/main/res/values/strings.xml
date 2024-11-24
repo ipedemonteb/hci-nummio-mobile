@@ -143,4 +143,6 @@
     <string name="card_delete">Card deletion</string>
     <string name="other_bank">Other Bank</string>
     <string name="generated_link">Generated link:</string>
+    <string name="confirm_changes">Confirm changes</string>
+    <string name="alias_edited">Alias has been edited successfully</string>
 </resources>
