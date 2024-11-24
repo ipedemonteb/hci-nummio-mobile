@@ -113,7 +113,7 @@
     <string name="invalid_mail_format">Input a valid email</string>
     <string name="mandatory_input_error">This field is required</string>
     <string name="same_passwords_error">The passwords must be the same</string>
-    <string name = "card_ending_in">Card ending in</string>
+    <string name = "card_ending_in">Card ****</string>
     <string name = "new_password">Enter your new password:</string>
     <string name="continue_btn">Continue</string>
     <string name="validate_msg">Before you continue, you need to verify your account.</string>
@@ -138,4 +138,7 @@
     <string name="user_not_verified">User is not verified</string>
     <string name="email_used">Email is already used</string>
     <string name="user_not_exists">There is no user with that email</string>
+    <string name="card_delete">Card deletion</string>
+    <string name="other_bank">Other Bank</string>
+    <string name="generated_link">Generated link:</string>
 </resources>

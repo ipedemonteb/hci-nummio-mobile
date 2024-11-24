@@ -44,7 +44,6 @@ fun SearchBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
             .height(48.dp)
             .background(
                 color = Color.White,

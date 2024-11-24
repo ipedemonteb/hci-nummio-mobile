@@ -102,120 +102,117 @@ fun TransferScreen(
             }
         }
     }
-    Column (modifier = Modifier
-        .padding(start = 10.dp, end = 10.dp)
-        ,
-    ){
 
-        Scaffold(
-            topBar = {
-                TopBar(
-                    title = stringResource(R.string.transfer_option),
-                    onBackClick = onBackClick,
-                    viewModel = viewModel)
-            }
-        )
-        { paddingValues ->
-            Column(
+    Scaffold(
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.transfer_option),
+                onBackClick = onBackClick,
+                viewModel = viewModel)
+        }
+    )
+    { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
+                .verticalScroll(
+                    enabled = uiState.isLandscape,
+                    state = rememberScrollState()
+                )
+                .heightIn(max = 600.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+
+        ) {
+            /*
+            Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 20.dp})
-                    .verticalScroll(
-                        enabled = uiState.isLandscape,
-                        state = rememberScrollState()
-                    )
-                    .heightIn(max = 600.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp)
+                    .background(Color.White, shape = RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(10.dp))
+                    .border(
+                        width = 1.dp,
+                        color = Color.LightGray,
+                        shape = RoundedCornerShape(10.dp)
+                    ),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                /*
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp)
-                        .background(Color.White, shape = RoundedCornerShape(8.dp))
-                        .clip(RoundedCornerShape(10.dp))
-                        .border(
-                            width = 1.dp,
-                            color = Color.LightGray,
-                            shape = RoundedCornerShape(10.dp)
-                        ),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                */
-                    OutlinedTextField(
-                        value = cvuText,
-                        onValueChange = { cvuText = it },
-                        label = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
-                        maxLines = 1,
-                        //modifier = Modifier.fillMaxWidth(),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = Color.White,
-                            cursorColor = Color.Gray,
-                        ),
-                        isError = emailHasErrors,
-                        supportingText = {if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format))},
-                        shape = RoundedCornerShape(16.dp),
-                        trailingIcon = {IconButton(
-                            onClick = { onNavigateToSendScreen(cvuText) },
-                            modifier = Modifier
-                                .size(48.dp)
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.arrow_right),
-                                contentDescription = null,
-                                modifier = Modifier.size(32.dp),
-                                tint = DarkPurple
-                            )
-                        }}
-                    )
-
-                //}
-
-
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.Bottom,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 15.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.recents_msg),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
-                    SearchBar(
-                        onSearchClicked = {}, modifier = Modifier
-                            .width(160.dp)
-                            .height(30.dp),
-                        input = searchText,
-                        onInputChange = { searchText = it }
-                    )
-                }
-
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f, false)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                        .padding(bottom = 20.dp)
-                ) {
-                    items(recipients) { recipient ->
-                        Contact(
-                            name = recipient.name,
-                            bank = recipient.bank,
-                            profileImage = Icons.Default.Person,
-                            modifier = Modifier.clickable { onRecipientClick(recipient.name) }
+            */  Row {
+            OutlinedTextField(
+                value = cvuText,
+                onValueChange = { cvuText = it },
+                label = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
+                maxLines = 1,
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    cursorColor = Color.Gray,
+                ),
+                isError = emailHasErrors,
+                supportingText = { if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format)) },
+                shape = RoundedCornerShape(16.dp),
+                trailingIcon = {
+                    IconButton(
+                        onClick = { onNavigateToSendScreen(cvuText) },
+                        modifier = Modifier
+                            .size(48.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.arrow_right),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp),
+                            tint = DarkPurple
                         )
+                        }
                     }
+                )
+            }
+
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, bottom = 15.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.recents_msg),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                SearchBar(
+                    onSearchClicked = {},
+                    modifier = Modifier
+                        .width(160.dp)
+                        .height(30.dp),
+                    input = searchText,
+                    onInputChange = { searchText = it }
+                )
+            }
+
+            LazyColumn(
+                modifier = Modifier
+                    .weight(1f, false)
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp)
+            ) {
+                items(recipients) { recipient ->
+                    Contact(
+                        name = recipient.name,
+                        bank = recipient.bank,
+                        profileImage = Icons.Default.Person,
+                        modifier = Modifier.clickable { onRecipientClick(recipient.name) }
+                    )
                 }
             }
         }
     }
+
 }
 
 @Preview(showBackground = true)

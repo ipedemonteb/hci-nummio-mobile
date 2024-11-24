@@ -118,7 +118,7 @@ fun VerifyScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = "Verify Account", onBackClick = {
+        topBar = { TopBar(title = stringResource(R.string.verify_title), onBackClick = {
             onBackClick()
             viewModel.resetError()}, viewModel = viewModel) }
     ) { paddingValues ->

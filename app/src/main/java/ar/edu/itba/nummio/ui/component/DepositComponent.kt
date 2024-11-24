@@ -54,7 +54,7 @@ fun DepositComponent(
     var selectedMethod by remember { mutableStateOf(false) }
     if(viewModel.uiState.cards == null)
         viewModel.getCards()
-    val options = listOf("Other Bank") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
+    val options = listOf(stringResource(R.string.other_bank)) + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
     val decimalSeparator = stringResource(R.string.decimal_separator)
 
     var showAmountError by remember { mutableStateOf(false) }
@@ -95,7 +95,6 @@ fun DepositComponent(
                         fontSize = 16.sp
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     OutlinedTextField(
                         value = amount,
@@ -112,7 +111,7 @@ fun DepositComponent(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Row {
             Column {
                 Row {
