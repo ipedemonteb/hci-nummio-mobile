@@ -89,7 +89,8 @@ fun MakePayment(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 40.dp),
+                    .padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else {if(viewModel.uiState.isLandscape) 140.dp else 40.dp})
+                    .padding(top = 20.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 HighContrastBtn( onClick = {found = true;viewModel.getPaymentByLink(link)}, stringResource(R.string.search_payment) )

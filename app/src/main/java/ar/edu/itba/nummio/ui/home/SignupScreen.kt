@@ -76,14 +76,14 @@ fun SignupScreen(
     ) {
         paddingValues ->
         Column(modifier = Modifier
-            .padding(vertical = 0.dp, horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
+            .padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
             .padding(paddingValues)
             .verticalScroll(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState()
             )
         ) {
-            Row(modifier = Modifier.padding(top = 20.dp)) {
+            Row(modifier = Modifier.padding(top = 10.dp)) {
                 Text(
                     text = stringResource(R.string.enter_email),
                     fontSize = 18.sp,
@@ -91,7 +91,6 @@ fun SignupScreen(
                 )
             }
             Row(modifier = Modifier
-                .padding(vertical = 5.dp)
                 .fillMaxWidth()) {
                 OutlinedTextField(
                     value = email,
@@ -121,7 +120,7 @@ fun SignupScreen(
                     color = DarkPurple
                 )
             }
-            Row(modifier = Modifier.padding(vertical = 5.dp)) {
+            Row {
                 OutlinedTextField(
                     value = userPassword,
                     onValueChange = { userPassword = it },
@@ -182,8 +181,8 @@ fun SignupScreen(
                     supportingText = {if (showConfirmPasswordError) Text(confirmPasswordErrorText)}
                 )
             }
-            Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 0.dp})) {
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 20.dp})) {
                 HighContrastBtn( onClick = {
                     showPasswordError = false
                     showConfirmPasswordError = false
@@ -215,7 +214,7 @@ fun SignupScreen(
                 }, text = stringResource(R.string.register_button))
             }
             Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 0.dp})) {
+            Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 20.dp})) {
                 LowContrastBtn( onClick = { onNavigateToLogin() }, text = stringResource(R.string.has_account))
             }
         }

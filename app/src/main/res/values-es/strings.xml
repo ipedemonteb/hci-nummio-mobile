@@ -34,7 +34,7 @@
     <string name="concept_sale">Venta</string>
     <string name="recents_msg">Recientes</string>
     <string name="search_msg">Search…</string>
-    <string name="searchAliasOrCVU_msg">Ingrese el email de un usuario</string>
+    <string name="searchAliasOrCVU_msg">Ingrese un email</string>
     <string name="filter_msg">Filtrar por</string>
     <string name="enter_link">Ingresa el link de pago:</string>
     <string name="search_payment">Buscar Pago</string>
@@ -87,7 +87,7 @@
     <string name="invalid_mail_format">Ingrese un mail válido</string>
     <string name="mandatory_input_error">Este campo es obligatorio</string>
     <string name="same_passwords_error">las contraseñas deben coincidir</string>
-    <string name = "card_ending_in">Tarjeta terminada en</string>
+    <string name = "card_ending_in">Tarjeta ****</string>
     <string name="new_password">Ingresa la nueva contraseña:</string>
     <string name="continue_btn">Continuar</string>
     <string name="validate_msg">Antes de continuar, debes verificar tu cuenta.</string>
@@ -108,7 +108,10 @@
     <string name="invalid_verification_code">Código inválido</string>
     <string name="missing_code">El código no puede ser vacío</string>
     <string name="unexpected_error">Error inesperado</string>
+    <string name="card_delete">El borrado de tarjeta</string>
     <string name="invalid_login">Combinación de email y contraseña incorrecta</string>
     <string name="user_not_verified">El usuario no está verificado</string>
     <string name="email_used">Ese email ya fue utilizado</string>
+    <string name="other_bank">Otro Banco</string>
+    <string name="generated_link">Link generado:</string>
 </resources>

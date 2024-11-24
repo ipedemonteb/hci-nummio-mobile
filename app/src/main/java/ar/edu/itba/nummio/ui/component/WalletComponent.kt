@@ -83,13 +83,14 @@ fun WalletComponent(
                                 card = R.drawable.mastercard,
                                 modifier = Modifier.weight(1f)
                             )
-
+                            var str = stringResource(R.string.card_delete)
                             if (deleteCard) {
                                 IconButton(
+                                    
                                     onClick = { cardToDelete=card.id
-                                        onNavigateToConfirmScreen("Deleting a card", cardToDelete?:0)
+                                        onNavigateToConfirmScreen(str, cardToDelete?:0)
 
-                                              }, //@TODO: ver cómo reemplazar por un string de strings.xml (no le gusta que no sea composable)
+                                              },
                                     modifier = Modifier
                                         .size(60.dp)
                                         .align(Alignment.CenterVertically)
@@ -118,7 +119,7 @@ fun WalletComponent(
                 )
             }
         }*/
-            Row(modifier = Modifier.padding(horizontal = 80.dp, vertical = 40.dp)) {
+            Row(modifier = Modifier.padding(horizontal = if(viewModel.uiState.isLandscape) 160.dp else 80.dp, vertical = 40.dp)) {
                 HighContrastBtn(onClick = {onNavigateToAddCard()}, stringResource(R.string.add_card))
             }
         }

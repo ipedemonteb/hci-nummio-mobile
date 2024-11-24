@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -56,6 +57,7 @@ fun TopOptions(
                 icon =painterResource(id = R.drawable.enter),
                 label = stringResource(id = R.string.deposit_screen),
                 onClick = {onNavigateToDeposit()},
+                offset = 3
             )
         }
     }
@@ -65,7 +67,8 @@ fun TopOptions(
 fun RoundOption(
     icon: Painter,
     label: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    offset: Int = 0
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,7 +87,7 @@ fun RoundOption(
                 painter = icon,
                 contentDescription = label,
                 tint = Color.White,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(36.dp).offset(y = -offset.dp)
             )
         }
         Text(

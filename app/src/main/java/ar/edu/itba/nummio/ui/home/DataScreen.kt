@@ -89,7 +89,7 @@ fun DataScreen(
                     fontSize = 20.sp
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Row {
                 Text(
                     text = stringResource(R.string.cvu_title),

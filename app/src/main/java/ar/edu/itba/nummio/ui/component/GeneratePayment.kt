@@ -85,22 +85,13 @@ fun GeneratePayment(viewModel:HomeViewModel) {
                         fontSize = 16.sp
                     )
                 }
-                Spacer(modifier = Modifier.height(8.dp))
                 Row {
-                    /*OutlinedTextField(
-                        value = description,
-                        onValueChange = { description = it },
-                        label = { Text(text = stringResource(R.string.description)) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.White),
-                        singleLine = true,
-                    )*/
 
                     OutlinedTextField(
-                        value =description.value,
+                        value = description.value,
                         onValueChange = { description.value = it },
-                        label = { Text(text = stringResource(R.string.description)) },modifier = Modifier
+                        label = { Text(text = stringResource(R.string.description)) },
+                        modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.White),
                         singleLine = true
@@ -121,15 +112,24 @@ fun GeneratePayment(viewModel:HomeViewModel) {
             context.startActivity(Intent.createChooser(intent, "Share via"))
         }
         if(clicked.value){
-        Row (modifier = Modifier.padding(top=30.dp)){
-            CopyableTextInput(viewModel.uiState.latestGeneratedLink, editable = false)
-        }}
+            Row(modifier = Modifier.padding(top=30.dp)){
+                Text(
+                    text = stringResource(R.string.generated_link),
+                    color = DarkPurple,
+                    fontSize = 16.sp
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Row {
+                CopyableTextInput(viewModel.uiState.latestGeneratedLink, editable = false)
+            }
+        }
         Spacer(modifier = Modifier.height(50.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp)) {
+            Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else {if(viewModel.uiState.isLandscape) 140.dp else 60.dp})) {
                 HighContrastBtn(onClick = {viewModel.makePayment(PaymentRequest(amount=amount.toDouble(), type="LINK", description = description.value));
                     clicked.value=true
                     shareText(current, viewModel.uiState.latestGeneratedLink)}, stringResource(R.string.generate_link))
