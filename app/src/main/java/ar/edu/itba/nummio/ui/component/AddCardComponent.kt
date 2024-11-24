@@ -41,18 +41,26 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun AddCardComponent(
     cardNumber: MutableState<String>,
+    cardNumberError: String,
+    showCardNumberError: Boolean,
     cardHolder: MutableState<String>,
+    cardHolderError: String,
+    showCardHolderError: Boolean,
     expiryMonth: MutableState<String>,
+    monthError: String,
+    showMonthError: Boolean,
     expiryYear: MutableState<String>,
-    cvv: MutableState<String>
+    yearError: String,
+    showYearError: Boolean,
+    cvv: MutableState<String>,
+    cvvError: String,
+    showCvvError: Boolean
 ) {
     Surface(
         color = Color.White,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(
-
-        ) {
+        Column {
             Row {
                 Text(
                     text = stringResource(R.string.insert_number),
@@ -70,8 +78,9 @@ fun AddCardComponent(
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
-                    )
+                    isError = showCardNumberError,
+                    supportingText = { if(showCardNumberError) Text(cardNumberError) }
+                )
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
@@ -88,6 +97,8 @@ fun AddCardComponent(
                     label = { Text(stringResource(R.string.holder)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
+                    isError = showCardHolderError,
+                    supportingText = { if(showCardHolderError) Text(cardHolderError) }
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -108,9 +119,9 @@ fun AddCardComponent(
                     modifier = Modifier.width(70.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    //isError = true,
-                    //supportingText = "Bo"
-                    )
+                    isError = showMonthError,
+                    //supportingText = { if(showMonthError) Text(monthError) }
+                )
                 Text(
                     text = stringResource(R.string.slash),
                     modifier = Modifier
@@ -129,6 +140,8 @@ fun AddCardComponent(
                     modifier = Modifier.width(80.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    isError = showYearError,
+                    //supportingText = { if(showYearError) Text(yearError) }
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -149,13 +162,15 @@ fun AddCardComponent(
                     modifier = Modifier.width(80.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    isError = showCvvError,
+                    //supportingText = { if(showCvvError) Text(cvvError) }
                 )
             }
         }
     }
 }
 
-@Preview(locale = "es")
+/*@Preview(locale = "es")
 @Composable
 fun AddCardComponentPreview() {
     val cardNumber = remember { mutableStateOf("") }
@@ -172,4 +187,4 @@ fun AddCardComponentPreview() {
             cvv = cvv
         )
     }
-}
+}*/

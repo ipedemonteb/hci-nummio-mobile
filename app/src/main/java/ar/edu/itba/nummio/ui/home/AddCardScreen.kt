@@ -15,8 +15,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,22 +54,67 @@ fun AddCardScreen(
     val expiryYear = remember { mutableStateOf("") }
     val cvv = remember { mutableStateOf("") }
 
+    var cardNumberError by remember { mutableStateOf("") }
+    var showCardNumberError by remember { mutableStateOf(false) }
+    var cardHolderError by remember { mutableStateOf("") }
+    var showCardHolderError by remember { mutableStateOf(false) }
+    var monthError by remember { mutableStateOf("") }
+    var showMonthError by remember { mutableStateOf(false) }
+    var yearError by remember { mutableStateOf("") }
+    var showYearError by remember { mutableStateOf(false) }
+    var cvvError by remember { mutableStateOf("") }
+    var showCvvError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val NUMBER_ERROR = stringResource(R.string.invalid_card_number)
+
     fun addCardHandler() {
         val number = cardNumber.value
         val fullName = cardHolder.value
         val expirationDate = "${expiryMonth.value}/${expiryYear.value}"
         val cvvParam = cvv.value
+        showCardNumberError = false
+        showCardHolderError = false
+        showMonthError = false
+        showYearError = false
+        showCvvError = false
+        if(number.isEmpty()) {
+            showCardNumberError = true
+            cardNumberError = MANDATORY_INPUT_ERROR
+        } else if(number.length != 15 && number.length != 16 && number.length != 19) {
+            showCardNumberError = true
+            cardNumberError = NUMBER_ERROR
+        }
+        if(fullName.isEmpty()) {
+            showCardHolderError = true
+            cardHolderError = MANDATORY_INPUT_ERROR
+        }
+        if(expiryMonth.value.isEmpty()) {
+            showMonthError = true
+            monthError = MANDATORY_INPUT_ERROR
+        }
+        if(expiryYear.value.isEmpty()) {
+            showYearError = true
+            yearError = MANDATORY_INPUT_ERROR
+        }
+        if(cvvParam.isEmpty()) {
+            showCvvError = true
+            cvvError = MANDATORY_INPUT_ERROR
+        }
 
-        viewModel.addCard(Card(
-            number = number,
-            expirationDate = expirationDate,
-            fullName = fullName,
-            cvv = cvvParam,
-            type = CardType.CREDIT, // @TODO: ver como determinar el tipo de tarjeta
-            createdAt = null,
-            updatedAt = null
-        ))
-        onBackClick()
+        if(!showCardNumberError && !showCardHolderError && !showMonthError && !showYearError && !showCvvError) {
+            viewModel.addCard(
+                Card(
+                    number = number,
+                    expirationDate = expirationDate,
+                    fullName = fullName,
+                    cvv = cvvParam,
+                    type = CardType.CREDIT,
+                    createdAt = null,
+                    updatedAt = null
+                )
+            )
+            onBackClick()
+        }
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(),
@@ -85,10 +132,20 @@ fun AddCardScreen(
             ) {
                 AddCardComponent(
                     cardNumber = cardNumber,
+                    cardNumberError = cardNumberError,
+                    showCardNumberError = showCardNumberError,
                     cardHolder = cardHolder,
+                    showCardHolderError = showCardHolderError,
+                    cardHolderError = cardHolderError,
                     expiryMonth = expiryMonth,
+                    monthError = monthError,
+                    showMonthError = showMonthError,
                     expiryYear = expiryYear,
-                    cvv = cvv
+                    yearError = yearError,
+                    showYearError = showYearError,
+                    cvv = cvv,
+                    showCvvError = showCvvError,
+                    cvvError = cvvError
                 )
             }
             Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = if (viewModel.uiState.isOver600dp) 200.dp else  20.dp)) {

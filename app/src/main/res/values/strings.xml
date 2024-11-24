@@ -161,4 +161,5 @@
     <string name="invalid_alias">Invalid alias. Must be in the format: \'word1.word2\' with only letters, numbers, and dots.</string>
     <string name="missing_alias">Alias must not be empty.</string>
     <string name="missing_email">Email must not be empty.</string>
+    <string name="invalid_card_number">Card number must be 15, 16 or 19 digits</string>
 </resources>
