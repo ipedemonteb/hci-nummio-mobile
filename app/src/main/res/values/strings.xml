@@ -132,11 +132,12 @@
     <string name="password_short">Password must be at least 8 characters long</string>
     <string name="confirm_transaction">Confirm Transaction</string>
     <string name="missing_code">Code must not be empty</string>
-    <string name="invalid_verification_code">Invalid code</string>
+    <string name="invalid_code">Invalid code</string>
     <string name="unexpected_error">Unexpected error</string>
     <string name="invalid_login">Invalid combination of email and password</string>
     <string name="user_not_verified">User is not verified</string>
     <string name="email_used">Email is already used</string>
+    <string name="user_not_exists">There is no user with that email</string>
     <string name="card_delete">Card deletion</string>
     <string name="other_bank">Other Bank</string>
     <string name="generated_link">Generated link:</string>

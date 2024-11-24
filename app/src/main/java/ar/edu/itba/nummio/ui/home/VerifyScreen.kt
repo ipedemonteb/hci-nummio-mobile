@@ -254,7 +254,7 @@ fun VerifyScreen(
                             if (viewModel.uiState.error != null) {
                                 val resource = when (viewModel.uiState.error!!.message) {
                                     "Missing code." -> R.string.missing_code
-                                    "Invalid code" -> R.string.invalid_verification_code
+                                    "Invalid code" -> R.string.invalid_code
                                     else -> R.string.unexpected_error
                                 }
                                 Text(stringResource(resource))
