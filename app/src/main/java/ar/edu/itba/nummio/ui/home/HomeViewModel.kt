@@ -36,7 +36,7 @@ class HomeViewModel(
 
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
-        { state, _ -> state.copy(isAuthenticated = true, hasBeenVerified = false, recoverConfirmed = false) }
+        { state, _ -> state.copy(isAuthenticated = true, shouldUpdateBalance = true, hasBeenVerified = false, recoverConfirmed = false) }
     )
 
     fun logout() = runOnViewModelScope(
@@ -44,6 +44,7 @@ class HomeViewModel(
         { state, _ ->
             state.copy(
                 isAuthenticated = false,
+                shouldUpdateBalance = false,
                 currentUser = null,
                 currentCard = null,
                 cards = null
