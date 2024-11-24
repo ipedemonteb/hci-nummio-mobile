@@ -62,6 +62,10 @@ fun VerifyScreen(
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val BIRTHDATE_INPUT_ERROR = stringResource(R.string.invalid_birthdate)
 
+    var codeError by remember { mutableStateOf("") }
+    var showCodeError by remember { mutableStateOf(false) }
+    var INVALID_CODE = stringResource(R.string.invalid_verification_code)
+
     val (email, password) = mailAndPassword.split(separator, limit = 2).let {
         it.getOrElse(0) { "" } to it.getOrElse(1) { "" }
     }
@@ -107,7 +111,7 @@ fun VerifyScreen(
             viewModel.register(
                 firstName = firstName,
                 lastName = lastName,
-                birthDate = date.value.toString(),
+                birthDate = dateString.value,
                 email = email,
                 password = password
             )
@@ -211,6 +215,7 @@ fun VerifyScreen(
                         it.getOrElse(2) { "" }
                     )
                 }
+                dateString.value = "${yr}-${mon}-${day}"
 
                 Spacer(modifier = Modifier.height(40.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
@@ -235,11 +240,26 @@ fun VerifyScreen(
                         label = { Text(stringResource(R.string.code)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
+                        isError = viewModel.uiState.error != null,
+                        supportingText = {
+                            if (viewModel.uiState.error != null) {
+                                val resource = when (viewModel.uiState.error!!.message) {
+                                    "Missing code." -> R.string.missing_code
+                                    "Invalid code" -> R.string.invalid_verification_code
+                                    else -> R.string.unexpected_error
+                                }
+                                Text(stringResource(resource))
+                            }
+                        }
                     )
                 }
                 Spacer(modifier = Modifier.height(40.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    HighContrastBtn(onClick = {viewModel.verifyUser(code)}, text = stringResource(R.string.continue_btn))
+                    HighContrastBtn(onClick = {
+                            viewModel.verifyUser(code)
+                        },
+                        text = stringResource(R.string.continue_btn)
+                    )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {

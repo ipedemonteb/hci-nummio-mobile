@@ -53,7 +53,10 @@ class HomeViewModel(
     )
     fun verifyUser(code:String) = runOnViewModelScope(
         { userRepository.verifyUser(code) },
-        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO error checking?
+        { state, _ -> state.copy(
+                hasBeenVerified = state.error == null,
+                invalidCodeVerificationError = state.error != null
+            ) }
     )
     fun register ( firstName: String,
                    lastName: String,

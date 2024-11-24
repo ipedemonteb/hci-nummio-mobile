@@ -130,4 +130,7 @@
     <string name="invalid_amount">You must input a valid amount</string>
     <string name="invalid_birthdate">You must input a valid birth date</string>
     <string name="password_short">Password must be at least 8 characters long</string>
+    <string name="missing_code">Code must not be empty</string>
+    <string name="invalid_verification_code">Invalid code</string>
+    <string name="unexpected_error">Unexpected error</string>
 </resources>
