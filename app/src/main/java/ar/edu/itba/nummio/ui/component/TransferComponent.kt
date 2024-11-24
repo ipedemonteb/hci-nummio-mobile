@@ -66,7 +66,7 @@ fun TransferComponent(
                             fontSize = 16.sp
                         )
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+
                     Row {
                         OutlinedTextField(
                             value = amount,
@@ -91,7 +91,6 @@ fun TransferComponent(
                             fontSize = 16.sp
                         )
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         OutlinedTextField(
                             value = description,

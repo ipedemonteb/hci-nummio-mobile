@@ -1,6 +1,7 @@
 package ar.edu.itba.nummio.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.component.BalanceBox
@@ -96,13 +98,20 @@ fun MovementsScreen(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(top=20.dp, end= 20.dp)
+                modifier = Modifier.fillMaxWidth().padding(top=20.dp)
 
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom) {
-                        Button(onClick = { expanded.value = !expanded.value }, modifier = Modifier.height(50.dp).width(150.dp).clip(
-                            RoundedCornerShape(7.dp)), colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)) {
-                            Text(text = stringResource(R.string.filter_msg))
+                SearchBar(
+                    onSearchClicked = {},
+                    modifier = Modifier
+                        .width(140.dp)
+                        .height(50.dp),
+                    input = searchText,
+                    onInputChange = {searchText=it}
+                )
+                Column(horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Bottom) {
+                        Button(onClick = { expanded.value = !expanded.value }, modifier = Modifier.height(50.dp).width(150.dp).border(width = 1.dp, shape = RoundedCornerShape(5.dp), color = Color.Black).clip(RoundedCornerShape(5.dp)), colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = Color.Black)) {
+                            Text(text = stringResource(R.string.filter_msg), textAlign = TextAlign.Left)
                             Icon(
 
                                 imageVector = Icons.Default.ArrowDropDown,
@@ -145,16 +154,8 @@ fun MovementsScreen(
                         )
                     }
                 }
-                SearchBar(
-                    onSearchClicked = {},
-                    modifier = Modifier
-                        .width(160.dp)
-                        .height(30.dp),
-                    input = searchText,
-                    onInputChange = {searchText=it}
-                )
             }
-             LazyColumn(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
+             LazyColumn(modifier = Modifier.fillMaxHeight().fillMaxWidth().padding(top = 20.dp)) {
                 items(movements) { transaction ->
                     Transaction(transaction.message, transaction.destination,
                         transaction.date, transaction.amount)

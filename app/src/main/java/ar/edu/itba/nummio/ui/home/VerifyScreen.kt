@@ -118,7 +118,7 @@ fun VerifyScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = "Verify Account", onBackClick = {
+        topBar = { TopBar(title = stringResource(R.string.verify_title), onBackClick = {
             onBackClick()
             viewModel.resetError()}, viewModel = viewModel) }
     ) { paddingValues ->
@@ -254,7 +254,7 @@ fun VerifyScreen(
                             if (viewModel.uiState.error != null) {
                                 val resource = when (viewModel.uiState.error!!.message) {
                                     "Missing code." -> R.string.missing_code
-                                    "Invalid code" -> R.string.invalid_verification_code
+                                    "Invalid code" -> R.string.invalid_code
                                     else -> R.string.unexpected_error
                                 }
                                 Text(stringResource(resource))

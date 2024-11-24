@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,7 +24,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,15 +46,43 @@ fun RecoverPasswordScreen(
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
-    var canEdit by remember { mutableStateOf(true) }
     var userEmail by remember { mutableStateOf("") }
     var code by remember { mutableStateOf("") }
-    var codeSent by remember { mutableStateOf(false) }
     var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    var passwordError by remember { mutableStateOf("") }
+    var showPasswordError by remember { mutableStateOf(false) }
+    var codeError by remember { mutableStateOf("") }
+    var showCodeError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val PASSWORD_SHORT_ERROR = stringResource(R.string.password_short)
+
+    fun handleConfirm() {
+        showPasswordError = false
+        showCodeError = false
+        if(password.length < 8) {
+            showPasswordError = true
+            passwordError = if(password.isEmpty())
+                MANDATORY_INPUT_ERROR
+            else
+                PASSWORD_SHORT_ERROR
+        }
+        if(code.isEmpty()) {
+            showCodeError = true
+            codeError = MANDATORY_INPUT_ERROR
+        }
+        if(!showPasswordError && !showCodeError)
+            viewModel.resetPassword(token=code, password=password)
+    }
+
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {onBackClick()}, viewModel = viewModel)}
+        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {
+            onBackClick()
+            viewModel.resetRecoverPasswordSent()
+        }, viewModel = viewModel)}
     ){
         paddingValues ->
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp).padding(paddingValues)) {
@@ -56,7 +90,7 @@ fun RecoverPasswordScreen(
                 Text(
                     text = stringResource(R.string.enter_your_email),
                     fontSize = 18.sp,
-                    color = DarkPurple
+                    color = DarkPurple,
                 )
             }
             Row(modifier = Modifier
@@ -67,27 +101,33 @@ fun RecoverPasswordScreen(
                     onValueChange = { userEmail = it },
                     label = { Text(stringResource(R.string.email)) },
                     maxLines = 1,
-                    readOnly = !canEdit,
+                    readOnly = viewModel.uiState.recoverCodeSent,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = DarkPurple,
                         cursorColor = DarkPurple
                     ),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = !viewModel.uiState.recoverCodeSent && viewModel.uiState.error != null,
+                    supportingText = {
+                        if(!viewModel.uiState.recoverCodeSent && viewModel.uiState.error != null)
+                            Text(stringResource(when(viewModel.uiState.error!!.message) {
+                                "User not found" -> R.string.user_not_exists
+                                else -> R.string.unexpected_error
+                            }))
+                    }
                 )
             }
 
-            if(!codeSent){
+            if(!viewModel.uiState.recoverCodeSent){
                 Row(modifier = Modifier.padding(top = 30.dp)) {
-                    HighContrastBtn(onClick = { codeSent = true; viewModel.recoverPassword(userEmail); canEdit = !canEdit}, text = stringResource(R.string.send_code))
-
+                    HighContrastBtn(onClick = { viewModel.recoverPassword(userEmail) }, text = stringResource(R.string.send_code))
                 }
-            }
-            else {
+            } else {
                 Row(modifier = Modifier.padding(top = 20.dp)) {
                     Text(
                         text = stringResource(R.string.enter_code),
                         fontSize = 18.sp,
-                        color = DarkPurple
+                        color = DarkPurple,
                     )
                 }
                 Row(
@@ -104,7 +144,17 @@ fun RecoverPasswordScreen(
                             focusedBorderColor = DarkPurple,
                             cursorColor = DarkPurple
                         ),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        isError = showCodeError || (viewModel.uiState.recoverCodeSent && viewModel.uiState.error != null),
+                        supportingText = {
+                            if(showCodeError)
+                                Text(codeError)
+                            else if(viewModel.uiState.recoverCodeSent && viewModel.uiState.error != null)
+                                Text(stringResource(when(viewModel.uiState.error!!.message) {
+                                    "Invalid code" -> R.string.invalid_code
+                                    else -> R.string.unexpected_error
+                                }))
+                        }
                     )
                 }
                 Row(modifier = Modifier.padding(top = 20.dp)) {
@@ -124,6 +174,19 @@ fun RecoverPasswordScreen(
                         onValueChange = { password = it },
                         label = { Text(stringResource(R.string.password)) },
                         maxLines = 1,
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(
+                                    painter = if (passwordVisible) painterResource(R.drawable.eye_open) else painterResource(R.drawable.closed_eye),
+                                    contentDescription = if (passwordVisible) "Hide password" else "Show password",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        },
+                        isError = showPasswordError,
+                        supportingText = { if(showPasswordError) Text(passwordError) },
                         colors = TextFieldDefaults.outlinedTextFieldColors(
                             focusedBorderColor = DarkPurple,
                             cursorColor = DarkPurple
@@ -146,10 +209,12 @@ fun RecoverPasswordScreen(
                     )
                 }
                 Row(modifier = Modifier.padding(top = 30.dp)) {
-                    HighContrastBtn(onClick = {viewModel.resetPassword(token=code, password=password)}, text = stringResource(R.string.confirm_button))
+                    HighContrastBtn(onClick = { handleConfirm() }, text = stringResource(R.string.confirm_button))
                 }
                 Row(modifier = Modifier.padding(top = 30.dp)) {
-                    LowContrastBtn(onClick = {canEdit = !canEdit}, text = stringResource(R.string.cancel_button))
+                    LowContrastBtn(onClick = {  onBackClick()
+                                                viewModel.resetRecoverPasswordSent()
+                                             }, text = stringResource(R.string.cancel_button))
                 }
             }
         }
