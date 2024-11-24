@@ -39,7 +39,7 @@ fun StartScreen (
     viewModel: HomeViewModel = viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication))
 ) {
     val uiState = viewModel.uiState
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
         val modifier = Modifier.fillMaxWidth()
         if(!uiState.isLandscape) {
         Column(

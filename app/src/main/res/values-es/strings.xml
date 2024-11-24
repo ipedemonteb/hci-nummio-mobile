@@ -84,9 +84,9 @@
     <string name="deposit_screen">Depositar</string>
     <string name="decimal_separator">,</string>
     <string name="delete_card">Borrar una tarjeta</string>
-    <string name="invalid_mail_format">Ingrese un mail válido</string>
-    <string name="mandatory_input_error">Este campo es obligatorio</string>
-    <string name="same_passwords_error">las contraseñas deben coincidir</string>
+    <string name="invalid_mail_format">Ingrese un mail válido.</string>
+    <string name="mandatory_input_error">Este campo es obligatorio.</string>
+    <string name="same_passwords_error">Las contraseñas deben coincidir.</string>
     <string name = "card_ending_in">Tarjeta ****</string>
     <string name="new_password">Ingresa la nueva contraseña:</string>
     <string name="continue_btn">Continuar</string>
@@ -123,9 +123,9 @@
     <string name="operation_success">Operación completada con éxito. %s</string>
     <string name="operation_mistake">Error. La operación no pudo ser completada. %s</string>
     <string name="share_link">Share link</string>
-    <string name="recover_confirmed">contraseña recuperada correctamente</string>
+    <string name="recover_confirmed">Contraseña recuperada correctamente.</string>
     <string name="go_to_login">Ir a iniciar sesión</string>
-    <string name="payment_confirmed">pago confirmado</string>
+    <string name="payment_confirmed">Pago confirmado.</string>
     <string name="go_to_home">Ir a la página principal</string>
-    <string name="recharge_confirmed">recarga confirmada</string>
+    <string name="recharge_confirmed">Recarga confirmada.</string>
 </resources>

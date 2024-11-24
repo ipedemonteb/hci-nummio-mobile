@@ -69,7 +69,8 @@ fun LoginScreen(
         .fillMaxSize(),
         topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = {
             onBackClick()
-            viewModel.resetError()}, viewModel = viewModel) }
+            viewModel.resetError()}, viewModel = viewModel) },
+        containerColor = Color.White
     ) {
         paddingValues ->
         Column(modifier = Modifier

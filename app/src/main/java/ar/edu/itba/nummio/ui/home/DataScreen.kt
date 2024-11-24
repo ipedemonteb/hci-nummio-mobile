@@ -158,7 +158,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 60.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 20.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
                 if (!isEditing.value) {

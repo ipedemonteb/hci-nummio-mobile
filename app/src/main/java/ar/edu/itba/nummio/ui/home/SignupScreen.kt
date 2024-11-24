@@ -72,7 +72,8 @@ fun SignupScreen(
     Scaffold(modifier = Modifier
         .background(Color.White)
         .fillMaxSize(),
-        topBar = { TopBar(title = stringResource(R.string.create_account), onBackClick = {onBackClick()}, viewModel = viewModel) }
+        topBar = { TopBar(title = stringResource(R.string.create_account), onBackClick = {onBackClick()}, viewModel = viewModel) },
+        containerColor = Color.White
     ) {
         paddingValues ->
         Column(modifier = Modifier

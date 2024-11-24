@@ -120,6 +120,7 @@ fun VerifyScreen(
         .background(Color.White),
         topBar = { TopBar(title = stringResource(R.string.verify_title), onBackClick = {
             onBackClick()
+            viewModel.resetCodeSent()
             viewModel.resetError()}, viewModel = viewModel) }
     ) { paddingValues ->
         Column(modifier = Modifier
