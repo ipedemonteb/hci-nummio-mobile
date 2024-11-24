@@ -225,10 +225,11 @@ fun CopyableTextInput(cvu : String, editable: Boolean) {
     }
 }
 
-//@todo: revisar funcionamiento
+
 fun copyToClipboard(context: Context, clipboardManager: ClipboardManager, text: String) {
-    clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(text))
-    Toast.makeText(context, "Número copiado al portapapeles", Toast.LENGTH_SHORT).show()
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clip = android.content.ClipData.newPlainText("copiar_dos_valores", text)
+    clipboard.setPrimaryClip(clip)
 }
 
 
