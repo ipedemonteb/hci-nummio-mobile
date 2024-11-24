@@ -73,7 +73,7 @@ fun AppNavHost(
                 onNavigateToTransfer = { navController.navigate(AppDestinations.TRANSFERS.route) },
                 onNavigateToMovements = { navController.navigate(AppDestinations.MOVEMENTS.route) },
                 onNavigateToCards = { navController.navigate(AppDestinations.WALLET.route) },
-                onNavigateToInvestments = { navController.navigate(AppDestinations.INVESTMENTS.route) },
+                onNavigateToInvestments = { },
                 onNavigateToMakePayment = { navController.navigate(AppDestinations.MAKE_PAYMENT.route) },
                 onNavigateToGenerateLink = { navController.navigate(AppDestinations.GENERATE_LINK.route) },
                 onNavigateToPromotions = {},
