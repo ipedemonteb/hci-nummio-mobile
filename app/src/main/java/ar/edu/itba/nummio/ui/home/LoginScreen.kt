@@ -64,6 +64,28 @@ fun LoginScreen(
     var userPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val uiState = viewModel.uiState
+    var emailError by remember { mutableStateOf("") }
+    var showEmailError by remember { mutableStateOf(false) }
+    var passwordError by remember { mutableStateOf("") }
+    var showPasswordError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+
+    fun handleLogin() {
+        showEmailError = false
+        showPasswordError = false
+        if(userEmail.isEmpty()) {
+            showEmailError = true
+            emailError = MANDATORY_INPUT_ERROR
+        }
+        if(userPassword.isEmpty()) {
+            showPasswordError = true
+            passwordError = MANDATORY_INPUT_ERROR
+        }
+        if (!showEmailError && !showPasswordError && !userEmailHasErrors) {
+            viewModel.login(userEmail, userPassword)
+        }
+    }
+
     Scaffold(modifier = Modifier
         .background(Color.White)
         .fillMaxSize(),
@@ -105,8 +127,12 @@ fun LoginScreen(
                         cursorColor = DarkPurple
                     ),
                     modifier = Modifier.fillMaxWidth(),
-                    isError = userEmailHasErrors,
-                    supportingText = {if (userEmailHasErrors) Text(stringResource(R.string.invalid_mail_format))}
+                    isError = showEmailError || userEmailHasErrors,
+                    supportingText = {
+                        if(showEmailError)
+                            Text(emailError)
+                        else if (userEmailHasErrors)
+                            Text(stringResource(R.string.invalid_mail_format))}
                 )
             }
             Row(modifier = Modifier.padding(vertical = 5.dp)) {
@@ -129,7 +155,9 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = DarkPurple,
-                        cursorColor = DarkPurple)
+                        cursorColor = DarkPurple),
+                    isError = showPasswordError,
+                    supportingText = { if(showPasswordError) Text(passwordError) }
                 )
             }
             Row(modifier = Modifier.fillMaxWidth()
@@ -146,11 +174,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(30.dp))
             Row(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 100.dp else {if (viewModel.uiState.isOver600dp) 200.dp else 0.dp})) {
                 HighContrastBtn(
-                    onClick = {
-                        if (!userEmailHasErrors) {
-                            viewModel.login(userEmail, userPassword)
-                        }
-                    },
+                    onClick = { handleLogin() },
                     text = stringResource(R.string.login_button)
                 )
             }
