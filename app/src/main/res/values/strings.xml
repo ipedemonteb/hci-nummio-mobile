@@ -148,4 +148,5 @@
     <string name="operation_result_title">Operation Result</string>
     <string name="operation_success">Operation completed successfully. %s</string>
     <string name="operation_mistake">Error. The operation could not be completed. %s</string>
+    <string name="share_link">Share link</string>
 </resources>
