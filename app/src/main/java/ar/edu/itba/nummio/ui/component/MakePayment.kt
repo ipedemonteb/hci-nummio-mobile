@@ -206,7 +206,7 @@ fun MakePayment(
                             Box(modifier = Modifier.width(150.dp)) {
                                 HighContrastBtn(
                                     onClick = { found = true
-                                              viewModel.payByLink(link, type) },
+                                              viewModel.payByLink(link, type, cardId) },
                                     stringResource(R.string.confirm_button)
                                 )
                             }

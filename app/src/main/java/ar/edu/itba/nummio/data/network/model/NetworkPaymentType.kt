@@ -6,3 +6,9 @@ import kotlinx.serialization.Serializable
 data class NetworkPaymentType (
     val type : String
 )
+
+@Serializable
+data class NetworkPaymentTypeCard (
+    val type : String,
+    val cardId: Int
+)
