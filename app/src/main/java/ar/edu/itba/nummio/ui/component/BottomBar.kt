@@ -43,7 +43,7 @@ fun BottomBar(
             modifier = Modifier
                 .fillMaxWidth()
                 //.border(width = 1.dp, color = Color.LightGray, shape = TopBorderShape(1.dp))
-                .padding(vertical = if(uiState.isLandscape) 12.dp else 18.dp, horizontal = if(uiState.isLandscape) 30.dp else 0.dp)
+                .padding(vertical = if(uiState.isLandscape) 6.dp else 18.dp, horizontal = if(uiState.isLandscape) 30.dp else 0.dp)
                 ,
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
@@ -104,7 +104,7 @@ fun BottomBarItem(
             painter = icon,
             contentDescription = label,
             tint = Color.Black,
-            modifier = Modifier.size(50.dp)
+            modifier = Modifier.size(40.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(

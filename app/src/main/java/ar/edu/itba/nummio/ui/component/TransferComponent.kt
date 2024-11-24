@@ -181,7 +181,10 @@ fun TransferComponent(
                         ) {
                             Box(modifier = Modifier.width(150.dp)) {
                                 LowContrastBtn(
-                                    onClick = {  },
+                                    onClick = { selectedMethod = !selectedMethod
+                                              selectedOption = ""
+                                              amount = ""
+                                              description = ""},
                                     stringResource(R.string.cancel_button)
                                 )
                             }

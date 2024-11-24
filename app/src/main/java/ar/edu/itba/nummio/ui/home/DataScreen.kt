@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Icon
@@ -42,18 +44,26 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 
 @Composable
 fun DataScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
-
+    val uiState = viewModel.uiState
     Scaffold(
-        topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}) }
+        topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}, viewModel = viewModel) }
     ) {
         paddingValues ->
         val CVU = stringResource(R.string.user_cvu)
         val ALIAS = stringResource(R.string.user_alias)
         val context = LocalContext.current
         Column(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp).padding(paddingValues).size(400.dp),
+            modifier = Modifier
+                .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+                .padding(paddingValues)
+                .verticalScroll(
+                    enabled = uiState.isLandscape,
+                    state = rememberScrollState()
+                )
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
             Row(
@@ -109,12 +119,14 @@ fun DataScreen(
                     val clip = android.content.ClipData.newPlainText("copiar_dos_valores", combinedText)
                     clipboard.setPrimaryClip(clip)}, text = stringResource(R.string.copy_all_data))
             }
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
+/*
 
 @Preview
 @Composable
 fun DataScreenPreview() {
     DataScreen({})
-}
+}*/

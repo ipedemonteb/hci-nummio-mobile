@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +31,7 @@ import ar.edu.itba.nummio.ui.component.Contact
 import ar.edu.itba.nummio.ui.component.SearchBar
 import androidx.compose.ui.res.stringResource
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.ui.home.HomeViewModel
 
 data class ContactData(
     val name: String,
@@ -41,10 +44,12 @@ fun TransferScreen(
     recipients: List<ContactData>,
     onRecipientClick: (String) -> Unit,
     onBackClick: () -> Unit,
-    onNavigateToSendScreen: (String) -> Unit
+    onNavigateToSendScreen: (String) -> Unit,
+    viewModel: HomeViewModel
 ) {
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
+    val uiState = viewModel.uiState
     val emailHasErrors by remember(cvuText) {
         derivedStateOf {
             if (cvuText.isNotEmpty()) {
@@ -54,20 +59,30 @@ fun TransferScreen(
             }
         }
     }
-    Column (modifier = Modifier.padding(start = 10.dp, end = 10.dp)){
+    Column (modifier = Modifier
+        .padding(start = 10.dp, end = 10.dp)
+        ,
+    ){
+
         Scaffold(
             topBar = {
                 TopBar(
                     title = stringResource(R.string.transfer_option),
                     onBackClick = onBackClick,
-                )
+                    viewModel = viewModel)
             }
         )
         { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
+                    .padding(paddingValues)
+                    .padding(horizontal = if(uiState.isLandscape) 76.dp else 20.dp)
+                    .verticalScroll(
+                        enabled = uiState.isLandscape,
+                        state = rememberScrollState()
+                    )
+                    .heightIn(max = 600.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
@@ -75,7 +90,7 @@ fun TransferScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(vertical = 16.dp)
                         .background(Color.White, shape = RoundedCornerShape(8.dp))
                         .clip(RoundedCornerShape(10.dp))
                         .border(
@@ -122,7 +137,7 @@ fun TransferScreen(
                     verticalAlignment = Alignment.Bottom,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp, start = 10.dp, end = 15.dp, bottom = 15.dp)
+                        .padding(top = 20.dp, bottom = 15.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.recents_msg),
@@ -201,11 +216,11 @@ fun TransferScreenPreview() {
         )
     )
 
-
+/*
     TransferScreen(
         recipients = recipients,
         onRecipientClick = {},
         onBackClick = {},
         onNavigateToSendScreen = {}
-    )
+    )*/
 }
