@@ -47,6 +47,10 @@ class HomeViewModel(
         }
     )
 
+    fun setFormFactor(isOver600dp:Boolean) {
+        uiState = uiState.copy(isOver600dp = isOver600dp)
+    }
+
     fun getCurrentUser() = runOnViewModelScope(
         { userRepository.getCurrentUser(uiState.currentUser == null) },
         { state, response -> state.copy(currentUser = response) }
