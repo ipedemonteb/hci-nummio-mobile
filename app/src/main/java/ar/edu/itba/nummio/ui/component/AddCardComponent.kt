@@ -108,7 +108,8 @@ fun AddCardComponent(
                     modifier = Modifier.width(70.dp),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
+                    //isError = true,
+                    //supportingText = "Bo"
                     )
                 Text(
                     text = stringResource(R.string.slash),
@@ -122,7 +123,7 @@ fun AddCardComponent(
                 OutlinedTextField(
                     value = expiryYear.value,
                     onValueChange = {
-                        expiryYear.value = it.filter { char -> char.isDigit() }.take(4)
+                        expiryYear.value = it.filter { char -> char.isDigit() }.take(2)
                     },
                     label = { Text(stringResource(R.string.yyyy)) },
                     modifier = Modifier.width(80.dp),

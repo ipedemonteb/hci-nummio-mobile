@@ -47,6 +47,9 @@ fun HomeScreen(
     {
         viewModel.getBalance()
     }
+    if (viewModel.uiState.shouldUpdateWalletDetails) {
+        viewModel.getDetails()
+    }
     Surface {
         Box(modifier = Modifier.background(Color.White)) {
             Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(horizontal = if (viewModel.uiState.isOver600dp) {if(viewModel.uiState.isLandscape) 80.dp else 50.dp} else 0.dp)) {
