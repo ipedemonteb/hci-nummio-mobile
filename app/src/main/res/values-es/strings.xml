@@ -119,4 +119,7 @@
     <string name="update_alias">Actualizar Alias</string>
     <string name="confirm_changes">Confirmar cambios</string>
     <string name="alias_edited">El alias ha sido editado exitosamente</string>
+    <string name="operation_result_title">Resultado de la Operación</string>
+    <string name="operation_success">Operación completada con éxito. %s</string>
+    <string name="operation_mistake">Error. La operación no pudo ser completada. %s</string>
 </resources>

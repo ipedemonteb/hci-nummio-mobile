@@ -145,4 +145,7 @@
     <string name="generated_link">Generated link:</string>
     <string name="confirm_changes">Confirm changes</string>
     <string name="alias_edited">Alias has been edited successfully</string>
+    <string name="operation_result_title">Operation Result</string>
+    <string name="operation_success">Operation completed successfully. %s</string>
+    <string name="operation_mistake">Error. The operation could not be completed. %s</string>
 </resources>
