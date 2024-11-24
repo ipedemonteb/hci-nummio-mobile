@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.Amount
 import ar.edu.itba.nummio.data.model.PaymentRequest
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
@@ -42,6 +43,52 @@ fun GeneratePayment(viewModel:HomeViewModel) {
     var description = remember { mutableStateOf("") }
     val clicked = remember { mutableStateOf(false) }
     val current = LocalContext.current
+    var showAmountError by remember { mutableStateOf(false) }
+    var amountError by remember { mutableStateOf("") }
+    var showDescriptionError by remember { mutableStateOf(false) }
+    var descriptionError by remember { mutableStateOf("") }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val INVALID_AMOUNT = stringResource(R.string.invalid_amount)
+    val AMOUNT_POSITIVE = stringResource(R.string.amount_positive)
+
+    fun handleGeneratePayment() {
+        var amountString = amount
+        amountString = amountString.replace(',', '.')
+        showAmountError = false
+        showDescriptionError = false
+        if(amountString.isEmpty()) {
+            showAmountError = true
+            amountError = MANDATORY_INPUT_ERROR
+        } else {
+            var amountDouble: Double = -1.0
+            try {
+                amountDouble = amountString.toDouble()
+            } catch (e: Exception) {
+                showAmountError = true
+                amountError = INVALID_AMOUNT
+            }
+            if(amountDouble == 0.0) {
+                showAmountError = true
+                amountError = AMOUNT_POSITIVE
+            }
+        }
+        if(description.value.isEmpty()){
+            showDescriptionError = true
+            descriptionError = MANDATORY_INPUT_ERROR
+        }
+
+        if(!showAmountError && !showDescriptionError) {
+            viewModel.makePayment(
+                PaymentRequest(
+                    amount = amountString.toDouble(),
+                    type = "LINK",
+                    description = description.value
+                )
+            );
+            clicked.value = true
+        }
+    }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         Row {
             Column {
@@ -68,7 +115,9 @@ fun GeneratePayment(viewModel:HomeViewModel) {
                             .background(Color.White),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        keyboardActions = KeyboardActions.Default
+                        keyboardActions = KeyboardActions.Default,
+                        isError = showAmountError,
+                        supportingText = { if(showAmountError) Text(amountError) }
                     )
                 }
             }
@@ -92,8 +141,9 @@ fun GeneratePayment(viewModel:HomeViewModel) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.White),
-                        singleLine = true
-
+                        singleLine = true,
+                        isError = showDescriptionError,
+                        supportingText = { if(showDescriptionError) Text(descriptionError) }
                     )
 
 
@@ -130,16 +180,7 @@ fun GeneratePayment(viewModel:HomeViewModel) {
             Box(modifier = Modifier.padding(horizontal = if (viewModel.uiState.isOver600dp) 200.dp else {if(viewModel.uiState.isLandscape) 140.dp else 60.dp})) {
                 if (!clicked.value) {
                     HighContrastBtn(
-                        onClick = {
-                            viewModel.makePayment(
-                                PaymentRequest(
-                                    amount = amount.toDouble(),
-                                    type = "LINK",
-                                    description = description.value
-                                )
-                            );
-                            clicked.value = true
-                        }, stringResource(R.string.generate_link)
+                        onClick = { handleGeneratePayment() }, stringResource(R.string.generate_link)
                     )
                 }
                 else {
