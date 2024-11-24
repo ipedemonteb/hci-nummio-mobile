@@ -124,4 +124,6 @@
     <string name="operation_mistake">Error. La operación no pudo ser completada. %s</string>
     <string name="recover_confirmed">contraseña recuperada correctamente</string>
     <string name="go_to_login">Ir a iniciar sesión</string>
+    <string name="payment_confirmed">pago confirmado</string>
+    <string name="go_to_home">Ir a la página principal</string>
 </resources>

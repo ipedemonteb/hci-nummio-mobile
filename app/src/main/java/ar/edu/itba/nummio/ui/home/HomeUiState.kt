@@ -27,7 +27,8 @@ data class HomeUiState(
     val shouldUpdateWalletDetails: Boolean = true,
     val codeSent: Boolean = false,
     val recoverCodeSent: Boolean = false,
-    val recoverConfirmed: Boolean = false
+    val recoverConfirmed: Boolean = false,
+    val paymentConfirmed: Boolean = false
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

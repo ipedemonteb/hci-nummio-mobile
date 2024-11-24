@@ -42,18 +42,18 @@ fun AppNavHost(
     var isExpanded = windowSizeClass == windowScreenWidth.EXPANDED
     //Para cada pantalla en particular, pasarle el booleano isExpanded como un "Es tablet?"
 
-    val startDestination =
+    val destination =
         if (viewModel.uiState.isAuthenticated)
-            "home"
+            AppDestinations.HOME.route
         else if(viewModel.uiState.hasBeenVerified)
-            "login"
-        else if(viewModel.uiState.recoverConfirmed)
+            AppDestinations.LOGIN.route
+        else if(viewModel.uiState.recoverConfirmed || viewModel.uiState.paymentConfirmed)
             AppDestinations.RESULT_SCREEN.route
         else
-            "start"
+            AppDestinations.START.route
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = destination,
         modifier = modifier,
     ) {
         composable(AppDestinations.START.route) {
@@ -207,17 +207,29 @@ fun AppNavHost(
                 onNavigateToRoute = {
                     if (viewModel.uiState.recoverConfirmed)
                         navController.navigate(AppDestinations.LOGIN.route)
+                    else if(viewModel.uiState.paymentConfirmed)
+                        navController.navigate(AppDestinations.HOME.route)
+                },
+                postNavigate = {
+                    if(viewModel.uiState.recoverConfirmed)
+                        {}
+                    else if(viewModel.uiState.paymentConfirmed)
+                        {viewModel.resetPaymentConfirmed()}
                 },
                 success = true, // @TODO: ver
                 viewModel = viewModel,
                 msg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.recover_confirmed
+                    else if(viewModel.uiState.paymentConfirmed)
+                        R.string.payment_confirmed
                     else
                         0,
                 btnMsg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.go_to_login
+                    else if(viewModel.uiState.paymentConfirmed)
+                        R.string.go_to_home
                     else
                         0
             )
