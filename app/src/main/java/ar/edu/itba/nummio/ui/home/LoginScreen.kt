@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -47,7 +48,7 @@ import ar.edu.itba.nummio.ui.theme.DarkPurple
 fun LoginScreen(
     onBackClick: () -> Unit,
     onNavigateToSignup: () -> Unit,
-    onNavigateToRecover: ()->Unit,
+    onNavigateToRecover: () -> Unit,
     viewModel: HomeViewModel
 ) {
     var userEmail by remember { mutableStateOf("") }
@@ -60,14 +61,15 @@ fun LoginScreen(
             }
         }
     }
-    var showCombinationError by remember { mutableStateOf(false)}
     var userPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val uiState = viewModel.uiState
     Scaffold(modifier = Modifier
         .background(Color.White)
         .fillMaxSize(),
-        topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = onBackClick, viewModel = viewModel)}
+        topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = {
+            onBackClick()
+            viewModel.resetError()}, viewModel = viewModel) }
     ) {
         paddingValues ->
         Column(modifier = Modifier
@@ -77,9 +79,13 @@ fun LoginScreen(
                 enabled = uiState.isLandscape,
                 state = rememberScrollState())
         ) {
-            if (showCombinationError){
+            if (viewModel.uiState.error != null){
                 Text(
-                    text = "Combinacion de mail y contraseña incorrecta",
+                    text = stringResource(when (viewModel.uiState.error!!.message) {
+                        "Invalid credentials" -> R.string.invalid_login
+                        "User is not verified" -> R.string.user_not_verified
+                        else -> R.string.unexpected_error
+                    }),
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(bottom = 10.dp)
@@ -143,8 +149,6 @@ fun LoginScreen(
                         if (!userEmailHasErrors) {
                             viewModel.login(userEmail, userPassword)
                         }
-                        if (uiState.error != null)
-                            showCombinationError = true
                     },
                     text = stringResource(R.string.login_button)
                 )

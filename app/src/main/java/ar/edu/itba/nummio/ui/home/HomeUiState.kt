@@ -9,7 +9,6 @@ data class HomeUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
     val hasBeenVerified: Boolean = false,
-    val invalidCodeVerificationError: Boolean = false,
     val currentUser: User? = null,
     val cards: List<Card>? = null,
     val currentCard: Card? = null,
@@ -22,6 +21,7 @@ data class HomeUiState(
     val shouldUpdatePaymentHistory: Boolean =  true,
     val latestGeneratedLink : String = "",
     val currentPayment: PaymentData? = null,
+    val codeSent: Boolean = false
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

@@ -40,7 +40,7 @@ fun AppNavHost(
     var isExpanded = windowSizeClass == windowScreenWidth.EXPANDED
     //Para cada pantalla en particular, pasarle el booleano isExpanded como un "Es tablet?"
 
-    val startDestination = if (viewModel.uiState.isAuthenticated) "home" else "start"
+    val startDestination = if (viewModel.uiState.isAuthenticated) "home" else if(viewModel.uiState.hasBeenVerified) "login" else "start"
     NavHost(
         navController = navController,
         startDestination = startDestination,
@@ -184,6 +184,7 @@ fun AppNavHost(
         ) { backStackEntry ->
             VerifyScreen(
                 onBackClick = { navController.popBackStack() },
+                onNavigateToLogin = { navController.navigate(AppDestinations.LOGIN.route) },
                 mailAndPassword = backStackEntry.arguments?.getString("mailAndPassword") ?: "",
                 separator = ";",
                 viewModel=viewModel

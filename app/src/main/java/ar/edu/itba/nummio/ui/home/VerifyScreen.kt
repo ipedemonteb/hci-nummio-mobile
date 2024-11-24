@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,6 +41,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun VerifyScreen(
     onBackClick: () -> Unit,
+    onNavigateToLogin: () -> Unit,
     mailAndPassword: String,
     separator: String,
     viewModel: HomeViewModel
@@ -61,10 +63,6 @@ fun VerifyScreen(
     var showBirthdateError by remember { mutableStateOf(false) }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val BIRTHDATE_INPUT_ERROR = stringResource(R.string.invalid_birthdate)
-
-    var codeError by remember { mutableStateOf("") }
-    var showCodeError by remember { mutableStateOf(false) }
-    var INVALID_CODE = stringResource(R.string.invalid_verification_code)
 
     val (email, password) = mailAndPassword.split(separator, limit = 2).let {
         it.getOrElse(0) { "" } to it.getOrElse(1) { "" }
@@ -115,14 +113,15 @@ fun VerifyScreen(
                 email = email,
                 password = password
             )
-            codeSent = !codeSent
         }
     }
 
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = "Verify Account", onBackClick = {onBackClick()}, viewModel = viewModel) }
+        topBar = { TopBar(title = "Verify Account", onBackClick = {
+            onBackClick()
+            viewModel.resetError()}, viewModel = viewModel) }
     ) { paddingValues ->
         Column(modifier = Modifier
             .padding(paddingValues)
@@ -142,8 +141,19 @@ fun VerifyScreen(
                     textAlign = TextAlign.Center,
                 )
             }
-            if(!codeSent) {
+            if(!viewModel.uiState.codeSent) {
                 Spacer(modifier = Modifier.height(20.dp))
+                if (viewModel.uiState.error != null){
+                    Text(
+                        text = stringResource(when (viewModel.uiState.error!!.message) {
+                            "The user's email is already present in the DB" -> R.string.email_used
+                            else -> R.string.unexpected_error
+                        }),
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(bottom = 10.dp)
+                    )
+                }
                 Row {
                     Text(
                         text = stringResource(R.string.insert_name),
@@ -255,7 +265,7 @@ fun VerifyScreen(
                 }
                 Spacer(modifier = Modifier.height(40.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    HighContrastBtn(onClick = {
+                        HighContrastBtn(onClick = {
                             viewModel.verifyUser(code)
                         },
                         text = stringResource(R.string.continue_btn)
@@ -263,7 +273,8 @@ fun VerifyScreen(
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(modifier = Modifier.padding(horizontal = 40.dp)) {
-                    LowContrastBtn(onClick = { codeSent = !codeSent
+                    LowContrastBtn(onClick = {
+                        viewModel.resetCodeSent()
                         canEdit = !canEdit
                         firstName = ""
                         lastName = ""
@@ -280,7 +291,7 @@ fun VerifyScreen(
 fun VerifyScreenPreview() {
     NummioTheme {
         VerifyScreen(
-            {}, "", "",
+            {}, {},"", "",
             viewModel = TODO()
         )
     }
