@@ -31,6 +31,7 @@ import ar.edu.itba.nummio.ui.component.Contact
 import ar.edu.itba.nummio.ui.component.SearchBar
 import androidx.compose.ui.res.stringResource
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.PaymentRequest
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 
 data class ContactData(
@@ -156,7 +157,7 @@ fun TransferScreen(
                 shape = RoundedCornerShape(16.dp),
                 trailingIcon = {
                     IconButton(
-                        onClick = { onNavigateToSendScreen(cvuText) },
+                        onClick = { if (!emailHasErrors) onNavigateToSendScreen(cvuText) },
                         modifier = Modifier
                             .size(48.dp)
                     ) {
@@ -199,7 +200,7 @@ fun TransferScreen(
                     .weight(1f, false)
                     .fillMaxHeight()
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp)
+                    //.padding(bottom = 20.dp)
             ) {
                 items(recipients) { recipient ->
                     Contact(
