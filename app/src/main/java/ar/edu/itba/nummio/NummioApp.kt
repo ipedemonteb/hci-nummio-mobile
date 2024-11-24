@@ -63,15 +63,23 @@ fun NummioApp(
             bottomBar = {
                 if (currentRoute == AppDestinations.HOME.route || currentRoute == AppDestinations.DATA_SCREEN.route) {
                     BottomBar(modifier = Modifier.padding(WindowInsets.navigationBars.asPaddingValues()),
-                        onNavigateToHome = {navController.navigate(AppDestinations.HOME.route){
-                            popUpTo(AppDestinations.HOME.route)
-                            launchSingleTop = true
-                            restoreState = true //Sacar?
+                        onNavigateToHome = {
+                            val myRoute = navController.currentBackStackEntry?.destination?.route
+                            if (myRoute != AppDestinations.HOME.route) {
+                            navController.navigate(AppDestinations.HOME.route) {
+                                popUpTo(AppDestinations.HOME.route) { inclusive = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         }},
-                        onNavigateToData = {navController.navigate(AppDestinations.DATA_SCREEN.route){
-                            popUpTo(AppDestinations.HOME.route)
-                            launchSingleTop = true
-                            restoreState = true
+                        onNavigateToData = {
+                            val myRoute = navController.currentBackStackEntry?.destination?.route
+                            if (myRoute != AppDestinations.DATA_SCREEN.route) {
+                            navController.navigate(AppDestinations.DATA_SCREEN.route) {
+                                popUpTo(AppDestinations.HOME.route)
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         }},
                         onNavigateToQRScan = {}, //@TODO
                         viewModel = viewModel
