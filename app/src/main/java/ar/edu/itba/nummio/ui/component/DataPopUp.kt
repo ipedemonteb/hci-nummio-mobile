@@ -155,7 +155,7 @@ fun DataPopUp(
 }
 
 @Composable
-fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {}, textToChange: MutableState<String?> = mutableStateOf("")) {
+fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {},hasFinishedEditing: MutableState<Boolean> = mutableStateOf(false), textToChange: MutableState<String?> = mutableStateOf("")) {
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
     var text = remember { mutableStateOf(TextFieldValue(cvu)) }
@@ -178,7 +178,7 @@ fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {}, text
             BasicTextField(
                 value = text.value,
                 onValueChange = {text.value = it; textToChange.value = it.text},
-                readOnly = isReadOnly.value,
+                readOnly = isReadOnly.value || hasFinishedEditing.value,
                 textStyle = TextStyle(
                     fontSize = 14.sp,
                     color = Color.Gray

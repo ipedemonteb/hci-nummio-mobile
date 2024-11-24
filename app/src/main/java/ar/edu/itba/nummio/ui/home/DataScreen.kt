@@ -52,6 +52,7 @@ fun DataScreen(
     }
     val uiState = viewModel.uiState
     var isEditing = remember { mutableStateOf(false) }
+    var hasFinishedEditing=remember{ mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopBar(
@@ -124,7 +125,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row (modifier = Modifier.padding(bottom = 20.dp)){
-                CopyableTextInput(viewModel.uiState.walletDetails?.alias?:"", true, onEdit = {isEditing.value = true}, textToChange = alias)
+                CopyableTextInput(viewModel.uiState.walletDetails?.alias?:"", true, onEdit = {isEditing.value = true}, textToChange = alias, hasFinishedEditing = hasFinishedEditing)
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
@@ -157,6 +158,7 @@ fun DataScreen(
                     LowContrastBtn(onClick = {
                         viewModel.updateAlias(AliasRequest(alias.value!!))
                         isEditing.value=false
+                        hasFinishedEditing.value=true
                     }, text = "Confirmar cambios")
                 }
             }
