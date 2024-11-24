@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import ar.edu.itba.nummio.R
 import ar.edu.itba.nummio.ui.home.AddCardScreen
 import ar.edu.itba.nummio.ui.home.ConfirmScreen
 import ar.edu.itba.nummio.ui.home.DataScreen
@@ -24,6 +25,7 @@ import ar.edu.itba.nummio.ui.home.SignupScreen
 import ar.edu.itba.nummio.ui.home.StartScreen
 import ar.edu.itba.nummio.ui.home.MovementsScreen
 import ar.edu.itba.nummio.ui.home.PayScreen
+import ar.edu.itba.nummio.ui.home.ResultScreen
 import ar.edu.itba.nummio.ui.home.SendScreen
 import ar.edu.itba.nummio.ui.home.SettingsScreen
 import ar.edu.itba.nummio.ui.home.VerifyScreen
@@ -43,8 +45,10 @@ fun AppNavHost(
     val startDestination =
         if (viewModel.uiState.isAuthenticated)
             "home"
-        else if(viewModel.uiState.hasBeenVerified || viewModel.uiState.recoverConfirmed)
+        else if(viewModel.uiState.hasBeenVerified)
             "login"
+        else if(viewModel.uiState.recoverConfirmed)
+            AppDestinations.RESULT_SCREEN.route
         else
             "start"
     NavHost(
@@ -197,6 +201,26 @@ fun AppNavHost(
         }
         composable(AppDestinations.SETTINGS.route){
             SettingsScreen(onBackClick = {navController.popBackStack()}, viewModel)
+        }
+        composable(AppDestinations.RESULT_SCREEN.route) {
+            ResultScreen(
+                onNavigateToRoute = {
+                    if (viewModel.uiState.recoverConfirmed)
+                        navController.navigate(AppDestinations.LOGIN.route)
+                },
+                success = true, // @TODO: ver
+                viewModel = viewModel,
+                msg =
+                    if (viewModel.uiState.recoverConfirmed)
+                        R.string.recover_confirmed
+                    else
+                        0,
+                btnMsg =
+                    if (viewModel.uiState.recoverConfirmed)
+                        R.string.go_to_login
+                    else
+                        0
+            )
         }
     }
 }

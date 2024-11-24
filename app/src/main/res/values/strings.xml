@@ -144,4 +144,7 @@
     <string name="operation_result_title">Operation Result</string>
     <string name="operation_success">Operation completed successfully. %s</string>
     <string name="operation_mistake">Error. The operation could not be completed. %s</string>
+    <string name="result_screen" translatable="false">Result Screen</string>
+    <string name="recover_confirmed">password recover confirmed</string>
+    <string name="go_to_login">Go to login</string>
 </resources>
