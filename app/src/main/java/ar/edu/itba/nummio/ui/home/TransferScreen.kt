@@ -48,8 +48,6 @@ fun TransferScreen(
     onNavigateToSendScreen: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
-
-
     val recipients = listOf(
         ContactData(
             name = "Franco Colapinto",
@@ -88,18 +86,16 @@ fun TransferScreen(
         )
     )
 
-
-
-
     var searchText by remember { mutableStateOf("") }
     var cvuText by remember { mutableStateOf("") }
     val uiState = viewModel.uiState
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val emailHasErrors by remember(cvuText) {
         derivedStateOf {
             if (cvuText.isNotEmpty()) {
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(cvuText).matches()
             } else {
-                false
+                true
             }
         }
     }
@@ -126,47 +122,32 @@ fun TransferScreen(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            /*
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp)
-                    .background(Color.White, shape = RoundedCornerShape(8.dp))
-                    .clip(RoundedCornerShape(10.dp))
-                    .border(
-                        width = 1.dp,
-                        color = Color.LightGray,
-                        shape = RoundedCornerShape(10.dp)
+            Row {
+                OutlinedTextField(
+                    value = cvuText,
+                    onValueChange = { cvuText = it },
+                    label = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
+                    maxLines = 1,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        cursorColor = Color.Gray,
                     ),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-            */  Row {
-            OutlinedTextField(
-                value = cvuText,
-                onValueChange = { cvuText = it },
-                label = { Text(text = stringResource(R.string.searchAliasOrCVU_msg)) },
-                maxLines = 1,
-                modifier = Modifier.fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    cursorColor = Color.Gray,
-                ),
-                isError = emailHasErrors,
-                supportingText = { if (emailHasErrors) Text(stringResource(R.string.invalid_mail_format)) },
-                shape = RoundedCornerShape(16.dp),
-                trailingIcon = {
-                    IconButton(
-                        onClick = { if (!emailHasErrors) onNavigateToSendScreen(cvuText) },
-                        modifier = Modifier
-                            .size(48.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.arrow_right),
-                            contentDescription = null,
-                            modifier = Modifier.size(32.dp),
-                            tint = DarkPurple
-                        )
+                    isError = emailHasErrors,
+                    supportingText = { if (emailHasErrors) Text(if(cvuText.isEmpty()) MANDATORY_INPUT_ERROR else stringResource(R.string.invalid_mail_format)) },
+                    shape = RoundedCornerShape(16.dp),
+                    trailingIcon = {
+                        IconButton(
+                            onClick = { if (!emailHasErrors) onNavigateToSendScreen(cvuText) },
+                            modifier = Modifier
+                                .size(48.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.arrow_right),
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp),
+                                tint = DarkPurple
+                            )
                         }
                     }
                 )
