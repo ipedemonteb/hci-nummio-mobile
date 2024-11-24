@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -117,12 +118,11 @@ fun AddCardScreen(
                     updatedAt = null
                 )
             )
-            onBackClick()
         }
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(),
-            topBar = { TopBar(stringResource(R.string.add_card_title), onBackClick = {onBackClick()}, viewModel = viewModel) }
+            topBar = { TopBar(stringResource(R.string.add_card_title), onBackClick = {onBackClick(); viewModel.resetError()}, viewModel = viewModel) }
         ) {
         paddingValues ->
         Column(modifier = Modifier
@@ -152,11 +152,23 @@ fun AddCardScreen(
                     cvvError = cvvError
                 )
             }
+            if (viewModel.uiState.error != null){
+                Text(
+                    text = stringResource(when (viewModel.uiState.error!!.message) {
+                        "Card already expired." -> R.string.card_expired
+                        else -> R.string.unexpected_error
+                    }),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
             Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = if (viewModel.uiState.isOver600dp) 200.dp else  20.dp)) {
                 HighContrastBtn({ addCardHandler() }, stringResource(R.string.add_card_title))
             }
             Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = if (viewModel.uiState.isOver600dp) 200.dp else 20.dp)) {
-                LowContrastBtn({ onBackClick() }, stringResource(R.string.cancel_button))
+                LowContrastBtn({ onBackClick()
+                                 viewModel.resetError() }, stringResource(R.string.cancel_button))
             }
         }
     }

@@ -32,7 +32,8 @@ data class HomeUiState(
     val paymentConfirmed: Boolean = false,
     val rechargeConfirmed: Boolean = false,
     val transferConfirmed: Boolean = false,
-    val aliasEdited: Boolean = false
+    val aliasEdited: Boolean = false,
+    val cardAdded: Boolean = false
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

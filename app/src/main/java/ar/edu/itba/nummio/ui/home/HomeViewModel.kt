@@ -97,6 +97,10 @@ class HomeViewModel(
         uiState = uiState.copy(aliasEdited = false)
     }
 
+    fun resetCardAdded() {
+        uiState = uiState.copy(aliasEdited = false)
+    }
+
     //WALLET
 
     fun getBalance() = runOnViewModelScope(
@@ -136,7 +140,8 @@ class HomeViewModel(
         { state, response ->
             state.copy(
                 currentCard = response,
-                cards = null
+                cards = null,
+                cardAdded = true
             )
         }
     )

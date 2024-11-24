@@ -137,4 +137,7 @@
     <string name="missing_email">El email no puede ser vacío.</string>
     <string name="invalid_card_number">El número de tarjeta debe ser de 15, 16 o 19 dígitos</string>
     <string name="invalid_month">Mes inválido</string>
+    <string name="card_expired">La tarjeta ya expiró</string>
+    <string name="card_added">Tarjeta agregada satisfactoriamente.</string>
+    <string name="go_to_wallet">Ir a Mis Tarjetas</string>
 </resources>

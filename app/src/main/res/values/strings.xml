@@ -163,4 +163,7 @@
     <string name="missing_email">Email must not be empty.</string>
     <string name="invalid_card_number">Card number must be 15, 16 or 19 digits</string>
     <string name="invalid_month">Invalid month</string>
+    <string name="card_expired">Card has already expired</string>
+    <string name="card_added">Card added successfully.</string>
+    <string name="go_to_wallet">Go to My Wallet</string>
 </resources>
