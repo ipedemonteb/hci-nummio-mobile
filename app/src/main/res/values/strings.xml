@@ -113,7 +113,7 @@
     <string name="invalid_mail_format">Input a valid email</string>
     <string name="mandatory_input_error">This field is required</string>
     <string name="same_passwords_error">The passwords must be the same</string>
-    <string name = "card_ending_in">Card ****</string>
+    <string name = "card_ending_in">Card ending in</string>
     <string name = "new_password">Enter your new password:</string>
     <string name="continue_btn">Continue</string>
     <string name="validate_msg">Before you continue, you need to verify your account.</string>
@@ -137,10 +137,14 @@
     <string name="invalid_login">Invalid combination of email and password</string>
     <string name="user_not_verified">User is not verified</string>
     <string name="email_used">Email is already used</string>
+    <string name="share_all_data">Share all my data</string>
+    <string name="update_alias">Update Alias</string>
     <string name="user_not_exists">There is no user with that email</string>
     <string name="card_delete">Card deletion</string>
     <string name="other_bank">Other Bank</string>
     <string name="generated_link">Generated link:</string>
+    <string name="confirm_changes">Confirm changes</string>
+    <string name="alias_edited">Alias has been edited successfully</string>
     <string name="operation_result_title">Operation Result</string>
     <string name="operation_success">Operation completed successfully. %s</string>
     <string name="operation_mistake">Error. The operation could not be completed. %s</string>
