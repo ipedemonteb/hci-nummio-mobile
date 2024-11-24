@@ -44,7 +44,7 @@ fun AppNavHost(
 
     val destination =
         if(viewModel.uiState.isAuthenticated) {
-            if (viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
+            if (viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                 AppDestinations.RESULT_SCREEN.route
             else
                 AppDestinations.HOME.route
@@ -212,7 +212,7 @@ fun AppNavHost(
                 onNavigateToRoute = {
                     if (viewModel.uiState.recoverConfirmed)
                         navController.navigate(AppDestinations.LOGIN.route)
-                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
+                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         navController.navigate(AppDestinations.HOME.route)
                 },
                 postNavigate = {
@@ -222,6 +222,8 @@ fun AppNavHost(
                         {viewModel.resetPaymentConfirmed()}
                     else if(viewModel.uiState.rechargeConfirmed)
                         {viewModel.resetRechargeConfirmed()}
+                    else if(viewModel.uiState.transferConfirmed)
+                        {viewModel.resetTransferConfirmed()}
                 },
                 success = true, // @TODO: ver
                 viewModel = viewModel,
@@ -232,12 +234,14 @@ fun AppNavHost(
                         R.string.payment_confirmed
                     else if(viewModel.uiState.rechargeConfirmed)
                         R.string.recharge_confirmed
+                    else if(viewModel.uiState.transferConfirmed)
+                        R.string.transfer_confirmed
                     else
                         R.string.nummio,
                 btnMsg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.go_to_login
-                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
+                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         R.string.go_to_home
                     else
                         R.string.nummio

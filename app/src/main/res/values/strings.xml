@@ -155,4 +155,5 @@
     <string name="payment_confirmed">Payment confirmed.</string>
     <string name="go_to_home">Go to home</string>
     <string name="recharge_confirmed">Recharge confirmed.</string>
+    <string name="transfer_confirmed">Transfer confirmed.</string>
 </resources>
