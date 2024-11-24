@@ -47,6 +47,9 @@ fun DataScreen(
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
+    if (viewModel.uiState.currentUser == null) {
+        viewModel.getCurrentUser()
+    }
     val uiState = viewModel.uiState
     Scaffold(
         topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}, viewModel = viewModel) }
@@ -80,7 +83,7 @@ fun DataScreen(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = stringResource(id = R.string.profileName),
+                    text = viewModel.uiState.currentUser?.firstName + " " + viewModel.uiState.currentUser?.lastName,
                     color = DarkPurple,
                     fontWeight = FontWeight.Medium,
                     fontSize = 20.sp
