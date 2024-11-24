@@ -108,4 +108,7 @@
     <string name="invalid_verification_code">Código inválido</string>
     <string name="missing_code">El código no puede ser vacío</string>
     <string name="unexpected_error">Error inesperado</string>
+    <string name="invalid_login">Combinación de email y contraseña incorrecta</string>
+    <string name="user_not_verified">El usuario no está verificado</string>
+    <string name="email_used">Ese email ya fue utilizado</string>
 </resources>

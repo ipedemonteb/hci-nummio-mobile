@@ -30,9 +30,13 @@ class HomeViewModel(
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
+    fun resetError() {
+        uiState = uiState.copy(error = null)
+    }
+
     fun login(username: String, password: String) = runOnViewModelScope(
         { userRepository.login(username, password) },
-        { state, _ -> state.copy(isAuthenticated = true) }
+        { state, _ -> state.copy(isAuthenticated = true, hasBeenVerified = false) }
     )
 
     fun logout() = runOnViewModelScope(
@@ -51,6 +55,10 @@ class HomeViewModel(
         uiState = uiState.copy(isOver600dp = isOver600dp)
     }
 
+    fun resetCodeSent() {
+        uiState = uiState.copy(codeSent = false)
+    }
+
     fun getCurrentUser() = runOnViewModelScope(
         { userRepository.getCurrentUser(uiState.currentUser == null) },
         { state, response -> state.copy(currentUser = response) }
@@ -59,7 +67,7 @@ class HomeViewModel(
         { userRepository.verifyUser(code) },
         { state, _ -> state.copy(
                 hasBeenVerified = state.error == null,
-                invalidCodeVerificationError = state.error != null
+                codeSent = false
             ) }
     )
     fun register ( firstName: String,
@@ -69,15 +77,15 @@ class HomeViewModel(
                    password: String
     ) = runOnViewModelScope(
         { userRepository.register(firstName, lastName, birthDate, email, password) },
-        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+        { state, _ -> state.copy(codeSent = true) } //@TODO what state to set?
     )
     fun resetPassword(token: String, password: String) = runOnViewModelScope(
         { userRepository.resetPassword(token, password) },
-        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+        { state, _ -> state } //@TODO what state to set?
     )
     fun recoverPassword(email: String) = runOnViewModelScope(
         { userRepository.recoverPassword(email) },
-        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO what state to set?
+        { state, _ -> state } //@TODO what state to set?
     )
 
 

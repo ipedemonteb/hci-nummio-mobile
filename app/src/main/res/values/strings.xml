@@ -134,4 +134,7 @@
     <string name="missing_code">Code must not be empty</string>
     <string name="invalid_verification_code">Invalid code</string>
     <string name="unexpected_error">Unexpected error</string>
+    <string name="invalid_login">Invalid combination of email and password</string>
+    <string name="user_not_verified">User is not verified</string>
+    <string name="email_used">Email is already used</string>
 </resources>
