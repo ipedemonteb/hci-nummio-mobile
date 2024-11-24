@@ -21,7 +21,7 @@ fun SettingsScreen(
     onBackClick: () -> Unit,
     viewModel: HomeViewModel
 ) {
-    Scaffold(topBar = { TopBar(title = stringResource(R.string.settings), onBackClick = {onBackClick()})})
+    Scaffold(topBar = { TopBar(title = stringResource(R.string.settings), onBackClick = {onBackClick()}, viewModel = viewModel)})
     {
         paddingValues ->
         Column(modifier = Modifier.padding(horizontal = 70.dp).padding(paddingValues))

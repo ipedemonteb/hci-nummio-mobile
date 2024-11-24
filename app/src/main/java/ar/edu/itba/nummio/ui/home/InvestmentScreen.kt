@@ -19,12 +19,13 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 
 @Composable
 fun InvestmentScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(stringResource(R.string.investment_title), onBackClick = {onBackClick()})}
+        topBar = { TopBar(stringResource(R.string.investment_title), onBackClick = {onBackClick()}, viewModel = viewModel)}
     ) {
         paddingValues ->
         Column(modifier = Modifier
@@ -40,6 +41,7 @@ fun InvestmentScreen(
         }
     }
 }
+/*
 
 @Preview
 @Composable
@@ -47,4 +49,4 @@ fun InvestmentScreenPreview() {
     NummioTheme {
         InvestmentScreen({})
     }
-}
+}*/

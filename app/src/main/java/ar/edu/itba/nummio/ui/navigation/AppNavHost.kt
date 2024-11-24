@@ -119,7 +119,8 @@ fun AppNavHost(
                 recipients = emptyList(),
                 onBackClick = { navController.popBackStack() },
                 onRecipientClick = {},
-                onNavigateToSendScreen = { email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email") }) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
+                onNavigateToSendScreen = { email -> navController.navigate("${AppDestinations.SEND_PAYMENT.route}/$email") },
+                viewModel = viewModel) //@TODO: onRecipientClick(Si apreto en un contacto que me lleve a transferirle, cambiarle el nombre) + addContact
         }
         composable(AppDestinations.WALLET.route) {
             WalletScreen(
@@ -139,7 +140,7 @@ fun AppNavHost(
             AddCardScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(AppDestinations.INVESTMENTS.route) {
-            InvestmentScreen(onBackClick = { navController.popBackStack() })
+            InvestmentScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(
             "${AppDestinations.SEND_PAYMENT.route}/{email}",
@@ -170,7 +171,7 @@ fun AppNavHost(
                 viewModel = viewModel)
         }
         composable(AppDestinations.DATA_SCREEN.route) {
-            DataScreen(onBackClick = { navController.popBackStack() })
+            DataScreen(onBackClick = { navController.popBackStack() }, viewModel = viewModel)
         }
         composable(
             "${AppDestinations.VERIFY_SCREEN.route}/{mailAndPassword}",

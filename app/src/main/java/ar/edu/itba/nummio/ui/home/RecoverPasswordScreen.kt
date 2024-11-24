@@ -48,7 +48,7 @@ fun RecoverPasswordScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {onBackClick()})}
+        topBar = { TopBar(title = stringResource(R.string.password_recovery), onBackClick = {onBackClick()}, viewModel = viewModel)}
     ){
         paddingValues ->
         Column(modifier = Modifier.padding(vertical = 30.dp, horizontal = 30.dp).padding(paddingValues)) {

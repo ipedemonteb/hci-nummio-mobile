@@ -71,7 +71,7 @@ fun AddCardScreen(
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(),
-            topBar = { TopBar(stringResource(R.string.add_card_title), onBackClick = {onBackClick()}) }
+            topBar = { TopBar(stringResource(R.string.add_card_title), onBackClick = {onBackClick()}, viewModel = viewModel) }
         ) {
         paddingValues ->
         Column(modifier = Modifier

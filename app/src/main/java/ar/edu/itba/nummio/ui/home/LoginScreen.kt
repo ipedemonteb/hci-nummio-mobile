@@ -67,7 +67,7 @@ fun LoginScreen(
     Scaffold(modifier = Modifier
         .background(Color.White)
         .fillMaxSize(),
-        topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = onBackClick)}
+        topBar = {TopBar(title = stringResource(R.string.enter_email_and_password), onBackClick = onBackClick, viewModel = viewModel)}
     ) {
         paddingValues ->
         Column(modifier = Modifier

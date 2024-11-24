@@ -8,7 +8,7 @@
     <string name="wallet_title">Billetera</string>
     <string name="cards_button">Tarjetas</string>
     <string name="my_balance">Balance</string>
-    <string name="transfer_option">Transferir</string>
+    <string name="transfer_option">Enviar</string>
     <string name="data_option">Datos</string>
     <string name="movements_option">Movimientos</string>
     <string name="investments_option">Inversiones</string>
@@ -104,4 +104,5 @@
     <string name="invalid_amount">Debe ingresar un monto válido</string>
     <string name="invalid_birthdate">Debe ingresar una fecha de nacimiento válida</string>
     <string name="password_short">La contraseña debe tener al menos 8 caracteres</string>
+    <string name="confirm_transaction">Confirmar Operación</string>
 </resources>

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -57,20 +59,35 @@ fun WalletScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = stringResource(R.string.wallet_title), onBackClick = { onBackClick() }, actionIcon = actionIcon)}
+        topBar = { TopBar(title = stringResource(R.string.wallet_title), onBackClick = { onBackClick() }, actionIcon = actionIcon, viewModel = viewModel)}
     ) {
         paddingValues->
         Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .padding(paddingValues)
-            .background(Color.White)
-            .verticalScroll(rememberScrollState())
+            .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
+            .verticalScroll(
+                enabled = uiState.isLandscape,
+                state = rememberScrollState()
+            )
+            .height(700.dp)
         ) {
-            Row(
-                modifier = Modifier.padding(vertical = 0.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .verticalScroll(rememberScrollState())
+                    .heightIn(max = 650.dp)
             ) {
-                WalletComponent(deleteCard = deleteCard, onNavigateToAddCard = onNavigateToAddCard, onNavigateToConfirmScreen = onNavigateToConfirmScreen, viewModel)
+                Row(
+                    modifier = Modifier.padding(vertical = 0.dp)
+                ) {
+                    WalletComponent(
+                        deleteCard = deleteCard,
+                        onNavigateToAddCard = onNavigateToAddCard,
+                        onNavigateToConfirmScreen = onNavigateToConfirmScreen,
+                        viewModel
+                    )
+                }
             }
         }
     }

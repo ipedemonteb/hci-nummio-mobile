@@ -36,7 +36,7 @@ fun TopOptions(
 ) {
     val uiState = viewModel.uiState
 
-    Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 12.dp)) {
+    Box(modifier = Modifier.padding(horizontal = if(uiState.isLandscape) 80.dp else 6.dp)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -53,7 +53,7 @@ fun TopOptions(
                 onClick = {onNavigateToMovements()}
             )
             RoundOption(
-                icon =painterResource(id = R.drawable.history),
+                icon =painterResource(id = R.drawable.enter),
                 label = stringResource(id = R.string.deposit_screen),
                 onClick = {onNavigateToDeposit()},
             )
