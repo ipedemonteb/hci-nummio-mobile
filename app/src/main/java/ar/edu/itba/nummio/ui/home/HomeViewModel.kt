@@ -101,7 +101,7 @@ class HomeViewModel(
 
     fun recharge(rechargeRequest: Amount) = runOnViewModelScope(
         { walletRepository.recharge(rechargeRequest) },
-        { state, _ -> state.copy(shouldUpdateBalance = true) }
+        { state, _ -> state.copy(shouldUpdateBalance = true, rechargeConfirmed = true) }
     )
 
     fun getInvestment() = runOnViewModelScope(
@@ -215,6 +215,10 @@ class HomeViewModel(
 
     fun resetPaymentConfirmed() {
         uiState = uiState.copy(paymentConfirmed = false)
+    }
+
+    fun resetRechargeConfirmed() {
+        uiState = uiState.copy(rechargeConfirmed = false)
     }
 
     private fun <R> runOnViewModelScope(

@@ -43,14 +43,19 @@ fun AppNavHost(
     //Para cada pantalla en particular, pasarle el booleano isExpanded como un "Es tablet?"
 
     val destination =
-        if (viewModel.uiState.isAuthenticated)
-            AppDestinations.HOME.route
-        else if(viewModel.uiState.hasBeenVerified)
-            AppDestinations.LOGIN.route
-        else if(viewModel.uiState.recoverConfirmed || viewModel.uiState.paymentConfirmed)
-            AppDestinations.RESULT_SCREEN.route
-        else
-            AppDestinations.START.route
+        if(viewModel.uiState.isAuthenticated) {
+            if (viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
+                AppDestinations.RESULT_SCREEN.route
+            else
+                AppDestinations.HOME.route
+        } else {
+            if (viewModel.uiState.hasBeenVerified)
+                AppDestinations.LOGIN.route
+            else if(viewModel.uiState.recoverConfirmed)
+                AppDestinations.RESULT_SCREEN.route
+            else
+                AppDestinations.START.route
+        }
     NavHost(
         navController = navController,
         startDestination = destination,
@@ -215,6 +220,8 @@ fun AppNavHost(
                         {}
                     else if(viewModel.uiState.paymentConfirmed)
                         {viewModel.resetPaymentConfirmed()}
+                    else if(viewModel.uiState.rechargeConfirmed)
+                        {viewModel.resetRechargeConfirmed()}
                 },
                 success = true, // @TODO: ver
                 viewModel = viewModel,
@@ -223,15 +230,17 @@ fun AppNavHost(
                         R.string.recover_confirmed
                     else if(viewModel.uiState.paymentConfirmed)
                         R.string.payment_confirmed
+                    else if(viewModel.uiState.rechargeConfirmed)
+                        R.string.recharge_confirmed
                     else
-                        0,
+                        R.string.nummio,
                 btnMsg =
                     if (viewModel.uiState.recoverConfirmed)
                         R.string.go_to_login
-                    else if(viewModel.uiState.paymentConfirmed)
+                    else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed)
                         R.string.go_to_home
                     else
-                        0
+                        R.string.nummio
             )
         }
     }

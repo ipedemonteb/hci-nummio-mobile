@@ -81,7 +81,6 @@ fun DepositComponent(
                     amount = amount.toDouble()
                 )
             )
-            onBackClick()
         }
     }
 
