@@ -23,6 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,15 +51,22 @@ fun DataScreen(
 ) {
     if (viewModel.uiState.currentUser == null) {
         viewModel.getCurrentUser()
+
+    }
+    if (viewModel.uiState.shouldUpdateWalletDetails) {
+        viewModel.getDetails()
     }
     val uiState = viewModel.uiState
     Scaffold(
         topBar = { TopBar(title = stringResource(R.string.my_data), onBackClick = {onBackClick()}, viewModel = viewModel) }
     ) {
+
         paddingValues ->
-        val CVU = stringResource(R.string.user_cvu)
-        val ALIAS = stringResource(R.string.user_alias)
+        var alias = remember{ mutableStateOf(viewModel.uiState.walletDetails?.alias) }
         val context = LocalContext.current
+        if (viewModel.uiState.shouldUpdateWalletDetails) {
+            viewModel.getDetails()
+        }
         Column(
             modifier = Modifier
                 .padding(horizontal = if(uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
@@ -98,7 +107,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row {
-                CopyableTextInput(stringResource(R.string.user_cvu), false)
+                CopyableTextInput(viewModel.uiState.walletDetails?.cbu?:"", false)
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row {
@@ -109,7 +118,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row (modifier = Modifier.padding(bottom = 20.dp)){
-                CopyableTextInput(stringResource(R.string.user_alias), true)
+                CopyableTextInput(viewModel.uiState.walletDetails?.alias?:"", true)
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
@@ -118,7 +127,7 @@ fun DataScreen(
             ) {
                 LowContrastBtn(onClick = {
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val combinedText = "CVU: ${CVU}\nAlias: $ALIAS"
+                    val combinedText = "CVU: ${viewModel.uiState.walletDetails?.cbu}\nAlias: ${viewModel.uiState.walletDetails?.alias}"
                     val clip = android.content.ClipData.newPlainText("copiar_dos_valores", combinedText)
                     clipboard.setPrimaryClip(clip)}, text = stringResource(R.string.copy_all_data))
             }

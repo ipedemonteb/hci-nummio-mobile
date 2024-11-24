@@ -4,6 +4,7 @@ import ar.edu.itba.nummio.data.model.Card
 import ar.edu.itba.nummio.data.model.Error
 import ar.edu.itba.nummio.data.model.PaymentData
 import ar.edu.itba.nummio.data.model.User
+import ar.edu.itba.nummio.data.model.WalletDetails
 
 data class HomeUiState(
     val isAuthenticated: Boolean = false,
@@ -22,7 +23,9 @@ data class HomeUiState(
     val latestGeneratedLink : String = "",
     val currentPayment: PaymentData? = null,
     val isOver600dp: Boolean = false,
-    val codeSent: Boolean = false
+    val codeSent: Boolean = false,
+    val walletDetails: WalletDetails? = null,
+    val shouldUpdateWalletDetails: Boolean = true
 )
 
 val HomeUiState.canGetCurrentUser: Boolean get() = isAuthenticated

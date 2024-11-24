@@ -164,12 +164,12 @@ class HomeViewModel(
 
     fun updateAlias(aliasRequest: AliasRequest) = runOnViewModelScope(
         { walletRepository.updateAlias(aliasRequest) },
-        { state, _ -> state }
+        { state, _ -> state.copy(shouldUpdateWalletDetails = true) }
     )
 
     fun getDetails() = runOnViewModelScope(
         { walletRepository.getDetails() },
-        { state, _ -> state }
+        { state, response -> state.copy(shouldUpdateWalletDetails = false, walletDetails = response) }
     )
 
     //PAYMENT
