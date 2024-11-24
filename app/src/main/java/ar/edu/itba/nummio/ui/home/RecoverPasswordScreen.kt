@@ -214,6 +214,7 @@ fun RecoverPasswordScreen(
                 Row(modifier = Modifier.padding(top = 30.dp)) {
                     LowContrastBtn(onClick = {  onBackClick()
                                                 viewModel.resetRecoverPasswordSent()
+                                                viewModel.resetError()
                                              }, text = stringResource(R.string.cancel_button))
                 }
             }
