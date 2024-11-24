@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,8 +52,22 @@ fun MakePayment(
     var cardId by remember { mutableIntStateOf(0) }
     var type by remember { mutableStateOf("") }
 
+    var linkError by remember { mutableStateOf("") }
+    var showLinkError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+
     if (viewModel.uiState.cards == null) {
         viewModel.getCards()
+    }
+
+    fun handleSearchPayment() {
+        showLinkError = false
+        if(link.isEmpty()) {
+            showLinkError = true
+            linkError = MANDATORY_INPUT_ERROR
+        }
+        if(!showLinkError)
+            viewModel.getPaymentByLink(link)
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -79,13 +94,27 @@ fun MakePayment(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.White),
-                        singleLine = true
+                        singleLine = true,
+                        isError = showLinkError || viewModel.uiState.error != null,
+                        supportingText = {
+                            if(showLinkError)
+                                Text(linkError)
+                            else if (viewModel.uiState.error != null)
+                                Text(
+                                    stringResource(
+                                        when (viewModel.uiState.error!!.message) {
+                                            "Not found" -> R.string.payment_not_found
+                                            else -> R.string.unexpected_error
+                                        }
+                                    )
+                                )
+                        }
                     )
                 }
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
-        if(!found) {
+        if(!viewModel.uiState.paymentFound) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,7 +122,7 @@ fun MakePayment(
                     .padding(top = 20.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                HighContrastBtn( onClick = {found = true;viewModel.getPaymentByLink(link)}, stringResource(R.string.search_payment) )
+                HighContrastBtn( onClick = { handleSearchPayment() }, stringResource(R.string.search_payment) )
             }
         }
         else {
@@ -221,7 +250,7 @@ fun MakePayment(
 
 
 
-@Preview(showBackground = true, locale = "es")
+/*@Preview(showBackground = true, locale = "es")
 @Composable
 fun MakePaymentPreview() {
     NummioTheme {
@@ -229,4 +258,4 @@ fun MakePaymentPreview() {
             viewModel = TODO()
         )
     }
-}
+}*/

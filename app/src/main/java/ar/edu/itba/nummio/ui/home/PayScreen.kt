@@ -29,7 +29,8 @@ fun PayScreen(
     Scaffold(modifier = Modifier
         .fillMaxSize()
         .background(Color.White),
-        topBar = { TopBar(title = stringResource(R.string.payment_page), onBackClick = {onBackClick()}, viewModel = viewModel)}
+        topBar = { TopBar(title = stringResource(R.string.payment_page), onBackClick = {    onBackClick()
+                                                                                     viewModel.resetPaymentFound() }, viewModel = viewModel)}
     ) {
         paddingValues ->
         Column(modifier = Modifier

@@ -152,6 +152,7 @@
     <string name="result_screen" translatable="false">Result Screen</string>
     <string name="recover_confirmed">Password recover confirmed.</string>
     <string name="go_to_login">Go to login</string>
+    <string name="payment_not_found">Payment not found</string>
     <string name="payment_confirmed">Payment confirmed.</string>
     <string name="go_to_home">Go to home</string>
     <string name="recharge_confirmed">Recharge confirmed.</string>
