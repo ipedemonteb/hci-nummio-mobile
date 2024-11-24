@@ -107,6 +107,7 @@ fun LoginScreen(
                     text = stringResource(when (viewModel.uiState.error!!.message) {
                         "Invalid credentials" -> R.string.invalid_login
                         "User is not verified" -> R.string.user_not_verified
+                        "User not found" -> R.string.user_not_exists
                         else -> R.string.unexpected_error
                     }),
                     color = MaterialTheme.colorScheme.error,

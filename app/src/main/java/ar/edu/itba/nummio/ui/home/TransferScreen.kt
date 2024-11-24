@@ -95,9 +95,21 @@ fun TransferScreen(
             if (cvuText.isNotEmpty()) {
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(cvuText).matches()
             } else {
-                true
+                false
             }
         }
+    }
+    var emailError by remember { mutableStateOf("") }
+    var showEmailError by remember { mutableStateOf(false) }
+
+    fun handleSend() {
+        showEmailError = false
+        if(cvuText.isEmpty()) {
+            showEmailError = true
+            emailError = MANDATORY_INPUT_ERROR
+        }
+        if (!showEmailError && !emailHasErrors)
+            onNavigateToSendScreen(cvuText)
     }
 
     Scaffold(
@@ -133,12 +145,16 @@ fun TransferScreen(
                         focusedContainerColor = Color.White,
                         cursorColor = Color.Gray,
                     ),
-                    isError = emailHasErrors,
-                    supportingText = { if (emailHasErrors) Text(if(cvuText.isEmpty()) MANDATORY_INPUT_ERROR else stringResource(R.string.invalid_mail_format)) },
+                    isError = showEmailError || emailHasErrors,
+                    supportingText = {
+                        if(showEmailError)
+                            Text(emailError)
+                        else if (emailHasErrors)
+                            Text(stringResource(R.string.invalid_mail_format)) },
                     shape = RoundedCornerShape(16.dp),
                     trailingIcon = {
                         IconButton(
-                            onClick = { if (!emailHasErrors) onNavigateToSendScreen(cvuText) },
+                            onClick = { handleSend() },
                             modifier = Modifier
                                 .size(48.dp)
                         ) {
@@ -181,7 +197,6 @@ fun TransferScreen(
                     .weight(1f, false)
                     .fillMaxHeight()
                     .fillMaxWidth()
-                    //.padding(bottom = 20.dp)
             ) {
                 items(recipients) { recipient ->
                     Contact(
