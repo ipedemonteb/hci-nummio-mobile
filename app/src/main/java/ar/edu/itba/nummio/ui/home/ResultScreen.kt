@@ -25,6 +25,7 @@ import ar.edu.itba.nummio.ui.theme.NummioTheme
 @Composable
 fun ResultScreen(
     onNavigateToRoute: () -> Unit,
+    postNavigate: () -> Unit,
     success: Boolean = true,
     viewModel: HomeViewModel,
     msg: Int,
@@ -53,7 +54,9 @@ fun ResultScreen(
                 )
             }
             Row(modifier = Modifier.padding(top = 30.dp)) {
-                LowContrastBtn(onClick = { onNavigateToRoute() }, text = stringResource(btnMsg))
+                LowContrastBtn(onClick = {
+                    onNavigateToRoute()
+                    postNavigate() }, text = stringResource(btnMsg))
             }
         }
     }
@@ -64,6 +67,7 @@ fun ResultScreen(
 fun ResultScreenPreview() {
     NummioTheme {
         ResultScreen(
+            {},
             {},
             true,
             viewModel(factory = HomeViewModel.provideFactory(LocalContext.current.applicationContext as MyApplication)),

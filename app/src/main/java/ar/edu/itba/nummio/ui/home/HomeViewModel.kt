@@ -204,10 +204,12 @@ class HomeViewModel(
 
     fun payByLink(linkUuid: String, type: String) = runOnViewModelScope(
         { paymentRepository.payByLink(linkUuid, type) },
-        { state, _ -> state.copy(shouldUpdateBalance = true)}
+        { state, _ -> state.copy(shouldUpdateBalance = true, paymentConfirmed = true)}
     )
 
-
+    fun resetPaymentConfirmed() {
+        uiState = uiState.copy(paymentConfirmed = false)
+    }
 
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
