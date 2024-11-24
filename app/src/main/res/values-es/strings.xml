@@ -129,4 +129,5 @@
     <string name="go_to_home">Ir a la página principal</string>
     <string name="recharge_confirmed">Recarga confirmada.</string>
     <string name="movements">Movimientos</string>
+    <string name="transfer_confirmed">Transferencia confirmada.</string>
 </resources>

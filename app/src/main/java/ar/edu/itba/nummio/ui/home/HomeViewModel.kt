@@ -177,7 +177,7 @@ class HomeViewModel(
 
     fun makePayment(paymentRequest: ar.edu.itba.nummio.data.model.PaymentRequest) = runOnViewModelScope(
         { paymentRepository.makePayment(paymentRequest) },
-        { state, response -> state.copy(latestGeneratedLink = response.linkUuid, shouldUpdateBalance = true, shouldUpdatePaymentHistory = true) }
+        { state, response -> state.copy(latestGeneratedLink = response.linkUuid, shouldUpdateBalance = true, shouldUpdatePaymentHistory = true, transferConfirmed = true) }
     )
 
     fun getPayments(
@@ -218,6 +218,10 @@ class HomeViewModel(
 
     fun resetRechargeConfirmed() {
         uiState = uiState.copy(rechargeConfirmed = false)
+    }
+
+    fun resetTransferConfirmed() {
+        uiState = uiState.copy(transferConfirmed = false)
     }
 
     private fun <R> runOnViewModelScope(

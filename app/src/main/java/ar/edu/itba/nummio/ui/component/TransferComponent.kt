@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import ar.edu.itba.nummio.R
+import ar.edu.itba.nummio.data.model.Amount
 import ar.edu.itba.nummio.data.model.PaymentRequest
 import ar.edu.itba.nummio.ui.home.HomeViewModel
 import ar.edu.itba.nummio.ui.theme.DarkPurple
@@ -52,153 +54,206 @@ fun TransferComponent(
         viewModel.getCards()
     }
     val options = listOf("Balance") + (viewModel.uiState.cards?.map { stringResource(R.string.card_ending_in)+ " " + it.number.takeLast(4) } ?: emptyList())
-
-
     var cardId by remember { mutableIntStateOf(0) }
     var type by remember { mutableStateOf("") }
-    Column(modifier = Modifier.fillMaxWidth()) {
-            Row {
-                Column {
-                    Row {
-                        Text(
-                            text = stringResource(R.string.send_amount),
-                            color = DarkPurple,
-                            fontSize = 16.sp
-                        )
-                    }
 
-                    Row {
-                        OutlinedTextField(
-                            value = amount,
-                            onValueChange = { amount = it.filter{char -> char.isDigit()} },
-                            label = { Text(text = stringResource(R.string.amount))},
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color.White),
-                            singleLine = true,
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
-                        )
-                    }
-                }
+    var amountError by remember { mutableStateOf("") }
+    var showAmountError by remember { mutableStateOf(false) }
+    var descriptionError by remember { mutableStateOf("") }
+    var showDescriptionError by remember { mutableStateOf(false) }
+    val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
+    val INVALID_AMOUNT = stringResource(R.string.invalid_amount)
+    val decimalSeparator = stringResource(R.string.decimal_separator)
+
+    fun transferHandler() {
+        var amountString = amount
+        amountString = amountString.replace(',', '.')
+        showAmountError = false
+        showDescriptionError = false
+        if(amountString.isEmpty()) {
+            showAmountError = true
+            amountError = MANDATORY_INPUT_ERROR
+        } else {
+            try {
+                amountString.toDouble()
+            } catch (e: Exception) {
+                showAmountError = true
+                amountError = INVALID_AMOUNT
             }
-            Spacer(modifier = Modifier.height(30.dp))
-            Row {
-                Column {
-                    Row {
-                        Text(
-                            text = stringResource(R.string.send_description),
-                            color = DarkPurple,
-                            fontSize = 16.sp
-                        )
-                    }
-                    Row {
-                        OutlinedTextField(
-                            value = description,
-                            onValueChange = { description = it },
-                            label = { Text(text = stringResource(R.string.description)) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color.White),
-                            singleLine = true,
-                        )
-                    }
+        }
+        if(description.isEmpty()) {
+            showDescriptionError = true
+            descriptionError = MANDATORY_INPUT_ERROR
+        }
+        if(!showAmountError && !showDescriptionError) {
+            viewModel.makePayment(
+                PaymentRequest(
+                    amount = amountString.toDouble(),
+                    description = description,
+                    type = type,
+                    receiverEmail = enteredEmail, cardId = cardId
+                )
+            )
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        if (viewModel.uiState.error != null){
+            Text(
+                text = stringResource(when (viewModel.uiState.error!!.message) {
+                    "Receiver details not found" -> R.string.user_not_exists
+                    else -> R.string.unexpected_error
+                }),
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 10.dp)
+            )
+        }
+        Row {
+            Column {
+                Row {
+                    Text(
+                        text = stringResource(R.string.send_amount),
+                        color = DarkPurple,
+                        fontSize = 16.sp
+                    )
                 }
-            }
-            Spacer(modifier = Modifier.height(30.dp))
-            Row {
-                Column {
-                    Row {
-                        Text(
-                            text = stringResource(R.string.select_method),
-                            color = DarkPurple,
-                            fontSize = 16.sp
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
+
+                Row {
+                    OutlinedTextField(
+                        value = amount,
+                        onValueChange = { amount = it.filter{char -> char.isDigit() || char.toString() == decimalSeparator} },
+                        label = { Text(text = stringResource(R.string.amount))},
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Color.White)
-                            .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
-                            .padding(horizontal = 16.dp, vertical = 18.dp)
-                            .clickable { expanded = !expanded },
-                        verticalAlignment = Alignment.CenterVertically
+                            .background(Color.White),
+                        singleLine = true,
+                        isError = showAmountError,
+                        supportingText = { if(showAmountError) Text(amountError) },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        Row {
+            Column {
+                Row {
+                    Text(
+                        text = stringResource(R.string.send_description),
+                        color = DarkPurple,
+                        fontSize = 16.sp
+                    )
+                }
+                Row {
+                    OutlinedTextField(
+                        value = description,
+                        onValueChange = { description = it },
+                        label = { Text(text = stringResource(R.string.description)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.White),
+                        singleLine = true,
+                        isError = showDescriptionError,
+                        supportingText = { if(showDescriptionError) Text(descriptionError) }
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        Row {
+            Column {
+                Row {
+                    Text(
+                        text = stringResource(R.string.select_method),
+                        color = DarkPurple,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.White)
+                        .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
+                        .padding(horizontal = 16.dp, vertical = 18.dp)
+                        .clickable { expanded = !expanded },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = if (selectedOption.isEmpty()) stringResource(R.string.method) else selectedOption,
+                        color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
+                    )
+                }
+                if (expanded) {
+                    Popup(
+                        alignment = Alignment.TopStart,
+                        onDismissRequest = { expanded = false }
                     ) {
-                        Text(
-                            text = if (selectedOption.isEmpty()) stringResource(R.string.method) else selectedOption,
-                            color = if (selectedOption.isEmpty()) Color.Gray else Color.Black
-                        )
-                    }
-                    if (expanded) {
-                        Popup(
-                            alignment = Alignment.TopStart,
-                            onDismissRequest = { expanded = false }
+                        Column(
+                            modifier = Modifier
+                                .background(Color.White)
+                                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                                .padding(8.dp)
+                                .width(160.dp)
+                                .heightIn(max=210.dp)
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .background(Color.White)
-                                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-                                    .padding(8.dp)
-                                    .width(160.dp)
-                                    .heightIn(max=210.dp)
-                            ) {
-                                options.forEach { option ->
-                                    DropdownMenuItem(
-                                        onClick = {
-                                            selectedOption = option
-                                            expanded = false
-                                            selectedMethod = true
-                                            if (option != "Balance") {
-                                                cardId = viewModel.uiState.cards!!.find { it.number.takeLast(4) == option.takeLast(4) }!!.id!!
-                                                type="CARD"
-                                            }
-                                            if(option == "Balance") {
-                                                type="BALANCE"
-                                            }
-
-                                        },
-                                        text = {
-                                            Text(text = option)
+                            options.forEach { option ->
+                                DropdownMenuItem(
+                                    onClick = {
+                                        selectedOption = option
+                                        expanded = false
+                                        selectedMethod = true
+                                        if (option != "Balance") {
+                                            cardId = viewModel.uiState.cards!!.find { it.number.takeLast(4) == option.takeLast(4) }!!.id!!
+                                            type="CARD"
                                         }
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    if(selectedOption == "Balance") {
-                        Text (
-                            text = "Balance: $"+viewModel.uiState.currentBalance.toString(),
-                            color = Color.Gray
-                        )
-                    }
-                    if(selectedMethod) {
-                        Spacer(modifier = Modifier.height(42.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Box(modifier = Modifier.width(150.dp)) {
-                                LowContrastBtn(
-                                    onClick = { selectedMethod = !selectedMethod
-                                              selectedOption = ""
-                                              amount = ""
-                                              description = ""},
-                                    stringResource(R.string.cancel_button)
-                                )
-                            }
+                                        if(option == "Balance") {
+                                            type="BALANCE"
+                                        }
 
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Box(modifier = Modifier.width(150.dp)) {
-                                HighContrastBtn(
-                                    onClick = {viewModel.makePayment(PaymentRequest(amount = amount.toDouble(), description = description,
-                                        type = type, receiverEmail = enteredEmail, cardId = cardId))},
-                                    stringResource(R.string.confirm_button)
+                                    },
+                                    text = {
+                                        Text(text = option)
+                                    }
                                 )
                             }
                         }
                     }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                if(selectedOption == "Balance") {
+                    Text (
+                        text = "Balance: $"+viewModel.uiState.currentBalance.toString(),
+                        color = Color.Gray
+                    )
+                }
+                if(selectedMethod) {
+                    Spacer(modifier = Modifier.height(42.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Box(modifier = Modifier.width(150.dp)) {
+                            LowContrastBtn(
+                                onClick = { selectedMethod = !selectedMethod
+                                          selectedOption = ""
+                                          amount = ""
+                                          description = ""
+                                          viewModel.resetError()},
+                                stringResource(R.string.cancel_button)
+                            )
+                        }
 
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Box(modifier = Modifier.width(150.dp)) {
+                            HighContrastBtn(
+                                onClick = { transferHandler() },
+                                stringResource(R.string.confirm_button)
+                            )
+                        }
+                    }
+                }
             }
         }
     }

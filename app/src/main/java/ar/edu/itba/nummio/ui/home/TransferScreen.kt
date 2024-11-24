@@ -107,7 +107,7 @@ fun TransferScreen(
         topBar = {
             TopBar(
                 title = stringResource(R.string.transfer_option),
-                onBackClick = onBackClick,
+                onBackClick = { onBackClick() },
                 viewModel = viewModel)
         }
     )

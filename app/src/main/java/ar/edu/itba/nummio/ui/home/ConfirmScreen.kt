@@ -43,7 +43,8 @@ fun ConfirmScreen(
         .fillMaxSize()
         .background(Color.White),
         containerColor = Color.White,
-        topBar = { TopBar(title ="", onBackClick = {onBackClick()}, viewModel = viewModel) }
+        topBar = { TopBar(title ="", onBackClick = {
+            onBackClick() }, viewModel = viewModel) }
     ) {
             paddingValues ->
         Column(modifier = Modifier

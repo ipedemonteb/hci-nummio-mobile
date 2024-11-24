@@ -40,7 +40,8 @@ fun TopBar(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 if (arrowEnable) {
-                    IconButton(onClick = { onBackClick() }) {
+                    IconButton(onClick = {  onBackClick()
+                                            viewModel.resetError()}) {
                         Icon(
                             painter = painterResource(R.drawable.arrow_left),
                             contentDescription = null,
