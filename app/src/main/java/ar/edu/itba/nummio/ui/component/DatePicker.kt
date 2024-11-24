@@ -23,7 +23,9 @@ fun DatePicker(
     date: TextFieldValue,
     onInputChange: (TextFieldValue) -> Unit,
     enabled: Boolean = true,
-    color: Color = Color.Gray
+    color: Color = Color.Gray,
+    isError: Boolean,
+    supportingText:  @Composable() (() -> Unit)? = null
 ) {
     val placeholder = stringResource(R.string.date_placeholder)
     val maxLength = stringResource(R.string.date_placeholder).length
@@ -52,6 +54,8 @@ fun DatePicker(
                 )
             }
         },
+        supportingText = supportingText,
+        isError = isError,
         modifier = Modifier
             .fillMaxWidth().background(Color.Transparent),
         placeholder = { Text(text = placeholder.toString(), color = color) },
@@ -61,10 +65,11 @@ fun DatePicker(
         colors = TextFieldDefaults.colors(focusedContainerColor = Color.Transparent, unfocusedContainerColor = Color.Transparent, focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent),
     )
 }
-
+/*
 @Preview
 @Composable
 fun DatePickerPreview() {
     var dateAux= remember { mutableStateOf(TextFieldValue("")) }
     DatePicker(date = dateAux.value, onInputChange = {input -> dateAux.value = input})
 }
+*/

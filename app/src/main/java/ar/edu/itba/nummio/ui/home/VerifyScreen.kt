@@ -98,7 +98,7 @@ fun VerifyScreen(
     }
 
     fun handleSignup() {
-        canEdit = !canEdit
+        //canEdit = !canEdit
 
         val firstNameValidation = checkFirstName()
         val lastNameValidation = checkLastName()
@@ -214,6 +214,8 @@ fun VerifyScreen(
                             onInputChange = { input -> date.value = input },
                             enabled = canEdit,
                             color = Color.DarkGray,
+                            isError = showBirthdateError,
+                            supportingText = {if (showBirthdateError) Text(birthdateError)}
                         )
                         // @TODO: agregar el snackbar con el error de birthdate
                     }
