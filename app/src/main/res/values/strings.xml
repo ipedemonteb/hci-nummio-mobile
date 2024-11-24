@@ -154,4 +154,5 @@
     <string name="go_to_login">Go to login</string>
     <string name="payment_confirmed">payment confirmed</string>
     <string name="go_to_home">Go to home</string>
+    <string name="recharge_confirmed">recharge confirmed</string>
 </resources>

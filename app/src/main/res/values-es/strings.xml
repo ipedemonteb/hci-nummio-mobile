@@ -127,4 +127,5 @@
     <string name="go_to_login">Ir a iniciar sesión</string>
     <string name="payment_confirmed">pago confirmado</string>
     <string name="go_to_home">Ir a la página principal</string>
+    <string name="recharge_confirmed">recarga confirmada</string>
 </resources>
