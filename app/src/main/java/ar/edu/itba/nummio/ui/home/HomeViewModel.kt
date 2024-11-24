@@ -207,10 +207,8 @@ class HomeViewModel(
             paymentRepository.payByLink(linkUuid, type)
         else {
             paymentRepository.payByLinkCard(linkUuid, type, cardId)
-        }}
-        ,
-
-        { state, _ -> state.copy(shouldUpdateBalance = true, paymentConfirmed = true)}
+        } },
+        { state, _ -> state.copy(shouldUpdateBalance = type == "BALANCE", paymentConfirmed = true)}
     )
 
     fun resetPaymentConfirmed() {

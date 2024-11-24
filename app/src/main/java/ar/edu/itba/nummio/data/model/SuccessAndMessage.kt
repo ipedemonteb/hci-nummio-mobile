@@ -1,7 +1,7 @@
 package ar.edu.itba.nummio.data.model
 
 class SuccessAndMessage(
-    var success: String,
+    var success: Boolean,
     var message: String = ""
 ){
     fun asNetworkModel() = ar.edu.itba.nummio.data.network.model.NetworkSuccessAndMessage(
