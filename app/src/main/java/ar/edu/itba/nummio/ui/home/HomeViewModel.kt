@@ -47,13 +47,20 @@ class HomeViewModel(
         }
     )
 
+    fun setFormFactor(isOver600dp:Boolean) {
+        uiState = uiState.copy(isOver600dp = isOver600dp)
+    }
+
     fun getCurrentUser() = runOnViewModelScope(
         { userRepository.getCurrentUser(uiState.currentUser == null) },
         { state, response -> state.copy(currentUser = response) }
     )
     fun verifyUser(code:String) = runOnViewModelScope(
         { userRepository.verifyUser(code) },
-        { state, _ -> state.copy(hasBeenVerified = true) } //@TODO error checking?
+        { state, _ -> state.copy(
+                hasBeenVerified = state.error == null,
+                invalidCodeVerificationError = state.error != null
+            ) }
     )
     fun register ( firstName: String,
                    lastName: String,

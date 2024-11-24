@@ -47,7 +47,9 @@ fun NummioApp(
     val windowSizeClass = when {
         screenWidth < 600 -> windowScreenWidth.COMPACT
         else -> windowScreenWidth.EXPANDED
+
     }
+    viewModel.setFormFactor(configuration.screenWidthDp >= 600 && configuration.screenHeightDp >= 600)
 
     LaunchedEffect(isLandscape) {
         viewModel.updateOrientation(isLandscape)
