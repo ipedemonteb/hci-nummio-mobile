@@ -157,4 +157,5 @@
     <string name="go_to_home">Go to home</string>
     <string name="recharge_confirmed">Recharge confirmed.</string>
     <string name="transfer_confirmed">Transfer confirmed.</string>
+    <string name="amount_positive">Amount must be positive</string>
 </resources>

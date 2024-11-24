@@ -61,24 +61,32 @@ fun DepositComponent(
     var amountError by remember { mutableStateOf("") }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val INVALID_AMOUNT = stringResource(R.string.invalid_amount)
+    val AMOUNT_POSITIVE = stringResource(R.string.amount_positive)
 
     fun depositHandler() {
+        var amountString = amount
+        amountString = amountString.replace(',', '.')
         showAmountError = false
-        if(amount.isEmpty()) {
+        if(amountString.isEmpty()) {
             showAmountError = true
             amountError = MANDATORY_INPUT_ERROR
         } else {
+            var amountDouble: Double = -1.0
             try {
-                amount.toDouble()
+                amountDouble = amountString.toDouble()
             } catch (e: Exception) {
                 showAmountError = true
                 amountError = INVALID_AMOUNT
+            }
+            if(amountDouble == 0.0) {
+                showAmountError = true
+                amountError = AMOUNT_POSITIVE
             }
         }
         if(!showAmountError) {
             viewModel.recharge(
                 Amount(
-                    amount = amount.toDouble()
+                    amount = amountString.toDouble()
                 )
             )
         }

@@ -131,4 +131,5 @@
     <string name="recharge_confirmed">Recarga confirmada.</string>
     <string name="movements">Movimientos</string>
     <string name="transfer_confirmed">Transferencia confirmada.</string>
+    <string name="amount_positive">El monto debe ser positivo</string>
 </resources>

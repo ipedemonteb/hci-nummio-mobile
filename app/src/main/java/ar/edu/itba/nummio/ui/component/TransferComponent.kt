@@ -63,6 +63,7 @@ fun TransferComponent(
     var showDescriptionError by remember { mutableStateOf(false) }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val INVALID_AMOUNT = stringResource(R.string.invalid_amount)
+    val AMOUNT_POSITIVE = stringResource(R.string.amount_positive)
     val decimalSeparator = stringResource(R.string.decimal_separator)
 
     fun transferHandler() {
@@ -74,11 +75,16 @@ fun TransferComponent(
             showAmountError = true
             amountError = MANDATORY_INPUT_ERROR
         } else {
+            var amountDouble: Double = -1.0
             try {
-                amountString.toDouble()
+                amountDouble = amountString.toDouble()
             } catch (e: Exception) {
                 showAmountError = true
                 amountError = INVALID_AMOUNT
+            }
+            if(amountDouble == 0.0) {
+                showAmountError = true
+                amountError = AMOUNT_POSITIVE
             }
         }
         if(description.isEmpty()) {
