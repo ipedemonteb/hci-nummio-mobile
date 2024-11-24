@@ -137,4 +137,6 @@
     <string name="invalid_login">Invalid combination of email and password</string>
     <string name="user_not_verified">User is not verified</string>
     <string name="email_used">Email is already used</string>
+    <string name="share_all_data">Share all my data</string>
+    <string name="update_alias">Update Alias</string>
 </resources>
