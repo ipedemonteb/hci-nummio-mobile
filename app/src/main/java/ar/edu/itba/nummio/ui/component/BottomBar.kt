@@ -51,7 +51,8 @@ fun BottomBar(
             BottomBarItem(
                 icon = painterResource(R.drawable.home),
                 label = stringResource(R.string.bottom_home),
-                onClick = { onNavigateToHome() }
+                onClick = { onNavigateToHome()
+                            viewModel.resetError()}
             )
 
             Spacer(modifier = Modifier.width(0.dp))

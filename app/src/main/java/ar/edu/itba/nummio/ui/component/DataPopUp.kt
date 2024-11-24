@@ -26,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -160,7 +161,9 @@ fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {},hasFi
     val context = LocalContext.current
     var text = remember { mutableStateOf(TextFieldValue(cvu)) }
     var isReadOnly = remember { mutableStateOf(true) }
-
+    if (hasFinishedEditing.value){
+        isReadOnly.value = true
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -178,12 +181,12 @@ fun CopyableTextInput(cvu: String, editable: Boolean, onEdit:()->Unit = {},hasFi
             BasicTextField(
                 value = text.value,
                 onValueChange = {text.value = it; textToChange.value = it.text},
-                readOnly = isReadOnly.value || hasFinishedEditing.value,
+                readOnly = isReadOnly.value ,
                 textStyle = TextStyle(
                     fontSize = 14.sp,
                     color = Color.Gray
                 ),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
 

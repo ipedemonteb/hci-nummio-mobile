@@ -132,4 +132,6 @@
     <string name="movements">Movimientos</string>
     <string name="transfer_confirmed">Transferencia confirmada.</string>
     <string name="amount_positive">El monto debe ser positivo</string>
+    <string name="invalid_alias">Alias inválido. Debe ser de la forma: \'palabra1.palabra2\' con solo letras, números y puntos.</string>
+    <string name="missing_alias">El alias no debe ser vacío.</string>
 </resources>

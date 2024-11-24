@@ -93,6 +93,10 @@ class HomeViewModel(
         uiState = uiState.copy(recoverCodeSent = false, recoverConfirmed = false)
     }
 
+    fun resetAliasEdited() {
+        uiState = uiState.copy(aliasEdited = false)
+    }
+
     //WALLET
 
     fun getBalance() = runOnViewModelScope(
@@ -165,7 +169,7 @@ class HomeViewModel(
 
     fun updateAlias(aliasRequest: AliasRequest) = runOnViewModelScope(
         { walletRepository.updateAlias(aliasRequest) },
-        { state, _ -> state.copy(shouldUpdateWalletDetails = true) }
+        { state, _ -> state.copy(shouldUpdateWalletDetails = true, aliasEdited = true) }
     )
 
     fun getDetails() = runOnViewModelScope(

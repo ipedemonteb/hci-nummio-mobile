@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
@@ -69,20 +70,22 @@ fun DataScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val ALIAS_EDITED_SUCCESS_MESSAGE = stringResource(R.string.alias_edited)
+    var aux = remember {mutableStateOf(false)}
     Scaffold(
         topBar = {
             TopBar(
                 title = stringResource(R.string.my_data),
-                onBackClick = { onBackClick() },
+                onBackClick = { onBackClick()
+                                viewModel.resetAliasEdited()},
                 viewModel = viewModel
             )
         },
         snackbarHost = { SnackbarHost(
             snackbar = { snackbarData ->
                 Snackbar(
-                    containerColor = Color(0xFF4CAF50), // Verde (puedes usar otro Color)
-                    contentColor = Color.White, // Texto blanco
-                    actionContentColor = Color.White // Color del botón de acción
+                    containerColor = Color(0xFF4CAF50),
+                    contentColor = Color.White,
+                    actionContentColor = Color.White
                 ) {
                     Text(snackbarData.visuals.message)
                 }
@@ -135,6 +138,18 @@ fun DataScreen(
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
+            if (viewModel.uiState.error != null){
+                Text(
+                    text = stringResource(when (viewModel.uiState.error!!.message) {
+                        "Alias format is invalid. It should be in the format: 'word1.word2' with only letters, numbers, and dots." -> R.string.invalid_alias
+                        "Missing alias" -> R.string.missing_alias
+                        else -> R.string.unexpected_error
+                    }),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
             Row {
                 Text(
                     text = stringResource(R.string.cvu_title),
@@ -154,7 +169,7 @@ fun DataScreen(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Row (modifier = Modifier.padding(bottom = 20.dp)){
-                CopyableTextInput(viewModel.uiState.walletDetails?.alias?:"", true, onEdit = {isEditing.value = true}, textToChange = alias, hasFinishedEditing = hasFinishedEditing)
+                CopyableTextInput(viewModel.uiState.walletDetails?.alias?:"", true, onEdit = {isEditing.value = true; hasFinishedEditing.value=false}, textToChange = alias, hasFinishedEditing = hasFinishedEditing)
             }
             Spacer(modifier = Modifier.height(32.dp))
             Row(
@@ -194,18 +209,21 @@ fun DataScreen(
             }
                 else {
                     LowContrastBtn(onClick = {
+                        viewModel.resetAliasEdited()
                         viewModel.updateAlias(AliasRequest(alias.value!!))
                         isEditing.value=false
                         hasFinishedEditing.value=true
+                        aux.value = true
                     }, text = stringResource(R.string.confirm_changes))
                 }
-                if (viewModel.uiState.error != null && hasFinishedEditing.value) {
+                if (viewModel.uiState.aliasEdited && aux.value) {
                     coroutineScope.launch {
                         snackbarHostState.showSnackbar(
                             message = ALIAS_EDITED_SUCCESS_MESSAGE,
                             duration = SnackbarDuration.Short,
                         )
                     }
+                    aux.value=false
                 }
             }
             Spacer(modifier = Modifier.height(40.dp))
