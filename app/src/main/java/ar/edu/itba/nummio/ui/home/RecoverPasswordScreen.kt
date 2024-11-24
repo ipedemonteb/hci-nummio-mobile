@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -52,17 +53,23 @@ fun RecoverPasswordScreen(
     var code by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var confirmPassword by remember { mutableStateOf("") }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
 
     var passwordError by remember { mutableStateOf("") }
     var showPasswordError by remember { mutableStateOf(false) }
+    var confirmPasswordError by remember { mutableStateOf("") }
+    var showConfirmPasswordError by remember { mutableStateOf(false) }
     var codeError by remember { mutableStateOf("") }
     var showCodeError by remember { mutableStateOf(false) }
     val MANDATORY_INPUT_ERROR = stringResource(R.string.mandatory_input_error)
     val PASSWORD_SHORT_ERROR = stringResource(R.string.password_short)
+    val DIFFERENT_PASSWORDS_ERROR = stringResource(R.string.same_passwords_error)
 
     fun handleConfirm() {
         showPasswordError = false
         showCodeError = false
+        showConfirmPasswordError = false
         if(password.length < 8) {
             showPasswordError = true
             passwordError = if(password.isEmpty())
@@ -70,11 +77,22 @@ fun RecoverPasswordScreen(
             else
                 PASSWORD_SHORT_ERROR
         }
+        if (confirmPassword.length < 8) {
+            showConfirmPasswordError = true
+            confirmPasswordError= if(password.isEmpty())
+                MANDATORY_INPUT_ERROR
+            else
+                PASSWORD_SHORT_ERROR
+        }
+        if (confirmPassword != password) {
+            showConfirmPasswordError = true
+            confirmPasswordError = DIFFERENT_PASSWORDS_ERROR
+        }
         if(code.isEmpty()) {
             showCodeError = true
             codeError = MANDATORY_INPUT_ERROR
         }
-        if(!showPasswordError && !showCodeError)
+        if(!showPasswordError && !showCodeError && !showConfirmPasswordError)
             viewModel.resetPassword(token=code, password=password)
     }
 
@@ -115,6 +133,7 @@ fun RecoverPasswordScreen(
                         if(!viewModel.uiState.recoverCodeSent && viewModel.uiState.error != null)
                             Text(stringResource(when(viewModel.uiState.error!!.message) {
                                 "User not found" -> R.string.user_not_exists
+                                "Missing email." -> R.string.missing_email
                                 else -> R.string.unexpected_error
                             }))
                     }
@@ -167,34 +186,65 @@ fun RecoverPasswordScreen(
                         color = DarkPurple
                     )
                 }
-                Row(
-                    modifier = Modifier
-                        .padding(vertical = 5.dp)
-                        .fillMaxWidth()
-                ) {
+                Row(modifier = Modifier.padding(vertical = 5.dp)) {
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
                         label = { Text(stringResource(R.string.password)) },
-                        maxLines = 1,
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         trailingIcon = {
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                 Icon(
-                                    painter = if (passwordVisible) painterResource(R.drawable.eye_open) else painterResource(R.drawable.closed_eye),
+                                    painter = if (passwordVisible) painterResource(R.drawable.eye_open) else painterResource(
+                                        R.drawable.closed_eye),
                                     contentDescription = if (passwordVisible) "Hide password" else "Show password",
                                     tint = Color.Black,
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
                         },
-                        isError = showPasswordError,
-                        supportingText = { if(showPasswordError) Text(passwordError) },
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = DarkPurple,
                             cursorColor = DarkPurple
                         ),
-                        modifier = Modifier.fillMaxWidth()
+                        isError = showPasswordError,
+                        supportingText = {if (showPasswordError) Text(passwordError)}
+                    )
+                }
+                Row(modifier = Modifier.padding(top = 20.dp)) {
+                    Text(
+                        text = stringResource(R.string.enter_password_again),
+                        fontSize = 18.sp,
+                        color = DarkPurple
+                    )
+                }
+                Row(modifier = Modifier.padding(vertical = 5.dp)) {
+                    OutlinedTextField(
+                        value = confirmPassword,
+                        onValueChange = { confirmPassword = it },
+                        label = { Text(stringResource(R.string.confirm_password)) },
+                        visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+                                Icon(
+                                    painter = if (confirmPasswordVisible) painterResource(R.drawable.eye_open) else painterResource(
+                                        R.drawable.closed_eye),
+                                    contentDescription = if (confirmPasswordVisible) "Hide password" else "Show password",
+                                    tint = Color.Black,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        },
+                        maxLines = 1,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = DarkPurple,
+                            cursorColor = DarkPurple
+                        ),
+                        isError = showConfirmPasswordError,
+                        supportingText = {if (showConfirmPasswordError) Text(confirmPasswordError)}
                     )
                 }
 

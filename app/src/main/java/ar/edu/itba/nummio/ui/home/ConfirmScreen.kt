@@ -43,33 +43,20 @@ fun ConfirmScreen(
         .fillMaxSize()
         .background(Color.White),
         containerColor = Color.White,
-        topBar = { TopBar(title ="", onBackClick = {
+        topBar = { TopBar(title =stringResource(R.string.confirm_action), onBackClick = {
             onBackClick() }, viewModel = viewModel) }
     ) {
             paddingValues ->
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = if(uiState.isLandscape) 76.dp else 30.dp)
-            .padding(top = if(uiState.isLandscape) 20.dp else 60.dp)
+            .padding(top = if(uiState.isLandscape) 20.dp else 0.dp)
             .padding(paddingValues),
         ) {
             Box {
                 Column {
                     Row(
-                        modifier = Modifier.background(Color.White).fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = stringResource(R.string.confirm_action),
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 28.sp,
-                            color = DarkPurple,
-                            modifier = Modifier.background(Color.White),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.background(Color.White).padding(top = 16.dp)
+                        modifier = Modifier.background(Color.White)
                             .padding(horizontal = 10.dp)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center

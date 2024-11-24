@@ -1,7 +1,9 @@
 package ar.edu.itba.nummio.ui.home
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -36,24 +38,27 @@ fun ResultScreen(
             onBackClick = { },
             viewModel = viewModel,
             arrowEnable = false
-            )}
+            )},
+        modifier = Modifier.fillMaxSize()
     ) {
         paddingValues ->
         Column(
             modifier = Modifier
-                .padding(horizontal = if(viewModel.uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
                 .padding(paddingValues)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start
+                .fillMaxWidth()
+                .padding(horizontal = if(viewModel.uiState.isLandscape) 76.dp else {if (viewModel.uiState.isOver600dp) 50.dp else 30.dp})
+                .padding(top = if(viewModel.uiState.isLandscape) 20.dp else 20.dp)
+                ,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row {
+            Row (horizontalArrangement = Arrangement.Center){
                 Text (
                     text = stringResource(if(success) R.string.operation_success else R.string.operation_mistake, stringResource(msg)),
                     fontSize = 18.sp,
                     textAlign = TextAlign.Center
                 )
             }
-            Row(modifier = Modifier.padding(top = 30.dp)) {
+            Row(modifier = Modifier.padding(top = 40.dp).padding(horizontal = if (viewModel.uiState.isLandscape) 60.dp else 50.dp).fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 LowContrastBtn(onClick = {
                     onNavigateToRoute()
                     postNavigate() }, text = stringResource(btnMsg))

@@ -208,9 +208,7 @@ fun AppNavHost(
         composable(AppDestinations.RESULT_SCREEN.route) {
             ResultScreen(
                 onNavigateToRoute = {
-                    if (viewModel.uiState.recoverConfirmed)
-                        navController.navigate(AppDestinations.LOGIN.route)
-                    else if (viewModel.uiState.hasBeenVerified)
+                    if (viewModel.uiState.hasBeenVerified || viewModel.uiState.recoverConfirmed)
                         navController.navigate(AppDestinations.START.route)
                     else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         navController.navigate(AppDestinations.HOME.route)
@@ -249,9 +247,7 @@ fun AppNavHost(
                     else
                         R.string.nummio,
                 btnMsg =
-                    if (viewModel.uiState.recoverConfirmed)
-                        R.string.go_to_login
-                    else if(viewModel.uiState.hasBeenVerified)
+                    if(viewModel.uiState.hasBeenVerified || viewModel.uiState.recoverConfirmed)
                         R.string.go_to_start
                     else if(viewModel.uiState.paymentConfirmed || viewModel.uiState.rechargeConfirmed || viewModel.uiState.transferConfirmed)
                         R.string.go_to_home
